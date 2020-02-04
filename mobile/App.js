@@ -1,114 +1,65 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import axios from 'axios';
+import './src/utils/globalVars';
+import { View, StyleSheet, TextInput, Button } from 'react-native';
+import { addNewUser } from './src/api/userApi';
+import User from './src/components/User';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+class App extends React.Component {
+  newUser = '';
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+  state = {
+    userList: [],
+  }
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  fetchUserList() {
+    axios.get(url+':5000/user')
+    .then(res => {
+      const userList = res.data;
+      this.setState({ userList });
+    })
+  }
+
+  componentDidMount() {
+    //invoked immediately after a component is mounted
+    this.fetchUserList();
+  }
+
+  componentDidUpdate(prevState) {
+    //invoked immediately after updating occurs
+    if (prevState.userList !== this.state.userList) {
+      this.fetchUserList();
+    }
+  }
+
+  render() {
+   return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.placeholder}
+        placeholder="Enter User Name"
+        onChangeText = {(textEntry) => {this.newUser = textEntry;}}
+      />
+      <Button onPress={ () => addNewUser(this.newUser) } title="Add User"/>
+      <User userList={this.state.userList}/>
+    </View>
+    )
+  }
+}
+
+const styles = StyleSheet.create ({
+  container: { 
+    flex: 1,
+    justifyContent: "center", 
+    alignItems: "center" 
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+  placeholder: {
+    color: '#333',
+    fontSize: 16,
+    lineHeight: 23,  
+    borderBottomColor: '#333',
+    borderBottomWidth: 0.5,
+  }
 });
 
 export default App;
