@@ -68,3 +68,15 @@ git push --force-with-lease
 ```
 
 **Note the lack of squashing when merging to `master`.**
+
+## Linting
+
+We'll be using prettier with eslint and air-bnb's eslint config. These packages are configured as part of the `mobile`, `backend`, and `web-application` projects. Run `npm install` in the root directory of each sub-project to ensure that these features are setup.
+
+The following test commands are available for each project, too:
+
+`npm run-script lint`
+
+`npm run-script test`
+
+If you need to fix code formatting for one of the projects, you can run `npx eslint --fix [files]` to easily format files.
