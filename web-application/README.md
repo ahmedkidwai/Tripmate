@@ -1,8 +1,23 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Redux Web-Application
 
-## Available Scripts
+## Chrome dev tools
+- [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+- [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)
 
-In the project directory, you can run:
+## Launch server
+Before launching the React-Redux front-end we will want to first start up the backend server to be able to serve api
+requests.
+
+1) In the `backend` directory run: `npm install` to install the required node dependencies
+2) Run: `node server.js`, this launches the server on `http://localhost:5000`
+
+*note:* you can make api requests without interaction from the front-end by using [Postman](https://www.postman.com/)
+and making a web request to `http://localhost:5000/[apiRoute]`<br/>
+* example: making a `GET` request using Postman to `http://localhost:5000/user` will get all the users
+
+## Available scripts for React front-end
+
+In the `web-application` directory, first run `npm install` to install the necessary node dependencies. Then run:
 
 ### `npm start`
 
@@ -11,6 +26,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+## Other available scripts
 
 ### `npm test`
 
@@ -27,42 +44,16 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Local vs Production
+One thing to note here is that locally we're running the front-end and back-end separately, with the front-end being
+run on port `3000` while the back-end runs on port `5000`.<br/>
+This renders this server code unnecessary in a local setting:<br/>
+```
+app.use(express.static(path.join(__dirname, '../web-application/build')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'web-application', 'build', 'index.html'))
+});
+```
+However, in a production setting the `npm build` script will be run, bundling/minimizing our static assets.
+In this case, the server code above will play the role of serving up our React App when a request is made to
+`http://localhost/` (in production this would be our EC2 domain/IP).
