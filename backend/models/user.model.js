@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const {Schema} = mongoose;
 
 const userScheme = new Schema(
   {
@@ -9,12 +9,12 @@ const userScheme = new Schema(
       required: true,
       unique: true,
       trim: true,
-      minlength: 3
-    }
+      minlength: 3,
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
-const Test = mongoose.model("User", userScheme);
+const Test = mongoose.model('User', userScheme);
 module.exports = Test;
