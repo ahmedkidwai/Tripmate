@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import './src/utils/globalVars';
-import { View, StyleSheet, TextInput, Button } from 'react-native';
-import { addNewUser } from './src/api/userApi';
+import {url} from './src/utils/globalVars';
+import {View, StyleSheet, TextInput, Button} from 'react-native';
+import {addNewUser} from './src/api/userApi';
 import User from './src/components/User';
 
 class App extends React.Component {
@@ -10,14 +10,13 @@ class App extends React.Component {
 
   state = {
     userList: [],
-  }
+  };
 
   fetchUserList() {
-    axios.get(url+':5000/user')
-    .then(res => {
+    axios.get(url + ':5000/user').then(res => {
       const userList = res.data;
-      this.setState({ userList });
-    })
+      this.setState({userList});
+    });
   }
 
   componentDidMount() {
@@ -33,33 +32,35 @@ class App extends React.Component {
   }
 
   render() {
-   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.placeholder}
-        placeholder="Enter User Name"
-        onChangeText = {(textEntry) => {this.newUser = textEntry;}}
-      />
-      <Button onPress={ () => addNewUser(this.newUser) } title="Add User"/>
-      <User userList={this.state.userList}/>
-    </View>
-    )
+    return (
+      <View style={styles.container}>
+        <TextInput
+          style={styles.placeholder}
+          placeholder="Enter User Name"
+          onChangeText={textEntry => {
+            this.newUser = textEntry;
+          }}
+        />
+        <Button onPress={() => addNewUser(this.newUser)} title="Add User" />
+        <User userList={this.state.userList} />
+      </View>
+    );
   }
 }
 
-const styles = StyleSheet.create ({
-  container: { 
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
-    justifyContent: "center", 
-    alignItems: "center" 
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   placeholder: {
     color: '#333',
     fontSize: 16,
-    lineHeight: 23,  
+    lineHeight: 23,
     borderBottomColor: '#333',
     borderBottomWidth: 0.5,
-  }
+  },
 });
 
 export default App;
