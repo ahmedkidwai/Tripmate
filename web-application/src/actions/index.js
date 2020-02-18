@@ -18,26 +18,14 @@ export const fetchUserError = error => ({
   payload: {error},
 });
 
-const getUser = () => {
-  return axios
-    .get('/user')
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
-
 export const fetchUser = () => {
   return dispatch => {
     dispatch(fetchUserBegin());
 
-    return getUser()
-      .then(user => {
-        dispatch(fetchUserSuccess(user));
-        return user;
-      })
-      .catch(error => {
-        dispatch(fetchUserError(error));
-      });
+    return axios
+      .get('/user')
+      .then(response => response.data)
+      .then(user => dispatch(fetchUserSuccess(user)))
+      .catch(error => dispatch(fetchUserError(error)));
   };
 };

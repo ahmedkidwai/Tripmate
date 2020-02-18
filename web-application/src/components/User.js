@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {fetchUser} from '../actions';
 
-const User = props => {
+export const User = props => {
   // on mount
   useEffect(() => {
     props.dispatch(fetchUser());
