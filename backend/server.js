@@ -33,8 +33,10 @@ app.get('/', (req, res) => {
 });
 
 const testRouter = require('./routes/user');
+const budgetRouter = require('./routes/budget');
 
 app.use('/user', testRouter);
+app.use('/budget', budgetRouter);
 
 const toDoItemRouter = require('./routes/toDoItem');
 
