@@ -40,6 +40,14 @@ const toDoItemRouter = require('./routes/toDoItem');
 
 app.use('/todo', toDoItemRouter);
 
+const flightRouter = require('./routes/flight');
+
+app.use('/flight', flightRouter);
+
+const ticketRouter = require('./routes/ticket');
+
+app.use('/ticket', ticketRouter);
+
 // This starts listening for the port for the server
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`); // eslint-disable-line no-console
