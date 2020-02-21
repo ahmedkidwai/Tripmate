@@ -14,7 +14,7 @@ router.route('/add').post((req, res) => {
 
   newBudget
     .save()
-    .then(() => res.json('Budget added!'))
+    .then(() => res.json({data: 'Budget added.'}))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
@@ -26,7 +26,7 @@ router.route('/:id').get((req, res) => {
 
 router.route('/:id').delete((req, res) => {
   Budget.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Budget deleted.'))
+    .then(() => res.json({data: 'Budget deleted.'}))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 

@@ -24,7 +24,7 @@ export const fetchUser = () => {
     dispatch(fetchUserBegin());
 
     return axios
-      .get(url + ':5000/user')
+      .get(url + '/user')
       .then(response => response.data)
       .then(user => dispatch(fetchUserSuccess(user)))
       .catch(error => dispatch(fetchUserError(error)));

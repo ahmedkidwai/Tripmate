@@ -17,7 +17,7 @@ describe('async actions', () => {
   });
 
   it('creates GET_USER_SUCCESS when fetching user has been done', () => {
-    mockAxios.onGet(url + ':5000/user').reply(200, [{username: 'Test User'}]);
+    mockAxios.onGet(url + '/user').reply(200, [{username: 'Test User'}]);
 
     return store.dispatch(actions.fetchUser()).then(() => {
       const expectedActions = [
@@ -32,7 +32,7 @@ describe('async actions', () => {
   });
 
   it('creates GET_USER_FAILURE when fetching user has failed', () => {
-    mockAxios.onGet(url + ':5000/user').reply(500);
+    mockAxios.onGet(url + '/user').reply(500);
 
     return store.dispatch(actions.fetchUser()).then(() => {
       const storeActions = store.getActions();
