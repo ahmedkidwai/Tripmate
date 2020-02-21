@@ -40,6 +40,10 @@ const budgetRouter = require('./routes/budget');
 
 app.use('/budget', budgetRouter);
 
+const hotelRouter = require('./routes/hotel');
+
+app.use('/hotel', hotelRouter);
+
 const todolistRouter = require('./routes/todolist');
 
 app.use('/todolist', todolistRouter);

@@ -20,6 +20,8 @@ import './css/App.css';
 
 import {Switch, Route, Link, BrowserRouter} from 'react-router-dom';
 
+import ConnectedHotels from './components/Hotels';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -119,6 +121,9 @@ function App() {
               render={() => (
                 <div>
                   <h1> Welcome to Tripmate! By Kurt&apos;s Angels</h1>
+                  <p>
+                    <ConnectedHotels />
+                  </p>
                 </div>
               )}
             />
