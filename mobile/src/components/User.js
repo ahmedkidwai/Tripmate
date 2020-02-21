@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Text} from 'react-native';
 import {fetchUser} from '../../src/actions/fetchUser';
 import {connect} from 'react-redux';
 
-class User extends React.Component {
+export class User extends React.Component {
   componentDidMount() {
     this.props.fetchUser();
   }
@@ -14,6 +15,12 @@ class User extends React.Component {
       : null;
   }
 }
+
+User.propTypes = {
+  fetchUser: PropTypes.func,
+  user: PropTypes.array,
+  loading: PropTypes.bool,
+};
 
 const mapStateToProps = state => ({
   user: state.user.user,

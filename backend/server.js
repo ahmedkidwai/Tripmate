@@ -33,9 +33,11 @@ app.get('/', (req, res) => {
 });
 
 const testRouter = require('./routes/user');
+
 app.use('/user', testRouter);
 
-const toDoItemRouter = require('./routes/toDoItem')
+const toDoItemRouter = require('./routes/toDoItem');
+
 app.use('/todo', toDoItemRouter);
 
 // This starts listening for the port for the server

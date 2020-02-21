@@ -13,8 +13,8 @@ const toDoItemScheme = new Schema(
 
     done: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   {
     timestamps: true,
