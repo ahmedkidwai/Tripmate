@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "expect": "^25.1.0",
+    "husky": "^4.2.3",
     "prop-types": "^15.7.2",
     "react": "16.9.0",
     "react-devtools": "^3.6.3",
@@ -44,5 +45,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run-script lint"
+    }
   }
 }
