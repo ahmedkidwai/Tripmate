@@ -16,7 +16,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import InfoIcon from '@material-ui/icons/Info';
 import HomeIcon from '@material-ui/icons/Home';
-import './CSS/App.css';
+import './css/App.css';
 
 import {Switch, Route, Link, BrowserRouter} from 'react-router-dom';
 
