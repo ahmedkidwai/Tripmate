@@ -82,8 +82,8 @@ function App() {
                 component={Link}
                 to={
                   text === 'Home'
-                    ? '/' + text.replace('Home', '')
-                    : '/' + text.replace(/ /g, '')
+                    ? `/${text.replace('Home', '')}`
+                    : `/${text.replace(/ /g, '')}`
                 }>
                 <ListItemIcon>
                   {index === 0 ? <HomeIcon /> : ''}
@@ -103,7 +103,7 @@ function App() {
                 button
                 key={text}
                 component={Link}
-                to={'/' + text.replace(/ /g, '')}>
+                to={`/${text.replace(/ /g, '')}`}>
                 <ListItemIcon>{index === 0 ? <InfoIcon /> : ''}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
@@ -118,7 +118,7 @@ function App() {
               path="/"
               render={() => (
                 <div>
-                  <h1> Welcome to Tripmate! By Kurt's Angels</h1>
+                  <h1> Welcome to Tripmate! By Kurt&apos;s Angels</h1>
                 </div>
               )}
             />
@@ -183,17 +183,20 @@ function App() {
                   <p1>
                     {' '}
                     Tripmate is a distirbuted web and mobile application made by
-                    Kurt's Angels (Group 3??) for Comp 4350 - Software
+                    Kurt&apos;s Angels (Group 3??) for Comp 4350 - Software
                     Engineering 2. It is the silver bullet for all things
                     organizing trips.
                   </p1>
                   <div id="Center">
                     <br />
-                    Here's a picture of a CFL Legend after finally realizing his
-                    dreams.
+                    Here&apos;s a picture of a CFL Legend after finally
+                    realizing his dreams.
                     <div>
                       {' '}
-                      <img src="https://i.imgur.com/12xv91I.jpg" alt="Kurt-CFL" />
+                      <img
+                        src="https://i.imgur.com/12xv91I.jpg"
+                        alt="Kurt-CFL"
+                      />
                     </div>
                   </div>
                 </div>
