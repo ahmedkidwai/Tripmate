@@ -33,14 +33,16 @@ app.get('/', (req, res) => {
 });
 
 const testRouter = require('./routes/user');
-const budgetRouter = require('./routes/budget');
 
 app.use('/user', testRouter);
+
+const budgetRouter = require('./routes/budget');
+
 app.use('/budget', budgetRouter);
 
-const toDoItemRouter = require('./routes/toDoItem');
+const todolistRouter = require('./routes/todolist');
 
-app.use('/todo', toDoItemRouter);
+app.use('/todolist', todolistRouter);
 
 const flightRouter = require('./routes/flight');
 
