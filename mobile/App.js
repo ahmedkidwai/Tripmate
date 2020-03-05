@@ -8,6 +8,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Home from './src/pages/Home';
 import CreateTrip from './src/pages/CreateTrip';
 import ModifyTrip from './src/pages/ModifyTrip';
+import TodoList from './src/pages/TodoList';
 
 class NavigationDrawerStructure extends Component {
   toggleDrawer = () => {
@@ -75,6 +76,22 @@ const ModifyTrip_StackNavigator = createStackNavigator({
   },
 });
 
+const TodoList_StackNavigator = createStackNavigator({
+  Forth: {
+    screen: TodoList,
+    navigationOptions: ({navigation}) => ({
+      title: 'TripMate',
+      headerLeft: () => (
+        <NavigationDrawerStructure navigationProps={navigation} />
+      ),
+      headerStyle: {
+        backgroundColor: '#3f51b5',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
 const DrawerNavigatorExample = createDrawerNavigator({
   Home: {
     screen: Homepage_StackNavigator,
@@ -92,6 +109,12 @@ const DrawerNavigatorExample = createDrawerNavigator({
     screen: ModifyTrip_StackNavigator,
     navigationOptions: {
       drawerLabel: 'Modify Trips',
+    },
+  },
+  TodoList: {
+    screen: TodoList_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Todo List',
     },
   },
 });

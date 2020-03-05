@@ -210,3 +210,6 @@ Resources: [native-react](https://facebook.github.io/react-native/docs/getting-s
 
 - If the problem is still not fixed, then you may start to **PANIC** and ask **Eddy** or **Claire** or **Shepherd** or **Evan** or **Connor** or **Ahmed** or **Kurt** or **Kyle** or **Ren** or **Siri** for help.
 
+## Development
+### useful link for developing mobile/ios
+-[Error about UI module Unrecognized (eg. native base unrecognized font family ionicons)](https://nativebase.io/docs/v0.3.0/getting-started#installing-peer-dependencies)
