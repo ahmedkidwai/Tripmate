@@ -11,32 +11,32 @@ const mockAxios = new MockAdapter(axios);
 const store = mockStore({});
 
 describe('async actions', () => {
-    beforeEach(() => {
-        store.clearActions();
+  beforeEach(() => {
+    store.clearActions();
+  });
+
+  it('creates GET_HOTEL_SUCCESS when fetching hotel has been done', () => {
+    mockAxios.onGet('/hotel').reply(200, [{hotelname: 'Test Hotel'}]);
+
+    return store.dispatch(actions.fetchHotel()).then(() => {
+      const expectedActions = [
+        {type: actions.GET_HOTEL_BEGIN},
+        {
+          type: actions.GET_HOTEL_SUCCESS,
+          payload: {hotel: [{hotelname: 'Test Hotel'}]},
+        },
+      ];
+      expect(store.getActions()).toEqual(expectedActions);
     });
+  });
 
-    it('creates GET_HOTEL_SUCCESS when fetching hotel has been done', () => {
-        mockAxios.onGet('/hotel').reply(200, [{ hotelname: 'Test Hotel' }]);
+  it('creates GET_HOTEL_FAILURE when fetching hotel has failed', () => {
+    mockAxios.onGet('/hotel').reply(500);
 
-        return store.dispatch(actions.fetchHotel()).then(() => {
-            const expectedActions = [
-                { type: actions.GET_HOTEL_BEGIN },
-                {
-                    type: actions.GET_HOTEL_SUCCESS,
-                    payload: { hotel: [{ hotelname: 'Test Hotel' }] },
-                },
-            ];
-            expect(store.getActions()).toEqual(expectedActions);
-        });
+    return store.dispatch(actions.fetchHotel()).then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toHaveProperty('type', 'GET_HOTEL_BEGIN');
+      expect(actions[1]).toHaveProperty('type', 'GET_HOTEL_FAILURE');
     });
-
-    it('creates GET_HOTEL_FAILURE when fetching hotel has failed', () => {
-        mockAxios.onGet('/hotel').reply(500);
-
-        return store.dispatch(actions.fetchHotel()).then(() => {
-            const actions = store.getActions();
-            expect(actions[0]).toHaveProperty('type', 'GET_HOTEL_BEGIN');
-            expect(actions[1]).toHaveProperty('type', 'GET_HOTEL_FAILURE');
-        });
-    });
+  });
 });

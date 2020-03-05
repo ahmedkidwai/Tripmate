@@ -21,6 +21,7 @@ import './css/App.css';
 import {Switch, Route, Link, BrowserRouter} from 'react-router-dom';
 
 import ConnectedHotels from './components/Hotels';
+import ConnectedBudget from './components/Budget';
 
 const drawerWidth = 240;
 
@@ -163,6 +164,9 @@ function App() {
                     {' '}
                     Coming Soon a page that will let you view all your trips!
                   </p1>
+                  <div>
+                    <ConnectedBudget />
+                  </div>
                 </div>
               )}
             />

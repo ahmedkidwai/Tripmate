@@ -9,7 +9,10 @@ Enzyme.configure({adapter: new Adapter()});
 describe('ToDoList Component', () => {
   it('is not loading and should render self and sub elements', () => {
     const wrapper = shallow(
-      <ToDoList todolist={[{name: 'Test ToDo List', items: []}]} loading={false} />,
+      <ToDoList
+        todolist={[{name: 'Test ToDo List', items: []}]}
+        loading={false}
+      />,
     );
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.find('div').exists()).toBe(true);
