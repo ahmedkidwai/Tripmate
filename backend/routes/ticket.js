@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Ticket = require('../models/ticket.model');
+const {Ticket} = require('../models/ticket.model');
 
 router.route('/').get((req, res) => {
   Ticket.find()
@@ -10,7 +10,7 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
   const ticket = req.body;
 
-  const newTicket = new Ticket({ticket});
+  const newTicket = new Ticket(ticket);
 
   newTicket
     .save()
@@ -33,7 +33,7 @@ router.route('/:id').delete((req, res) => {
 router.route('/update_method/:id').post((req, res) => {
   Ticket.findById(req.params.id)
     .then(ticket => {
-      ticket.properties.transportType = req.body.transportType;
+      ticket.transportType = req.body.transportType;
 
       ticket
         .save()
@@ -46,7 +46,7 @@ router.route('/update_method/:id').post((req, res) => {
 router.route('/update_start/:id').post((req, res) => {
   Ticket.findById(req.params.id)
     .then(ticket => {
-      ticket.properties.start = req.body.start;
+      ticket.start = req.body.start;
 
       ticket
         .save()
@@ -59,7 +59,7 @@ router.route('/update_start/:id').post((req, res) => {
 router.route('/update_end/:id').post((req, res) => {
   Ticket.findById(req.params.id)
     .then(ticket => {
-      ticket.properties.end = req.body.end;
+      ticket.end = req.body.end;
 
       ticket
         .save()
@@ -72,7 +72,7 @@ router.route('/update_end/:id').post((req, res) => {
 router.route('/update_confirmation_number/:id').post((req, res) => {
   Ticket.findById(req.params.id)
     .then(ticket => {
-      ticket.properties.confirmationNumber = req.body.confirmationNumber;
+      ticket.confirmationNumber = req.body.confirmationNumber;
 
       ticket
         .save()
@@ -85,7 +85,7 @@ router.route('/update_confirmation_number/:id').post((req, res) => {
 router.route('/update_notes/:id').post((req, res) => {
   Ticket.findById(req.params.id)
     .then(ticket => {
-      ticket.properties.notes = req.body.notes;
+      ticket.notes = req.body.notes;
 
       ticket
         .save()
