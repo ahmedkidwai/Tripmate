@@ -8,6 +8,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Home from './src/pages/Home';
 import CreateTrip from './src/pages/CreateTrip';
 import ModifyTrip from './src/pages/ModifyTrip';
+import BudgetManagement from './src/pages/BudgetManagement';
 import TodoList from './src/pages/TodoList';
 
 class NavigationDrawerStructure extends Component {
@@ -76,8 +77,24 @@ const ModifyTrip_StackNavigator = createStackNavigator({
   },
 });
 
+const BudgetManagement_StackNavigator = createStackNavigator({
+  Fourth: {
+    screen: BudgetManagement,
+    navigationOptions: ({navigation}) => ({
+      title: 'TripMate',
+      headerLeft: () => (
+        <NavigationDrawerStructure navigationProps={navigation} />
+      ),
+      headerStyle: {
+        backgroundColor: '#3f51b5',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
 const TodoList_StackNavigator = createStackNavigator({
-  Forth: {
+  Fifth: {
     screen: TodoList,
     navigationOptions: ({navigation}) => ({
       title: 'TripMate',
@@ -109,6 +126,12 @@ const DrawerNavigatorExample = createDrawerNavigator({
     screen: ModifyTrip_StackNavigator,
     navigationOptions: {
       drawerLabel: 'Modify Trips',
+    },
+  },
+  BudgetManagement: {
+    screen: BudgetManagement_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Budget management',
     },
   },
   TodoList: {
