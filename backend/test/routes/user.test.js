@@ -25,7 +25,7 @@ describe('user routes', () => {
 
   after(async () => {
     await User.deleteMany({});
-    mongoose.disconnect();
+    await mongoose.disconnect();
   });
 
   it('/ should send all users', done => {
