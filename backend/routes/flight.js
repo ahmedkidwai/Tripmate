@@ -11,6 +11,7 @@ router.route('/').get((req, res) => {
 
 router.route('/add_manual').post((req, res) => {
   const flight = req.body;
+
   const newFlight = new Flight(flight);
 
   newFlight

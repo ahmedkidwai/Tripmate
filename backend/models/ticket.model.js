@@ -16,7 +16,7 @@ const ticketScheme = new Schema(
         trim: true,
       },
       date: {
-        type: String,
+        type: Date,
         required: true,
         trim: true,
       },
@@ -28,7 +28,7 @@ const ticketScheme = new Schema(
         trim: true,
       },
       date: {
-        type: String,
+        type: Date,
         required: true,
         trim: true,
       },

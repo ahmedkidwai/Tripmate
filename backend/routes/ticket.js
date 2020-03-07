@@ -30,7 +30,7 @@ router.route('/:id').delete((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.route('/update_method/:id').post((req, res) => {
+router.route('/update_type/:id').post((req, res) => {
   Ticket.findById(req.params.id)
     .then(ticket => {
       ticket.transportType = req.body.transportType;
