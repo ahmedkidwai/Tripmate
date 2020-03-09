@@ -16,12 +16,14 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import InfoIcon from '@material-ui/icons/Info';
 import HomeIcon from '@material-ui/icons/Home';
+import ListIcon from '@material-ui/icons/List';
 import './css/App.css';
 
 import {Switch, Route, Link, BrowserRouter} from 'react-router-dom';
 
 import ConnectedHotels from './components/Hotels';
 import ConnectedBudget from './components/Budget';
+import ConnectedToDoList from './components/ToDoList';
 
 const drawerWidth = 240;
 
@@ -78,6 +80,7 @@ function App() {
               'Modify Trips',
               'View Trips',
               'Delete Trips',
+              'ToDo List'
             ].map((text, index) => (
               <ListItem
                 button
@@ -94,6 +97,7 @@ function App() {
                   {index === 2 ? <EditIcon /> : ''}
                   {index === 3 ? <ListAltIcon /> : ''}
                   {index === 4 ? <DeleteIcon /> : ''}
+                  {index === 5 ? <ListIcon /> : ''}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
@@ -181,6 +185,12 @@ function App() {
                     A function even more scary than rebasing. Coming Soon!!
                   </p1>
                 </div>
+              )}
+            />
+            <Route
+              path="/ToDoList"
+              render={() => (
+                <ConnectedToDoList />
               )}
             />
             <Route

@@ -25,7 +25,8 @@
   "plugins": ["react", "prettier", "react-hooks"],
   "rules": {
     "prettier/prettier": ["error"],
-    "no-param-reassign": 0
+    "no-param-reassign": 0,
+    "no-underscore-dangle": "off"
   },
   "settings": {
     "react": {

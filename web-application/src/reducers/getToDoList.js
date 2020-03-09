@@ -2,7 +2,7 @@ import {
   GET_TODO_LIST_BEGIN,
   GET_TODO_LIST_SUCCESS,
   GET_TODO_LIST_FAILURE,
-} from '../actions/todolist';
+} from '../actions/fetchToDoList';
 import createReducer from './createReducer';
 
 const initialState = {
