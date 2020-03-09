@@ -152,6 +152,29 @@ describe('budget expense routes', () => {
     });
   });
 
+  it('it should get an expense summary', done => {
+    const expense = new Expenses({
+      name: 'Test expense',
+      amount: 123,
+    });
+    const budget = new Budget({
+      budget: 123,
+      expenses: [expense],
+    });
+    budget.save((err, budg) => {
+      chai
+        .request(server)
+        // eslint-disable-next-line no-underscore-dangle
+        .get(`/budget/${budg._id}/expenses/summary`)
+        .end((error, res) => {
+          res.should.have.status(200);
+          res.body.should.have.property('available');
+          res.body.should.have.property('planned');
+          done();
+        });
+    });
+  });
+
   it('it should CREATE an expense', done => {
     const budget = new Budget({
       budget: 123,

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const {Budget} = require('../models/Budget.model');
 const {Expenses} = require('../models/Budget.model');
+const {getBudgetSummary} = require('../Business/BugdetLogics');
 
 router.route('/').get((req, res) => {
   Budget.find()
@@ -22,6 +23,13 @@ router.route('/add').post((req, res) => {
 router.route('/:id').get((req, res) => {
   Budget.findById(req.params.id)
     .then(budget => res.json(budget))
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
+router.route('/:id/expenses/summary').get((req, res) => {
+  Budget.findById(req.params.id)
+    .then(budget => getBudgetSummary(budget))
+    .then(summary => res.json(summary))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
