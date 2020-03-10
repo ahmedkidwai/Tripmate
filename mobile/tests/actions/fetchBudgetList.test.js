@@ -53,8 +53,8 @@ describe('fetch budget list actions', () => {
 
     return store.dispatch(actions.fetchBudgetList()).then(() => {
       const storeActions = store.getActions();
-      expect(storeActions[0]).toHaveProperty('type', 'GET_BUDGET_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'GET_BUDGET_FAILURE');
+      expect(storeActions[0]).toHaveProperty('type', 'GET_BUDGET_LIST_BEGIN');
+      expect(storeActions[1]).toHaveProperty('type', 'GET_BUDGET_LIST_FAILURE');
     });
   });
 });

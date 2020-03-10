@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, ScrollView} from 'react-native';
 import ConnectedBudget from '../components/Budget';
 
 export default class BudgetManagement extends Component {
   render() {
     return (
       <View style={styles.Container}>
-        <Text style={styles.header}> Budget management</Text>
-        <ConnectedBudget />
+        <ScrollView>
+          <Text style={styles.header}> Budget management</Text>
+          <ConnectedBudget />
+        </ScrollView>
       </View>
     );
   }
