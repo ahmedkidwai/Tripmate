@@ -128,7 +128,6 @@ function App() {
                   <h1> Welcome to Tripmate! By Kurt&apos;s Angels</h1>
                   <p>
                     <ConnectedHotels />
-                    <ConnectedToDoList />
                   </p>
                 </div>
               )}

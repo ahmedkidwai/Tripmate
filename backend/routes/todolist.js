@@ -17,7 +17,7 @@ router.route('/add').post((req, res) => {
 
   newToDoList
     .save()
-    .then(() => res.json('New ToDo List Added!'))
+    .then(() => res.status(201).json('New ToDo List Added!'))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
@@ -68,7 +68,7 @@ router.route('/:list_id/todoitem/add').post((req, res) => {
 
       todolist
         .save()
-        .then(() => res.json('New ToDo Item Added!'))
+        .then(() => res.status(201).json('New ToDo Item Added!'))
         .catch(err => res.status(400).json(`Error: ${err}`));
     })
     .catch(err => res.status(400).json(`Error: ${err}`));
