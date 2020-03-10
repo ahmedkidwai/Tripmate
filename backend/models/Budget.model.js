@@ -16,6 +16,16 @@ const expensesScheme = new Schema(
       unique: false,
       min: 0,
     },
+    isDone: {
+      type: Boolean,
+      required: true,
+      unique: false,
+    },
+    date: {
+      type: Date,
+      required: true,
+      trim: true,
+    },
   },
   {
     timestamps: true,

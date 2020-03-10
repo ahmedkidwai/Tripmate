@@ -80,7 +80,7 @@ function App() {
               'Modify Trips',
               'View Trips',
               'Delete Trips',
-              'ToDo List'
+              'ToDo List',
             ].map((text, index) => (
               <ListItem
                 button
@@ -187,12 +187,7 @@ function App() {
                 </div>
               )}
             />
-            <Route
-              path="/ToDoList"
-              render={() => (
-                <ConnectedToDoList />
-              )}
-            />
+            <Route path="/ToDoList" render={() => <ConnectedToDoList />} />
             <Route
               path="/About"
               render={() => (

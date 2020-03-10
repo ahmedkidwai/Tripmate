@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test';
-
-const {describe, it, before, after} = require('mocha');
+const {expect} = require('chai');
+const {describe, it, beforeEach, afterEach} = require('mocha');
 const mongoose = require('mongoose');
 
 const chai = require('chai');
@@ -17,7 +17,7 @@ const {Expenses} = require('../../models/Budget.model');
 chai.use(chaiHttp);
 
 describe('budget routes', () => {
-  before(async done => {
+  beforeEach(async done => {
     mongoose.connect(testURI, {
       useNewUrlParser: true,
       useCreateIndex: true,
@@ -26,7 +26,7 @@ describe('budget routes', () => {
     done();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await Budget.deleteMany({});
     await Expenses.deleteMany({});
     await mongoose.disconnect();
@@ -91,7 +91,7 @@ describe('budget routes', () => {
 });
 
 describe('budget expense routes', () => {
-  before(async done => {
+  beforeEach(async done => {
     mongoose.connect(testURI, {
       useNewUrlParser: true,
       useCreateIndex: true,
@@ -101,7 +101,7 @@ describe('budget expense routes', () => {
     done();
   });
 
-  after(async () => {
+  afterEach(async () => {
     await Budget.deleteMany({});
     await Expenses.deleteMany({});
     await mongoose.disconnect();
@@ -111,6 +111,8 @@ describe('budget expense routes', () => {
     const expense = new Expenses({
       name: 'Test expense',
       amount: 123,
+      isDone: false,
+      date: '2020-01-01',
     });
     const budget = new Budget({
       budget: 123,
@@ -133,6 +135,8 @@ describe('budget expense routes', () => {
     const expense = new Expenses({
       name: 'Test expense',
       amount: 123,
+      isDone: false,
+      date: '2020-01-01',
     });
     const budget = new Budget({
       budget: 123,
@@ -147,6 +151,8 @@ describe('budget expense routes', () => {
           res.should.have.status(200);
           res.body.should.have.property('name');
           res.body.should.have.property('amount');
+          res.body.should.have.property('isDone');
+          res.body.should.have.property('date');
           done();
         });
     });
@@ -156,6 +162,8 @@ describe('budget expense routes', () => {
     const expense = new Expenses({
       name: 'Test expense',
       amount: 123,
+      isDone: false,
+      date: '2020-01-01',
     });
     const budget = new Budget({
       budget: 123,
@@ -170,6 +178,48 @@ describe('budget expense routes', () => {
           res.should.have.status(200);
           res.body.should.have.property('available');
           res.body.should.have.property('planned');
+          res.body.should.have.property('used');
+          res.body.should.have.property('pending');
+          res.body.should.have.property('budget');
+          done();
+        });
+    });
+  });
+
+  it('it should get an expenses list ordered by date followed by is done', done => {
+    const expense1 = new Expenses({
+      name: 'Test expense',
+      amount: 123,
+      isDone: false,
+      date: '2020-01-01',
+    });
+    const expense2 = new Expenses({
+      name: 'Test expense',
+      amount: 123,
+      isDone: true,
+      date: '2020-01-01',
+    });
+    const expense3 = new Expenses({
+      name: 'Test expense',
+      amount: 123,
+      isDone: false,
+      date: '2020-01-02',
+    });
+    const budget = new Budget({
+      budget: 123,
+      expenses: [expense1, expense2, expense3],
+    });
+    budget.save((err, budg) => {
+      chai
+        .request(server)
+        // eslint-disable-next-line no-underscore-dangle
+        .get(`/budget/${budg._id}/expenses/sorted`)
+        .end((error, res) => {
+          res.should.have.status(200);
+          res.body.should.have.length(3);
+          expect(res.body[0].isDone).equal(true);
+          expect(res.body[2].date.toString()).equal('2020-01-02T00:00:00.000Z');
+
           done();
         });
     });
@@ -184,7 +234,12 @@ describe('budget expense routes', () => {
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
         .post(`/budget/${budg._id}/expenses/add`)
-        .send({name: 'Test expense', amount: 123})
+        .send({
+          name: 'Test expense',
+          amount: 123,
+          isDone: false,
+          date: '2020-01-02',
+        })
         .end((error, res) => {
           res.should.have.status(201);
           res.body.should.be.eql('New expense added to budget!');
@@ -197,6 +252,8 @@ describe('budget expense routes', () => {
     const expense = new Expenses({
       name: 'Test expense',
       amount: 123,
+      isDone: false,
+      date: '2020-01-01',
     });
     const budget = new Budget({
       budget: 123,
@@ -219,6 +276,8 @@ describe('budget expense routes', () => {
     const expense = new Expenses({
       name: 'Test expense',
       amount: 123,
+      isDone: false,
+      date: '2020-01-01',
     });
     const budget = new Budget({
       budget: 123,

@@ -1,7 +1,10 @@
 const router = require('express').Router();
 const {Budget} = require('../models/Budget.model');
 const {Expenses} = require('../models/Budget.model');
-const {getBudgetSummary} = require('../Business/BugdetLogics');
+const {
+  getBudgetSummary,
+  getExpensesListBYDateOrder,
+} = require('../Business/BugdetLogics');
 
 router.route('/').get((req, res) => {
   Budget.find()
@@ -33,6 +36,13 @@ router.route('/:id/expenses/summary').get((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
+router.route('/:id/expenses/sorted').get((req, res) => {
+  Budget.findById(req.params.id)
+    .then(budget => getExpensesListBYDateOrder(budget.expenses))
+    .then(summary => res.json(summary))
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
 router.route('/:id').delete((req, res) => {
   Budget.findByIdAndDelete(req.params.id)
     .then(() => res.json({data: 'Budget deleted.'}))
@@ -55,9 +65,9 @@ router.route('/:id/expenses/:expense_id').get((req, res) => {
 });
 
 router.route('/:id/expenses/add').post((req, res) => {
-  const {name, amount} = req.body;
+  const {name, amount, isDone, date} = req.body;
 
-  const newExpense = new Expenses({name, amount});
+  const newExpense = new Expenses({name, amount, isDone, date});
 
   Budget.findById(req.params.id).then(budget => {
     budget.expenses.push(newExpense);
