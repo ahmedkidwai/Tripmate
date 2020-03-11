@@ -5,7 +5,13 @@ import summary from './getExpenseSummary';
 import addBudget from './addBudget';
 import deleteBudget from './deleteBudget';
 import getExpensesList from './getExpensesList';
-import todolist from './getToDoList';
+import getToDoList from './getToDoList';
+import createToDoList from './createToDoList';
+import deleteToDoList from './deleteToDoList';
+import updateToDoList from './updateToDoList';
+import createToDoItem from './createToDoItem';
+import deleteToDoItem from './deleteToDoItem';
+import updateToDoItem from './updateToDoItem';
 
 export default combineReducers({
   user,
@@ -17,5 +23,16 @@ export default combineReducers({
     summary,
   }),
 
-  todolist,
+  todolist: combineReducers({
+    getToDoList,
+    createToDoList,
+    deleteToDoList,
+    updateToDoList,
+  }),
+
+  todoitem: combineReducers({
+    createToDoItem,
+    deleteToDoItem,
+    updateToDoItem,
+  }),
 });
