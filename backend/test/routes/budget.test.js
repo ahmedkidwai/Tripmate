@@ -32,10 +32,10 @@ describe('budget routes', () => {
     await mongoose.disconnect();
   });
 
-  it('/ should get all budgets', done => {
+  it('/ should get all budgets of :tripId', done => {
     chai
       .request(server)
-      .get('/budget')
+      .get('/5e6aeefdb3256d55d6091d82/budget')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.length.should.be.eql(0);
@@ -46,7 +46,7 @@ describe('budget routes', () => {
   it('/ add should add a new budget', done => {
     chai
       .request(server)
-      .post('/budget/add')
+      .post('/5e6aeefdb3256d55d6091d82/budget/add')
       .send({budget: 123})
       .end((err, res) => {
         res.should.have.status(201);
@@ -63,7 +63,7 @@ describe('budget routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .get(`/budget/${budg._id}`)
+        .get(`/1/budget/${budg._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.have.property('budget');
@@ -80,7 +80,7 @@ describe('budget routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .delete(`/budget/${budg._id}`)
+        .delete(`/1/budget/${budg._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.eql({data: 'Budget deleted.'});
@@ -98,7 +98,7 @@ describe('budget routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .post(`/budget/${budg._id}/update`)
+        .post(`/1/budget/${budg._id}/update`)
         .send({budget: 789})
         .end((error, res) => {
           res.should.have.status(200);
@@ -141,7 +141,7 @@ describe('budget expense routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .get(`/budget/${budg._id}/expenses`)
+        .get(`/1/budget/${budg._id}/expenses`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.length.should.be.eql(1);
@@ -165,7 +165,7 @@ describe('budget expense routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .get(`/budget/${budg._id}/expenses/${budg.expenses[0]._id}`)
+        .get(`/1/budget/${budg._id}/expenses/${budg.expenses[0]._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.have.property('name');
@@ -192,7 +192,7 @@ describe('budget expense routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .get(`/budget/${budg._id}/expenses/summary`)
+        .get(`/1/budget/${budg._id}/expenses/summary`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.have.property('available');
@@ -232,7 +232,7 @@ describe('budget expense routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .get(`/budget/${budg._id}/expenses/sorted`)
+        .get(`/1/budget/${budg._id}/expenses/sorted`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.have.length(3);
@@ -252,7 +252,7 @@ describe('budget expense routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .post(`/budget/${budg._id}/expenses/add`)
+        .post(`/1/budget/${budg._id}/expenses/add`)
         .send({
           expenses: {
             name: 'Test expense',
@@ -284,7 +284,7 @@ describe('budget expense routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .delete(`/budget/${budg._id}/expenses/${budg.expenses[0]._id}`)
+        .delete(`/1/budget/${budg._id}/expenses/${budg.expenses[0]._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.eql('Expense deleted.');
@@ -308,7 +308,9 @@ describe('budget expense routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .post(`/budget/${budg._id}/expenses/update/${budg.expenses[0]._id}`)
+        .post(
+          `/5e6aeefdb3256d55d6091d82/budget/${budg._id}/expenses/update/${budg.expenses[0]._id}`,
+        )
         .send({
           name: 'New expense',
           amount: 789,

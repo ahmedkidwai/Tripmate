@@ -14,7 +14,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
+  trips: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Trip',
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,

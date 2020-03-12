@@ -18,33 +18,37 @@ app.get('/', (req, res) => {
   );
 });
 
-// Define Routes
-app.use('/users', require('./routes/users'));
-app.use('/auth', require('./routes/auth'));
+const tripRouter = require('./routes/trip');
+
+app.use('/trip', tripRouter);
+
+const userRouter = require('./routes/users');
+
+app.use('/users', userRouter);
 
 const budgetRouter = require('./routes/budget');
 
-app.use('/budget', budgetRouter);
+app.use('/:tripId/budget', budgetRouter);
 
 const hotelRouter = require('./routes/hotel');
 
-app.use('/hotel', hotelRouter);
+app.use('/:tripId/hotel', hotelRouter);
 
 const todolistRouter = require('./routes/todolist');
 
-app.use('/todolist', todolistRouter);
+app.use('/:tripId/todolist', todolistRouter);
 
 const flightRouter = require('./routes/flight');
 
-app.use('/flight', flightRouter);
+app.use('/:tripId/flight', flightRouter);
 
 const ticketRouter = require('./routes/ticket');
 
-app.use('/ticket', ticketRouter);
+app.use('/:tripId/ticket', ticketRouter);
 
 const eventRouter = require('./routes/event');
 
-app.use('/event', eventRouter);
+app.use('/:tripId/event', eventRouter);
 
 const PORT = process.env.PORT || 5000;
 

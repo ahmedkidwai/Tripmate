@@ -4,6 +4,10 @@ const {Schema} = mongoose;
 
 const ticketScheme = new Schema(
   {
+    tripId: {
+      type: mongoose.ObjectId,
+      unique: false,
+    },
     transportType: {
       type: String,
       required: true,

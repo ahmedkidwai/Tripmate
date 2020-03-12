@@ -1,8 +1,8 @@
-const router = require('express').Router();
+const router = require('express').Router({mergeParams: true});
 const {Event} = require('../models/event.model');
 
 router.route('/').get((req, res) => {
-  Event.find()
+  Event.find({tripId: req.params.tripId})
     .then(events => res.json(events))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });

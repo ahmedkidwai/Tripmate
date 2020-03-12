@@ -32,10 +32,10 @@ describe('todolist routes', () => {
     await mongoose.disconnect();
   });
 
-  it('/ should get all todolists', done => {
+  it('/ should get all todolists of :tripId', done => {
     chai
       .request(server)
-      .get('/todolist')
+      .get('/5e6aeefdb3256d55d6091d82/todolist')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.length.should.be.eql(0);
@@ -46,7 +46,7 @@ describe('todolist routes', () => {
   it('/ add should add a new todolist', done => {
     chai
       .request(server)
-      .post('/todolist/add')
+      .post('/5e6aeefdb3256d55d6091d82/todolist/add')
       .send({name: 'Test List'})
       .end((err, res) => {
         res.should.have.status(201);
@@ -62,7 +62,7 @@ describe('todolist routes', () => {
     todolist.save((err, list) => {
       chai
         .request(server)
-        .get(`/todolist/${list._id}`)
+        .get(`/1/todolist/${list._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.have.property('name');
@@ -78,7 +78,7 @@ describe('todolist routes', () => {
     todolist.save((err, list) => {
       chai
         .request(server)
-        .delete(`/todolist/${list._id}`)
+        .delete(`/1/todolist/${list._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.eql('ToDo List Deleted.');
@@ -94,7 +94,7 @@ describe('todolist routes', () => {
     todolist.save((err, list) => {
       chai
         .request(server)
-        .post(`/todolist/update/${list._id}`)
+        .post(`/1/todolist/update/${list._id}`)
         .send({name: 'Test List Update'})
         .end((error, res) => {
           res.should.have.status(200);
@@ -134,7 +134,7 @@ describe('todoitem routes', () => {
     todolist.save((err, list) => {
       chai
         .request(server)
-        .get(`/todolist/${list._id}/todoitem`)
+        .get(`/1/todolist/${list._id}/todoitem`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.length.should.be.eql(1);
@@ -155,7 +155,7 @@ describe('todoitem routes', () => {
     todolist.save((err, list) => {
       chai
         .request(server)
-        .get(`/todolist/${list._id}/todoitem/${list.items[0]._id}`)
+        .get(`/1/todolist/${list._id}/todoitem/${list.items[0]._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.have.property('content');
@@ -172,7 +172,7 @@ describe('todoitem routes', () => {
     todolist.save((err, list) => {
       chai
         .request(server)
-        .post(`/todolist/${list._id}/todoitem/add`)
+        .post(`/1/todolist/${list._id}/todoitem/add`)
         .send({content: 'Test Item'})
         .end((error, res) => {
           res.should.have.status(201);
@@ -194,7 +194,7 @@ describe('todoitem routes', () => {
     todolist.save((err, list) => {
       chai
         .request(server)
-        .delete(`/todolist/${list._id}/todoitem/${list.items[0]._id}`)
+        .delete(`/1/todolist/${list._id}/todoitem/${list.items[0]._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.eql('ToDo Item Deleted.');
@@ -215,7 +215,7 @@ describe('todoitem routes', () => {
     todolist.save((err, list) => {
       chai
         .request(server)
-        .post(`/todolist/${list._id}/todoitem/update/${list.items[0]._id}`)
+        .post(`/1/todolist/${list._id}/todoitem/update/${list.items[0]._id}`)
         .send({content: 'Test Item', done: true})
         .end((error, res) => {
           res.should.have.status(200);

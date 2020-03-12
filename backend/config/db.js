@@ -8,10 +8,11 @@ const uri =
 
 const connectDB = async () => {
   try {
+    await mongoose.set('useUnifiedTopology', true);
     await mongoose.connect(uri, {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false,
     });
   } catch (err) {
     process.exit(1);

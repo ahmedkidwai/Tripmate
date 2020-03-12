@@ -32,10 +32,10 @@ describe('flight routes', () => {
     await mongoose.disconnect();
   });
 
-  it('it should get all flights', done => {
+  it('/ should get all flights of :tripId', done => {
     chai
       .request(server)
-      .get('/flight')
+      .get('/5e6aeefdb3256d55d6091d82/flight')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.length.should.be.eql(0);
@@ -46,7 +46,7 @@ describe('flight routes', () => {
   it('it add should add a new flight manually', done => {
     chai
       .request(server)
-      .post('/flight/add_manual')
+      .post('/5e6aeefdb3256d55d6091d82/flight/add_manual')
       .send({number: 'ABC123', date: '2020-01-01'})
       .end((err, res) => {
         res.should.have.status(200);
@@ -79,7 +79,7 @@ describe('flight routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .get(`/flight/${flig._id}`)
+        .get(`/1/flight/${flig._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.have.property('number');
@@ -97,7 +97,7 @@ describe('flight routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .delete(`/flight/${flig._id}`)
+        .delete(`/1/flight/${flig._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.eql('Flight deleted.');
@@ -115,7 +115,7 @@ describe('flight routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .post(`/flight/update/${flig._id}`)
+        .post(`/5e6aeefdb3256d55d6091d82/flight/update/${flig._id}`)
         .send({number: 'DEF456'})
         .end((error, res) => {
           res.should.have.status(200);

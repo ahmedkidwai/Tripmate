@@ -2,16 +2,23 @@ const express = require('express');
 
 const router = express.Router();
 
-// Vadidation
+// Validation
 const {check, validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const User = require('../models/User');
+const User = require('../models/user.model');
 
 // @route       Post /users
 // @description Register User
 // @access      Public
+
+router.route('/').get((_req, res) => {
+  User.find()
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
 router.post(
   '/',
   [

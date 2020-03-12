@@ -22,6 +22,10 @@ const toDoItemScheme = new Schema(
 
 const toDoListScheme = new Schema(
   {
+    tripId: {
+      type: mongoose.ObjectId,
+      unique: false,
+    },
     name: {
       type: String,
       required: true,

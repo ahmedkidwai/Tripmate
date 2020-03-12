@@ -4,6 +4,10 @@ const {Schema} = mongoose;
 
 const flightScheme = new Schema(
   {
+    tripId: {
+      type: mongoose.ObjectId,
+      unique: false,
+    },
     departure: {
       airport: {
         iata: {
