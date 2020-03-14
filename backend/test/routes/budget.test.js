@@ -88,6 +88,25 @@ describe('budget routes', () => {
         });
     });
   });
+
+  it('it should UPDATE an existing budget', done => {
+    const budget = new Budget({
+      budget: 123,
+      expenses: [],
+    });
+    budget.save((err, budg) => {
+      chai
+        .request(server)
+        // eslint-disable-next-line no-underscore-dangle
+        .post(`/budget/${budg._id}/update`)
+        .send({budget: 789})
+        .end((error, res) => {
+          res.should.have.status(200);
+          res.body.should.be.eql('Budget updated!');
+          done();
+        });
+    });
+  });
 });
 
 describe('budget expense routes', () => {

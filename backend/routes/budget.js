@@ -29,6 +29,18 @@ router.route('/:id').get((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
+router.route('/:id/update').post((req, res) => {
+  Budget.findById(req.params.id)
+    .then(budget => {
+      budget.budget = req.body.budget;
+      budget
+        .save()
+        .then(() => res.json('Budget updated!'))
+        .catch(err => res.status(400).json(`Error: ${err}`));
+    })
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
 router.route('/:id/expenses/summary').get((req, res) => {
   Budget.findById(req.params.id)
     .then(budget => getBudgetSummary(budget))
