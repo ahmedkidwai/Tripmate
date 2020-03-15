@@ -10,8 +10,6 @@ connectDB();
 // Init Midleware
 app.use(express.json({extend: false}));
 
-app.get('/', (req, rest) => rest.send('API Running'));
-
 // serve static resources from server in production
 app.use(express.static(path.join(__dirname, '../web-application/build')));
 app.get('/', (req, res) => {
