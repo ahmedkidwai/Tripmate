@@ -42,6 +42,10 @@ const ticketRouter = require('./routes/ticket');
 
 app.use('/ticket', ticketRouter);
 
+const eventRouter = require('./routes/event');
+
+app.use('/event', eventRouter);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT);
