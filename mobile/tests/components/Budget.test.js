@@ -23,7 +23,7 @@ describe('Budget Component', () => {
             __v: 0,
           },
         ]}
-        fetchBudget={() => {}}
+        fetchBudgetList={() => {}}
         summary={{
           available: 1000,
           planned: 990,
@@ -31,13 +31,21 @@ describe('Budget Component', () => {
           pending: 990,
           used: 0,
         }}
+        singleBudget={{
+          _id: '5e4f6675eddfd25ef052f9c0',
+          budget: 1234,
+          expenses: [],
+          createdAt: '2020-02-21T05:11:17.039Z',
+          updatedAt: '2020-02-21T05:11:17.039Z',
+          __v: 0,
+        }}
         expensesList={[]}
         loading={false}
       />,
     );
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.find(Text).exists()).toBe(true);
-    expect(wrapper.find(Text)).toHaveLength(8);
+    expect(wrapper.find(Text)).toHaveLength(9);
     expect(wrapper.find(TextInput).exists()).toBe(true);
     expect(wrapper.find(TextInput)).toHaveLength(4);
     expect(wrapper.find(View).exists()).toBe(true);
@@ -45,7 +53,9 @@ describe('Budget Component', () => {
     expect(wrapper.find(Divider).exists()).toBe(true);
   });
   it('is loading and should render nothing', () => {
-    const wrapper = shallow(<Budget loading={true} fetchBudget={() => {}} />);
+    const wrapper = shallow(
+      <Budget loading={true} fetchBudgetList={() => {}} />,
+    );
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.find(Text).exists()).toBe(false);
     expect(wrapper.find(TextInput).exists()).toBe(false);

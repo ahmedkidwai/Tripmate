@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import user from './getUser';
 import getBudgetList from './getBudgetList';
+import getBudget from './getBudget';
 import summary from './getExpenseSummary';
 import addBudget from './addBudget';
 import deleteBudget from './deleteBudget';
@@ -20,6 +21,7 @@ export default combineReducers({
   user,
   budget: combineReducers({
     getBudgetList,
+    getBudget,
     addBudget,
     deleteBudget,
     getExpensesList,

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {TextInput, StyleSheet} from 'react-native';
 import {Text, Button, View} from 'native-base';
 import {fetchBudgetList} from '../actions/fetchBudgetList';
+import {fetchBudget} from '../actions/fetchBudget';
 import {addBudget} from '../actions/addBudget';
 import {deleteBudget} from '../actions/deleteBudget';
 import {fetchExpenseSummary} from '../actions/fetchExpenseSummary';
@@ -19,14 +20,14 @@ export class Budget extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchBudget();
+    this.props.fetchBudgetList();
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (
       prevProps.uploading !== this.props.uploading ||
       prevProps.deleting !== this.props.deleting
     ) {
-      this.props.fetchBudget();
+      this.props.fetchBudgetList();
     }
 
     if (
@@ -42,6 +43,8 @@ export class Budget extends React.Component {
     ) {
       this.props.fetchBudget();
       this.props.fetchExpenseSummary(this.props.budget[0]._id);
+      this.props.fetchBudget(this.props.budget[0]._id);
+      this.props.fetchBudgetList();
     }
     if (
       prevProps.expensesUploading !== this.props.expensesUploading &&
@@ -49,6 +52,7 @@ export class Budget extends React.Component {
     ) {
       this.props.fetchExpenseSummary(this.props.budget[0]._id);
       this.props.fetchExpensesList(this.props.budget[0]._id);
+      this.props.fetchBudget(this.props.budget[0]._id);
     }
   }
 
@@ -58,6 +62,14 @@ export class Budget extends React.Component {
 
   handleDeleteBudget(targetBudget) {
     this.props.deleteBudget(targetBudget);
+  }
+
+  handleGetBudgetRender() {
+    return (
+      <View>
+        <Text>Budget: {this.props.singleBudget.budget}</Text>
+      </View>
+    );
   }
 
   handleBudgetUpdate(id, newBudget) {
@@ -212,6 +224,8 @@ export class Budget extends React.Component {
         <View>
           {this.handleGenerateBudgetSummary()}
           <Divider style={styles.divider} />
+          {this.handleGetBudgetRender()}
+          <Divider style={styles.divider} />
           {this.handleRenderAddExpenses()}
           <Divider style={styles.divider} />
           {this.handleGenerateExpensesList()}
@@ -241,7 +255,7 @@ export class Budget extends React.Component {
 }
 
 Budget.Prototype = {
-  fetchBudget: PropTypes.func,
+  fetchBudgetList: PropTypes.func,
   addBudget: PropTypes.func,
   deleteBudget: PropTypes.func,
   budget: PropTypes.array,
@@ -268,6 +282,11 @@ Budget.Prototype = {
   //add expenses
   expensesUploading: PropTypes.bool,
   expensesAddSuccessMessage: PropTypes.string,
+
+  fetchBudget: PropTypes.func,
+  singleBudget: PropTypes.object,
+  singleBudgetLoading: PropTypes.bool,
+  singleBudgetError: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
@@ -297,10 +316,15 @@ const mapStateToProps = state => ({
   //add expenses
   expensesUploading: state.budget.addExpenses.uploading,
   expensesAddSuccessMessage: state.budget.addExpenses.successMessage,
+  //fetch budget
+  singleBudget: state.budget.getBudget.budget,
+  singleBudgetLoading: state.budget.getBudget.loading,
+  singleBudgetError: state.budget.getBudget.error,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchBudget: () => dispatch(fetchBudgetList()),
+  fetchBudgetList: () => dispatch(fetchBudgetList()),
+  fetchBudget: id => dispatch(fetchBudget(id)),
   addBudget: newBudget => dispatch(addBudget(newBudget)),
   deleteBudget: targetBudget => dispatch(deleteBudget(targetBudget)),
   fetchExpenseSummary: id => dispatch(fetchExpenseSummary(id)),
