@@ -1,7 +1,7 @@
-import reducer from '../../src/reducers/addBudget';
-import * as types from '../../src/actions/addBudget';
+import reducer from '../../src/reducers/addExpenses';
+import * as types from '../../src/actions/addExpenses';
 
-describe('addBudgetList reducer test', () => {
+describe('addExpensesList reducer test', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       successMessage: '',
@@ -10,10 +10,10 @@ describe('addBudgetList reducer test', () => {
     });
   });
 
-  it('should handle ADD_BUDGET_BEGIN', () => {
+  it('should handle ADD_EXPENSES_BEGIN', () => {
     expect(
       reducer([], {
-        type: types.ADD_BUDGET_BEGIN,
+        type: types.ADD_EXPENSES_BEGIN,
       }),
     ).toEqual({
       uploading: true,
@@ -21,39 +21,39 @@ describe('addBudgetList reducer test', () => {
     });
   });
 
-  it('should handle ADD_BUDGET_SUCCESS', () => {
+  it('should handle ADD_EXPENSES_SUCCESS', () => {
     expect(
       reducer([], {
-        type: types.ADD_BUDGET_SUCCESS,
+        type: types.ADD_EXPENSES_SUCCESS,
         payload: {
-          data: 'Budget added.',
+          data: 'Expenses added.',
         },
       }),
     ).toEqual({
       uploading: false,
-      successMessage: 'Budget added.',
+      successMessage: 'Expenses added.',
     });
     expect(
       reducer(
         {successMessage: '', uploading: true, error: null},
         {
-          type: types.ADD_BUDGET_SUCCESS,
+          type: types.ADD_EXPENSES_SUCCESS,
           payload: {
-            data: 'Budget added.',
+            data: 'Expenses added.',
           },
         },
       ),
     ).toEqual({
       uploading: false,
       error: null,
-      successMessage: 'Budget added.',
+      successMessage: 'Expenses added.',
     });
   });
 
-  it('should handle ADD_BUDGET_FAILURE', () => {
+  it('should handle ADD_EXPENSES_FAILURE', () => {
     expect(
       reducer([], {
-        type: types.ADD_BUDGET_FAILURE,
+        type: types.ADD_EXPENSES_FAILURE,
         payload: {error: 'Test Error'},
       }),
     ).toEqual({
@@ -68,7 +68,7 @@ describe('addBudgetList reducer test', () => {
           error: null,
         },
         {
-          type: types.ADD_BUDGET_FAILURE,
+          type: types.ADD_EXPENSES_FAILURE,
           payload: {error: 'Test Error'},
         },
       ),

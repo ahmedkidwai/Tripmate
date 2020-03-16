@@ -8,28 +8,24 @@ const initialState = {
   successMessage: '',
   uploading: true,
   error: null,
-  uploaded: false,
 };
 
 const addBudgetBeginState = state => ({
   ...state,
   uploading: true,
   error: null,
-  uploaded: false,
 });
 
 const addBudgetSuccessState = (state, action) => ({
   ...state,
   uploading: false,
   successMessage: action.payload.data,
-  uploaded: true,
 });
 
 const addBudgetFailureState = (state, action) => ({
   ...state,
   uploading: false,
   error: action.payload.error,
-  uploaded: false,
 });
 const addBudget = createReducer(initialState, {
   [ADD_BUDGET_BEGIN]: addBudgetBeginState,

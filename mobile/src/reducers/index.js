@@ -12,6 +12,9 @@ import updateToDoList from './updateToDoList';
 import createToDoItem from './createToDoItem';
 import deleteToDoItem from './deleteToDoItem';
 import updateToDoItem from './updateToDoItem';
+import updateBudget from './updateBudget';
+import addExpenses from './addExpenses';
+import todolist from './getToDoList';
 
 export default combineReducers({
   user,
@@ -20,7 +23,9 @@ export default combineReducers({
     addBudget,
     deleteBudget,
     getExpensesList,
+    updateBudget,
     summary,
+    addExpenses,
   }),
 
   todolist: combineReducers({

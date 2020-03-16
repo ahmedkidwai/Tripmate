@@ -8,11 +8,14 @@ import {deleteBudget} from '../actions/deleteBudget';
 import {fetchExpenseSummary} from '../actions/fetchExpenseSummary';
 import {connect} from 'react-redux';
 import {fetchExpensesList} from '../actions/fetchExpensesList';
+import {updateBudget} from '../actions/updateBudget';
 import {Divider} from 'react-native-elements';
+import {addExpenses} from '../actions/addExpenses';
 
 export class Budget extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {updateBudgetStatus: false};
   }
 
   componentDidMount() {
@@ -33,6 +36,20 @@ export class Budget extends React.Component {
       this.props.fetchExpenseSummary(this.props.budget[0]._id);
       this.props.fetchExpensesList(this.props.budget[0]._id);
     }
+    if (
+      prevProps.budgetUpdating !== this.props.budgetUpdating &&
+      this.props.budget.length > 0
+    ) {
+      this.props.fetchBudget();
+      this.props.fetchExpenseSummary(this.props.budget[0]._id);
+    }
+    if (
+      prevProps.expensesUploading !== this.props.expensesUploading &&
+      this.props.budget.length > 0
+    ) {
+      this.props.fetchExpenseSummary(this.props.budget[0]._id);
+      this.props.fetchExpensesList(this.props.budget[0]._id);
+    }
   }
 
   handleAddBudget(newBudget) {
@@ -41,6 +58,11 @@ export class Budget extends React.Component {
 
   handleDeleteBudget(targetBudget) {
     this.props.deleteBudget(targetBudget);
+  }
+
+  handleBudgetUpdate(id, newBudget) {
+    this.props.updateBudget(id, newBudget);
+    this.setState({updateBudgetStatus: false});
   }
 
   handleGenerateBudgetList(targetBudget) {
@@ -59,9 +81,92 @@ export class Budget extends React.Component {
     ));
   }
 
+  handleAddExpenses(id, newExpenses) {
+    this.props.addExpenses(id, newExpenses);
+  }
+
+  handleRenderAddExpenses() {
+    return (
+      <View>
+        <TextInput
+          style={styles.placeholder}
+          placeholder="Enter new Expenses Name"
+          onChangeText={textEntry => {
+            this.newName = textEntry;
+          }}
+        />
+        <TextInput
+          style={styles.placeholder}
+          placeholder="Enter new Expenses amount"
+          onChangeText={textEntry => {
+            this.newAmount = textEntry;
+          }}
+        />
+        <TextInput
+          style={styles.placeholder}
+          placeholder="Enter new Expenses date"
+          onChangeText={textEntry => {
+            this.newDate = textEntry;
+          }}
+        />
+
+        <Button
+          Success
+          onPress={() => {
+            this.handleAddExpenses(this.props.budget[0]._id, {
+              name: this.newName,
+              amount: this.newAmount,
+              date: this.newDate,
+              isDone: false,
+            });
+          }}>
+          <Text> ADD expenses </Text>
+        </Button>
+      </View>
+    );
+  }
+
+  handleBudgetRender() {
+    if (this.state.updateBudgetStatus === false) {
+      return (
+        <View>
+          <Button
+            Success
+            id={this.props.budget[0]._id}
+            onPress={() => {
+              this.setState({updateBudgetStatus: true});
+            }}>
+            <Text> {this.props.budget[0].budget} </Text>
+          </Button>
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          <TextInput
+            style={styles.placeholder}
+            placeholder="Enter new budget"
+            onChangeText={textEntry => {
+              this.newBudget = textEntry;
+            }}
+          />
+          <Button
+            Success
+            onPress={() => {
+              this.handleBudgetUpdate(this.props.budget[0]._id, this.newBudget);
+            }}>
+            <Text> UPDATE </Text>
+          </Button>
+        </View>
+      );
+    }
+  }
+
   handleGenerateBudgetSummary() {
     return (
       <View>
+        <View>{this.handleBudgetRender()}</View>
+
         <View>
           <Text>Budget: {this.props.summary.budget}</Text>
         </View>
@@ -107,6 +212,8 @@ export class Budget extends React.Component {
         <View>
           {this.handleGenerateBudgetSummary()}
           <Divider style={styles.divider} />
+          {this.handleRenderAddExpenses()}
+          <Divider style={styles.divider} />
           {this.handleGenerateExpensesList()}
           <Divider style={styles.divider} />
           {this.handleGenerateBudgetList(this.props.budget)}
@@ -143,8 +250,6 @@ Budget.Prototype = {
   deleting: PropTypes.bool,
   successMessage: PropTypes.string,
   deleteMessage: PropTypes.string,
-  uploaded: PropTypes.bool,
-  deleted: PropTypes.bool,
 
   fetchExpenseSummary: PropTypes.func,
   fetchExpensesList: PropTypes.func,
@@ -155,6 +260,14 @@ Budget.Prototype = {
   expensesList: PropTypes.array,
   expensesLoading: PropTypes.bool,
   expensesError: PropTypes.string,
+
+  //update budget
+  budgetUpdating: PropTypes.bool,
+  updateSuccessMessage: PropTypes.string,
+
+  //add expenses
+  expensesUploading: PropTypes.bool,
+  expensesAddSuccessMessage: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
@@ -165,11 +278,11 @@ const mapStateToProps = state => ({
   //add budget
   uploading: state.budget.addBudget.uploading,
   successMessage: state.budget.addBudget.successMessage,
-  uploaded: state.budget.addBudget.uploaded,
+
   //delete budget
   deleting: state.budget.deleteBudget.deleting,
   deleteMessage: state.budget.deleteBudget.deleteMessage,
-  deleted: state.budget.deleteBudget.deleted,
+
   //get budget expenses summary
   summary: state.budget.summary.summary,
   summaryLoading: state.budget.summary.summaryLoading,
@@ -178,6 +291,12 @@ const mapStateToProps = state => ({
   expensesList: state.budget.getExpensesList.expensesList,
   expensesLoading: state.budget.getExpensesList.loading,
   expensesError: state.budget.getExpensesList.error,
+  //update budget
+  budgetUpdating: state.budget.updateBudget.uploading,
+  updateSuccessMessage: state.budget.updateBudget.successMessage,
+  //add expenses
+  expensesUploading: state.budget.addExpenses.uploading,
+  expensesAddSuccessMessage: state.budget.addExpenses.successMessage,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -186,6 +305,8 @@ const mapDispatchToProps = dispatch => ({
   deleteBudget: targetBudget => dispatch(deleteBudget(targetBudget)),
   fetchExpenseSummary: id => dispatch(fetchExpenseSummary(id)),
   fetchExpensesList: id => dispatch(fetchExpensesList(id)),
+  updateBudget: (id, newBudget) => dispatch(updateBudget(id, newBudget)),
+  addExpenses: (id, newExpenses) => dispatch(addExpenses(id, newExpenses)),
 });
 
 const styles = StyleSheet.create({

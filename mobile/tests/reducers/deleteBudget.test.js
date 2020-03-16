@@ -7,7 +7,6 @@ describe('getBudgetList reducer test', () => {
       deleteMessage: '',
       deleting: true,
       error: null,
-      deleted: false,
     });
   });
 
@@ -19,7 +18,6 @@ describe('getBudgetList reducer test', () => {
     ).toEqual({
       deleting: true,
       error: null,
-      deleted: false,
     });
   });
 
@@ -34,7 +32,6 @@ describe('getBudgetList reducer test', () => {
     ).toEqual({
       deleting: false,
       deleteMessage: 'Budget deleted.',
-      deleted: true,
     });
     expect(
       reducer(
@@ -50,7 +47,6 @@ describe('getBudgetList reducer test', () => {
       deleting: false,
       error: null,
       deleteMessage: 'Budget deleted.',
-      deleted: true,
     });
   });
 
@@ -64,14 +60,12 @@ describe('getBudgetList reducer test', () => {
       deleteMessage: undefined,
       deleting: false,
       error: 'Test Error',
-      deleted: false,
     });
     expect(
       reducer(
         {
           deleting: true,
           error: null,
-          deleted: false,
         },
         {
           type: types.DELETE_BUDGET_FAILURE,
@@ -80,7 +74,6 @@ describe('getBudgetList reducer test', () => {
       ),
     ).toEqual({
       deleting: false,
-      deleted: false,
       error: 'Test Error',
     });
   });

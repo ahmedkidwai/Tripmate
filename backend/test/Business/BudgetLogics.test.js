@@ -36,7 +36,7 @@ describe('Budget logics ', () => {
       expect(result.planned).equal(123);
       expect(result.used).equal(0);
       expect(result.pending).equal(123);
-      expect(result.budget).equal(0);
+      expect(result.budget).equal(123);
     });
   });
 

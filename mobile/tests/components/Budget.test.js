@@ -37,9 +37,9 @@ describe('Budget Component', () => {
     );
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.find(Text).exists()).toBe(true);
-    expect(wrapper.find(Text)).toHaveLength(6);
+    expect(wrapper.find(Text)).toHaveLength(8);
     expect(wrapper.find(TextInput).exists()).toBe(true);
-    expect(wrapper.find(TextInput)).toHaveLength(1);
+    expect(wrapper.find(TextInput)).toHaveLength(4);
     expect(wrapper.find(View).exists()).toBe(true);
     expect(wrapper.find(Button).exists()).toBe(true);
     expect(wrapper.find(Divider).exists()).toBe(true);

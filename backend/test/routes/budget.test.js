@@ -254,10 +254,12 @@ describe('budget expense routes', () => {
         // eslint-disable-next-line no-underscore-dangle
         .post(`/budget/${budg._id}/expenses/add`)
         .send({
-          name: 'Test expense',
-          amount: 123,
-          isDone: false,
-          date: '2020-01-02',
+          expenses: {
+            name: 'Test expense',
+            amount: 123,
+            isDone: false,
+            date: '2020-01-02',
+          },
         })
         .end((error, res) => {
           res.should.have.status(201);

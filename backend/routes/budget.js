@@ -77,9 +77,8 @@ router.route('/:id/expenses/:expense_id').get((req, res) => {
 });
 
 router.route('/:id/expenses/add').post((req, res) => {
-  const {name, amount, isDone, date} = req.body;
-
-  const newExpense = new Expenses({name, amount, isDone, date});
+  const {expenses} = req.body;
+  const newExpense = new Expenses(expenses);
 
   Budget.findById(req.params.id).then(budget => {
     budget.expenses.push(newExpense);

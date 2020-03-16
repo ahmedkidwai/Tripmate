@@ -1,7 +1,7 @@
-import reducer from '../../src/reducers/addBudget';
-import * as types from '../../src/actions/addBudget';
+import reducer from '../../src/reducers/updateBudget';
+import * as types from '../../src/actions/updateBudget';
 
-describe('addBudgetList reducer test', () => {
+describe('update budget reducer test', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       successMessage: '',
@@ -10,10 +10,10 @@ describe('addBudgetList reducer test', () => {
     });
   });
 
-  it('should handle ADD_BUDGET_BEGIN', () => {
+  it('should handle UPDATE_BUDGET_BEGIN', () => {
     expect(
       reducer([], {
-        type: types.ADD_BUDGET_BEGIN,
+        type: types.UPDATE_BUDGET_BEGIN,
       }),
     ).toEqual({
       uploading: true,
@@ -21,39 +21,39 @@ describe('addBudgetList reducer test', () => {
     });
   });
 
-  it('should handle ADD_BUDGET_SUCCESS', () => {
+  it('should handle UPDATE_BUDGET_SUCCESS', () => {
     expect(
       reducer([], {
-        type: types.ADD_BUDGET_SUCCESS,
+        type: types.UPDATE_BUDGET_SUCCESS,
         payload: {
-          data: 'Budget added.',
+          data: 'Budget updated.',
         },
       }),
     ).toEqual({
       uploading: false,
-      successMessage: 'Budget added.',
+      successMessage: 'Budget updated.',
     });
     expect(
       reducer(
         {successMessage: '', uploading: true, error: null},
         {
-          type: types.ADD_BUDGET_SUCCESS,
+          type: types.UPDATE_BUDGET_SUCCESS,
           payload: {
-            data: 'Budget added.',
+            data: 'Budget updated.',
           },
         },
       ),
     ).toEqual({
       uploading: false,
       error: null,
-      successMessage: 'Budget added.',
+      successMessage: 'Budget updated.',
     });
   });
 
-  it('should handle ADD_BUDGET_FAILURE', () => {
+  it('should handle UPDATE_BUDGET_FAILURE', () => {
     expect(
       reducer([], {
-        type: types.ADD_BUDGET_FAILURE,
+        type: types.UPDATE_BUDGET_FAILURE,
         payload: {error: 'Test Error'},
       }),
     ).toEqual({
@@ -68,7 +68,7 @@ describe('addBudgetList reducer test', () => {
           error: null,
         },
         {
-          type: types.ADD_BUDGET_FAILURE,
+          type: types.UPDATE_BUDGET_FAILURE,
           payload: {error: 'Test Error'},
         },
       ),

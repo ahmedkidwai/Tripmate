@@ -13,7 +13,7 @@ async function getBudgetSummary(targetBudget) {
   availableFund = targetBudget.budget - usedFund;
   if (Number.isNaN(availableFund)) availableFund = 0;
   let thisBudget = targetBudget.budget;
-  if (Number.isNaN(thisBudget) || this.budget === undefined) thisBudget = 0;
+  if (Number.isNaN(thisBudget) || thisBudget === undefined) thisBudget = 0;
   pendingFund = plannedFund - usedFund;
 
   return {
