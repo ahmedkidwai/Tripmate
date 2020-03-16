@@ -17,6 +17,20 @@ router.route('/add/:userId').post((req, res) => {
     newTrip
       .save()
       .then(savedNewTrip => {
+        const {budget} = req.body;
+        if (budget) {
+          const newBudget = new Budget({budget, tripId: savedNewTrip._id});
+          newBudget.save().catch(err => res.status(400).json(`Error: ${err}`));
+        } else {
+          const defaultBudget = new Budget({
+            budget: 0,
+            tripId: savedNewTrip._id,
+          });
+          defaultBudget
+            .save()
+            .catch(err => res.status(400).json(`Error: ${err}`));
+        }
+
         User.findByIdAndUpdate(
           savedNewTrip.userId,
           {$push: {trips: savedNewTrip._id}},

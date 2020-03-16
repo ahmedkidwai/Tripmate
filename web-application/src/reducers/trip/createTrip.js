@@ -7,7 +7,7 @@ import createReducer from '../createReducer';
 
 const initialState = {
   successMessage: null,
-  uploading: true,
+  uploading: false,
   error: null,
 };
 

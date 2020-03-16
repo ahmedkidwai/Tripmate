@@ -6,7 +6,7 @@ describe('createFlight reducer test', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       createSuccessMessage: null,
-      createLoading: true,
+      createLoading: false,
       createError: null,
     });
   });

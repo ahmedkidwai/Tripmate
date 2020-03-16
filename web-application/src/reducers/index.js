@@ -36,6 +36,10 @@ import addExpenses from './expense/addExpenses';
 import getExpensesList from './event/getExpensesList';
 import getExpenses from './expense/getExpenses';
 import deleteBudget from './budget/deleteBudget';
+import createTrip from './trip/createTrip';
+import deleteTrip from './trip/deleteTrip';
+import getTrips from './trip/getTrips';
+import updateTrip from './trip/updateTrip';
 
 export default combineReducers({
   user,
@@ -70,7 +74,6 @@ export default combineReducers({
     deleteTicket,
   }),
   event: combineReducers({getEvent, createEvent, updateEvent, deleteEvent}),
-
   budget: combineReducers({
     createBudget,
     getBudgetList,
@@ -82,5 +85,11 @@ export default combineReducers({
     getExpenses,
     updateExpenses,
     addExpenses,
+  }),
+  trip: combineReducers({
+    getTrips,
+    createTrip,
+    deleteTrip,
+    updateTrip,
   }),
 });

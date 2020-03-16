@@ -24,6 +24,7 @@ export const createTrip = (
   description,
   startDate,
   endDate,
+  budget,
 ) => {
   return dispatch => {
     dispatch(createTripBegin());
@@ -34,6 +35,7 @@ export const createTrip = (
         description,
         startDate,
         endDate,
+        budget,
       })
       .then(response => response.data)
       .then(successMessage => dispatch(createTripSuccess(successMessage)))

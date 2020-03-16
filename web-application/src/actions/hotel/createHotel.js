@@ -13,7 +13,7 @@ export const createHotelSuccess = successMessage => ({
   payload: {successMessage},
 });
 
-export const createHotelFail = error => ({
+export const createHotelFailure = error => ({
   type: CREATE_HOTEL_FAILURE,
   payload: {error},
 });
@@ -45,6 +45,6 @@ export const createHotel = (
       })
       .then(response => response.data)
       .then(successMessage => dispatch(createHotelSuccess(successMessage)))
-      .catch(error => dispatch(createHotelFail(error)));
+      .catch(error => dispatch(createHotelFailure(error)));
   };
 };

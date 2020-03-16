@@ -7,7 +7,7 @@ import createReducer from '../createReducer';
 
 const initialState = {
   deleteMessage: '',
-  deleting: true,
+  deleting: false,
   error: null,
 };
 

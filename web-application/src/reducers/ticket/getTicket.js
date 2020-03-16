@@ -7,7 +7,7 @@ import createReducer from '../createReducer';
 
 const initialState = {
   ticket: [],
-  loading: true,
+  loading: false,
   error: null,
 };
 

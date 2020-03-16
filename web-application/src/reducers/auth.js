@@ -68,6 +68,7 @@ const loginFail = state => {
 };
 
 const logout = state => {
+  state = undefined;
   localStorage.removeItem('token');
   return {
     ...state,

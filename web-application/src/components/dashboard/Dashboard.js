@@ -8,24 +8,15 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import HotelIcon from '@material-ui/icons/Hotel';
-import FlightIcon from '@material-ui/icons/Flight';
-import NoteIcon from '@material-ui/icons/Note';
-import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import InfoIcon from '@material-ui/icons/Info';
 import HomeIcon from '@material-ui/icons/Home';
-import ListIcon from '@material-ui/icons/List';
+import HistoryIcon from '@material-ui/icons/History';
 import '../../css/App.css';
-
 import {Switch, Route, Link, BrowserRouter} from 'react-router-dom';
-
-import ConnectedHotels from '../Hotels';
-import ConnectedBudget from '../Budget';
-import ConnectedToDoList from '../ToDoList';
-import ConnectedTicket from '../ticket/Ticket';
-import ConnectedAddTicket from '../ticket/AddTicket';
-import ConnectedFlight from '../flight/Flight';
-import ConnectedAddFlight from '../flight/AddFlight';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import ConnectedTrips from '../trip/Trips';
+import ConnectedPastTrips from '../trip/PastTrips';
 
 const drawerWidth = 240;
 
@@ -52,9 +43,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Dashboard() {
+function Dashboard(props) {
   const classes = useStyles();
-  return (
+  return props.user != null ? (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar} />
@@ -69,29 +60,23 @@ function Dashboard() {
           <div className={classes.toolbar} />
           <Divider />
           <List>
-            {['Home', 'Hotels', 'Flights', 'Tickets', 'Budgets', 'Todos'].map(
-              (text, index) => (
-                <ListItem
-                  button
-                  key={text}
-                  component={Link}
-                  to={
-                    text === 'Home'
-                      ? `/${text.replace('Home', '')}`
-                      : `/${text.replace(/ /g, '')}`
-                  }>
-                  <ListItemIcon>
-                    {index === 0 ? <HomeIcon /> : ''}
-                    {index === 1 ? <HotelIcon /> : ''}
-                    {index === 2 ? <FlightIcon /> : ''}
-                    {index === 3 ? <ConfirmationNumberIcon /> : ''}
-                    {index === 4 ? <NoteIcon /> : ''}
-                    {index === 5 ? <ListIcon /> : ''}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ),
-            )}
+            {['Home', 'Past Trips'].map((text, index) => (
+              <ListItem
+                button
+                key={text}
+                component={Link}
+                to={
+                  text === 'Home'
+                    ? `/${text.replace('Home', 'dashboard')}`
+                    : `/${text.replace(/ /g, '')}`
+                }>
+                <ListItemIcon>
+                  {index === 0 ? <HomeIcon /> : ''}
+                  {index === 1 ? <HistoryIcon /> : ''}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
           </List>
           <Divider />
           <List>
@@ -110,57 +95,8 @@ function Dashboard() {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <div>
-                  <h1> Welcome to Tripmate! By Kurt&apos;s Angels</h1>
-                </div>
-              )}
-            />
-            <Route
-              path="/Hotels"
-              render={() => (
-                <div>
-                  <ConnectedHotels />
-                </div>
-              )}
-            />
-            <Route
-              path="/Flights"
-              render={() => (
-                <div>
-                  <ConnectedAddFlight />
-                  <ConnectedFlight />
-                </div>
-              )}
-            />
-            <Route
-              path="/Tickets"
-              render={() => (
-                <div>
-                  <ConnectedAddTicket />
-                  <ConnectedTicket />
-                </div>
-              )}
-            />
-            <Route
-              path="/Budgets"
-              render={() => (
-                <div>
-                  <ConnectedBudget />
-                </div>
-              )}
-            />
-            <Route
-              path="/Todos"
-              render={() => (
-                <div>
-                  <ConnectedToDoList />
-                </div>
-              )}
-            />
+            <Route path="/dashboard" render={() => <ConnectedTrips />} />
+            <Route path="/PastTrips" render={() => <ConnectedPastTrips />} />
             <Route
               path="/About"
               render={() => (
@@ -193,7 +129,15 @@ function Dashboard() {
         </main>
       </BrowserRouter>
     </div>
-  );
+  ) : null;
 }
 
-export default Dashboard;
+Dashboard.propTypes = {
+  user: PropTypes.shape({}),
+};
+
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
+
+export default connect(mapStateToProps)(Dashboard);

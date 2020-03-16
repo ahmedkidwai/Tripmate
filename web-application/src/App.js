@@ -31,11 +31,7 @@ const App = props => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
-          <PrivateRoute exact path="/Hotels" component={Dashboard} />
-          <PrivateRoute exact path="/Flights" component={Dashboard} />
-          <PrivateRoute exact path="/Budgets" component={Dashboard} />
-          <PrivateRoute exact path="/Todos" component={Dashboard} />
-          <PrivateRoute exact path="/About" component={Dashboard} />
+          <PrivateRoute exact path="/PastTrips" component={Dashboard} />
         </Switch>
       </BrowserRouter>
     </div>

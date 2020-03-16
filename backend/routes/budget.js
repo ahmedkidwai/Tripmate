@@ -7,7 +7,7 @@ const {
 } = require('../Business/BugdetLogics');
 
 router.route('/trip/:tripId').get((req, res) => {
-  Budget.find({tripId: req.params.tripId})
+  Budget.findOne({tripId: req.params.tripId})
     .then(budget => res.json(budget))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
@@ -112,7 +112,7 @@ router.route('/:id/expenses/update/:expense_id').post((req, res) => {
       const expense = budget.expenses.id(req.params.expense_id);
       if (req.body.name) expense.name = req.body.name;
       if (req.body.amount) expense.amount = req.body.amount;
-      if (req.body.isDone) expense.isDone = req.body.isDone;
+      if (req.body.isDone !== undefined) expense.isDone = req.body.isDone;
       if (req.body.date) expense.date = req.body.date;
       budget
         .save()

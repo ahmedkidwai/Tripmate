@@ -9,11 +9,6 @@ const eventScheme = new Schema(
       required: true,
       trim: true,
     },
-    creator: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     description: {
       type: String,
       trim: true,

@@ -21,11 +21,6 @@ const expensesScheme = new Schema(
       required: true,
       unique: false,
     },
-    date: {
-      type: Date,
-      required: true,
-      trim: true,
-    },
   },
   {
     timestamps: true,

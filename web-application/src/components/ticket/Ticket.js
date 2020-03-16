@@ -1,77 +1,39 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {List, ListItem, ListItemText, makeStyles} from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 import {fetchTicket} from '../../actions/ticket/fetchTicket';
+import ConnectedTicketCard from './TicketCard';
 
 export const Ticket = props => {
   // on mount
   useEffect(() => {
-    props.dispatch(fetchTicket());
+    props.dispatch(fetchTicket(props.tripId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const useStyles = makeStyles(theme => ({
-    root: {
-      width: '100%',
-    },
-    listItemText: {
-      paddingLeft: theme.spacing(4),
-      fontSize: 12,
-    },
-  }));
-
-  const classes = useStyles();
-
   return !props.loading ? (
-    <div>
-      <h1>Ticket</h1>
-      {props.ticket.map(ticket => (
-        <div key={ticket._id}>
-          <List component="div" disablePadding className={classes.root}>
-            <ListItem>
-              <ListItemText
-                className={classes.listItemText}
-                primary={'Type'}
-                secondary={ticket.transportType}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                className={classes.listItemText}
-                primary="Departure"
-                secondary={`${ticket.start.location} - ${ticket.start.date}`}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                className={classes.listItemText}
-                primary="Arrival"
-                secondary={`${ticket.end.location} - ${ticket.end.date}`}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                className={classes.listItemText}
-                primary="Confirmation Number"
-                secondary={ticket.confirmationNumber}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                className={classes.listItemText}
-                primary="Notes"
-                secondary={ticket.notes}
-              />
-            </ListItem>
-          </List>
-        </div>
+    <Box display="flex" flexWrap="wrap">
+      {props.ticket.map((ticket, _id) => (
+        <ConnectedTicketCard key={_id} tripId={props.tripId} ticket={ticket} />
       ))}
-    </div>
-  ) : null;
+      {props.ticket.length < 1 ? (
+        <Box display="flex" alignItems="center">
+          <Typography variant="h6" component="h2">
+            You currently do not have any tickets.
+          </Typography>
+        </Box>
+      ) : null}
+    </Box>
+  ) : (
+    <CircularProgress />
+  );
 };
 
 Ticket.propTypes = {
+  tripId: PropTypes.string.isRequired,
   dispatch: PropTypes.func,
   ticket: PropTypes.array,
   loading: PropTypes.bool,

@@ -18,12 +18,12 @@ export const deleteTripFail = error => ({
   payload: {error},
 });
 
-export const deleteTrip = targetTrip => {
+export const deleteTrip = tripId => {
   return dispatch => {
     dispatch(deleteTripBegin());
 
     return axios
-      .delete(`/trip/${targetTrip._id}`)
+      .delete(`/trip/${tripId}`)
       .then(response => response.data)
       .then(deleteSuccessMessage =>
         dispatch(deleteTripSuccess(deleteSuccessMessage)),

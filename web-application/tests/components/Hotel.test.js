@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import expect from 'expect';
-import {Hotels} from '../../src/components/Hotels';
+import {Hotels} from '../../src/components/hotel/Hotels';
 
 Enzyme.configure({adapter: new Adapter()});
 

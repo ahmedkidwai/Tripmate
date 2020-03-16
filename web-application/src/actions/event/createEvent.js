@@ -21,7 +21,6 @@ export const createEventFail = error => ({
 export const createEvent = (
   tripId,
   eventTitle,
-  creatorId,
   description,
   startDate,
   endDate,
@@ -36,7 +35,6 @@ export const createEvent = (
         tripId,
         event: {
           title: eventTitle,
-          creator: creatorId,
           description,
           start: startDate,
           end: endDate,

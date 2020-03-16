@@ -7,7 +7,7 @@ import {
 import createReducer from '../createReducer';
 
 const initialState = {
-  budget: [],
+  budget: {},
   loading: true,
   error: null,
 };
@@ -26,7 +26,7 @@ const getBudgetListSuccessState = (state, action) => ({
 
 const getBudgetListFailureState = (state, action) => ({
   ...state,
-  budget: [],
+  budget: {},
   loading: false,
   error: action.payload.error,
 });
