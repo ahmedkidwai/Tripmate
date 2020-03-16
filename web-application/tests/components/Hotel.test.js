@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, {shallow, mount} from 'enzyme';
+import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import expect from 'expect';
 import {Hotels} from '../../src/components/Hotels';
@@ -11,9 +11,9 @@ describe('Hotels Component', () => {
     const wrapper = shallow(
       <Hotels
         hotel={[
-          {hotelname: 'Test Hotel 1'},
-          {hotelname: 'Test Hotel 2'},
-          {hotelname: 'Test Hotel 3'},
+          {_id: 1, hotelname: 'Test Hotel 1'},
+          {_id: 2, hotelname: 'Test Hotel 2'},
+          {_id: 3, hotelname: 'Test Hotel 3'},
         ]}
         loading={false}
       />,

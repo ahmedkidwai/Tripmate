@@ -13,9 +13,9 @@ export const Hotels = props => {
     return (
       <div>
         <h2>List of Hotels</h2>
-        <p>{props.hotel[0].hotelname}</p>
-        <p>{props.hotel[1].hotelname}</p>
-        <p>{props.hotel[2].hotelname}</p>
+        {props.hotel.map(hotel => (
+          <p key={hotel._id}>{hotel.hotelname}</p>
+        ))}
       </div>
     );
   }

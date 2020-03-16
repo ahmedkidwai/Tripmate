@@ -10,7 +10,7 @@ describe('ToDoList Component', () => {
   it('is not loading and should render self and sub elements', () => {
     const wrapper = shallow(
       <ToDoList
-        todolist={[{name: 'Test ToDo List', items: []}]}
+        todolist={[{_id: 1, name: 'Test ToDo List', items: []}]}
         loading={false}
       />,
     );
