@@ -13,6 +13,8 @@ import {updateBudget} from '../actions/updateBudget';
 import {Divider} from 'react-native-elements';
 import {addExpenses} from '../actions/addExpenses';
 
+import {updateExpenses} from '../actions/updateExpenses';
+
 export class Budget extends React.Component {
   constructor(props) {
     super(props);
@@ -54,6 +56,13 @@ export class Budget extends React.Component {
       this.props.fetchExpensesList(this.props.budget[0]._id);
       this.props.fetchBudget(this.props.budget[0]._id);
     }
+    if (
+      prevProps.expensesUpdating !== this.props.expensesUpdating &&
+      this.props.budget.length > 0
+    ) {
+      this.props.fetchExpenseSummary(this.props.budget[0]._id);
+      this.props.fetchExpensesList(this.props.budget[0]._id);
+    }
   }
 
   handleAddBudget(newBudget) {
@@ -62,6 +71,55 @@ export class Budget extends React.Component {
 
   handleDeleteBudget(targetBudget) {
     this.props.deleteBudget(targetBudget);
+  }
+
+  handleUpdateExpenses(budgetId, expensesId, updatedExpense) {
+    this.props.updateExpenses(budgetId, expensesId, updatedExpense);
+  }
+
+  handleRendingUpdateExpenses() {
+    return (
+      <View>
+        <TextInput
+          style={styles.placeholder}
+          placeholder="Enter updated Expenses Name"
+          onChangeText={textEntry => {
+            this.newName = textEntry;
+          }}
+        />
+        <TextInput
+          style={styles.placeholder}
+          placeholder="Enter updated Expenses amount"
+          onChangeText={textEntry => {
+            this.newAmount = textEntry;
+          }}
+        />
+        <TextInput
+          style={styles.placeholder}
+          placeholder="Enter updated Expenses date"
+          onChangeText={textEntry => {
+            this.newDate = textEntry;
+          }}
+        />
+
+        <Button
+          Success
+          onPress={() => {
+            this.handleUpdateExpenses(
+              this.props.budget[0]._id,
+              this.props.expensesList[0]._id,
+              {
+                name: this.newName,
+                amount: this.newAmount,
+                date: this.newDate,
+                isDone: false,
+              },
+            );
+          }}>
+          <Text> update expenses </Text>
+        </Button>
+      </View>
+    );
   }
 
   handleGetBudgetRender() {
@@ -230,6 +288,8 @@ export class Budget extends React.Component {
           <Divider style={styles.divider} />
           {this.handleGenerateExpensesList()}
           <Divider style={styles.divider} />
+          {this.handleRendingUpdateExpenses()}
+          <Divider style={styles.divider} />
           {this.handleGenerateBudgetList(this.props.budget)}
           <Divider style={styles.divider} />
           <TextInput
@@ -287,6 +347,10 @@ Budget.Prototype = {
   singleBudget: PropTypes.object,
   singleBudgetLoading: PropTypes.bool,
   singleBudgetError: PropTypes.string,
+  //update expenses
+  updateExpenses: PropTypes.func,
+  expensesUpdating: PropTypes.bool,
+  expensesUpdateSuccessMessage: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
@@ -320,6 +384,9 @@ const mapStateToProps = state => ({
   singleBudget: state.budget.getBudget.budget,
   singleBudgetLoading: state.budget.getBudget.loading,
   singleBudgetError: state.budget.getBudget.error,
+  //update expenses
+  expensesUpdating: state.budget.updateExpenses.uploading,
+  expensesUpdateSuccessMessage: state.budget.updateExpenses.successMessage,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -329,6 +396,8 @@ const mapDispatchToProps = dispatch => ({
   deleteBudget: targetBudget => dispatch(deleteBudget(targetBudget)),
   fetchExpenseSummary: id => dispatch(fetchExpenseSummary(id)),
   fetchExpensesList: id => dispatch(fetchExpensesList(id)),
+  updateExpenses: (budgetId, expensesId, updatedExpense) =>
+    dispatch(updateExpenses(budgetId, expensesId, updatedExpense)),
   updateBudget: (id, newBudget) => dispatch(updateBudget(id, newBudget)),
   addExpenses: (id, newExpenses) => dispatch(addExpenses(id, newExpenses)),
 });

@@ -6,6 +6,7 @@ import summary from './getExpenseSummary';
 import addBudget from './addBudget';
 import deleteBudget from './deleteBudget';
 import getExpensesList from './getExpensesList';
+import updateExpenses from './updateExpenses';
 import getToDoList from './getToDoList';
 import createToDoList from './createToDoList';
 import deleteToDoList from './deleteToDoList';
@@ -27,6 +28,7 @@ export default combineReducers({
     getExpensesList,
     updateBudget,
     summary,
+    updateExpenses,
     addExpenses,
   }),
 

@@ -309,7 +309,12 @@ describe('budget expense routes', () => {
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
         .post(`/budget/${budg._id}/expenses/update/${budg.expenses[0]._id}`)
-        .send({name: 'New expense', amount: 789})
+        .send({
+          name: 'New expense',
+          amount: 789,
+          isDone: true,
+          date: '2024-05-10',
+        })
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.eql('Expense updated!');
