@@ -57,7 +57,7 @@ describe('flight routes', () => {
     chai
       .request(server)
       .post('/flight/add_api')
-      .send({number: 'DL47', date: '2019-08-29'})
+      .send({number: 'SU2612', date: '2019-12-26'})
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.eql('Flight added!');
