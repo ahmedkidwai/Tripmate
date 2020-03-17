@@ -7,11 +7,12 @@ import {fetchBudget} from '../actions/fetchBudget';
 import {addBudget} from '../actions/addBudget';
 import {deleteBudget} from '../actions/deleteBudget';
 import {fetchExpenseSummary} from '../actions/fetchExpenseSummary';
-import {connect} from 'react-redux';
+import {deleteExpenses} from '../actions/deleteExpenses';
 import {fetchExpensesList} from '../actions/fetchExpensesList';
 import {updateBudget} from '../actions/updateBudget';
 import {Divider} from 'react-native-elements';
 import {addExpenses} from '../actions/addExpenses';
+import {connect} from 'react-redux';
 
 import {updateExpenses} from '../actions/updateExpenses';
 
@@ -74,6 +75,10 @@ export class Budget extends React.Component {
         this.props.expensesList[0]._id,
       );
     }
+    if (prevProps.expensesDeleting !== this.props.expensesDeleting) {
+      this.props.fetchExpensesList(this.props.budget[0]._id);
+      this.props.fetchExpenseSummary(this.props.budget[0]._id);
+    }
   }
 
   handleAddBudget(newBudget) {
@@ -82,6 +87,9 @@ export class Budget extends React.Component {
 
   handleDeleteBudget(targetBudget) {
     this.props.deleteBudget(targetBudget);
+  }
+  handleDeleteExpenses(id, targetExpenses) {
+    this.props.deleteExpenses(id, targetExpenses);
   }
 
   handleUpdateExpenses(budgetId, expensesId, updatedExpense) {
@@ -269,13 +277,13 @@ export class Budget extends React.Component {
   }
 
   handleFetchExpense() {
-    return (
+    return !this.props.expensesLoading && this.props.expenses != null ? (
       <View>
         <Text>expense name: {this.props.expenses.name}</Text>
         <Text>expense amount: {this.props.expenses.amount}</Text>
         <Text>expense date: {this.props.expenses.date}</Text>
       </View>
-    );
+    ) : null;
   }
 
   handleParseDate(date) {
@@ -294,6 +302,13 @@ export class Budget extends React.Component {
           {this.handleParseDate(expenses.date)}, {expenses.name},{' '}
           {expenses.amount}
         </Text>
+        <Button
+          danger
+          onPress={() => {
+            this.handleDeleteExpenses(this.props.budget[0]._id, expenses);
+          }}>
+          <Text>Delete Expenses</Text>
+        </Button>
       </View>
     ));
   }
@@ -359,6 +374,7 @@ Budget.Prototype = {
   expensesListLoading: PropTypes.bool,
   expensesListError: PropTypes.string,
 
+  fetchExpenses: PropTypes.func,
   expenses: PropTypes.object,
   expensesLoading: PropTypes.bool,
   expensesError: PropTypes.string,
@@ -370,11 +386,15 @@ Budget.Prototype = {
   //add expenses
   expensesUploading: PropTypes.bool,
   expensesAddSuccessMessage: PropTypes.string,
-
+  //fetch single budget
   fetchBudget: PropTypes.func,
   singleBudget: PropTypes.object,
   singleBudgetLoading: PropTypes.bool,
   singleBudgetError: PropTypes.string,
+  //delete expenses
+  deleteExpenses: PropTypes.func,
+  expensesDeleting: PropTypes.bool,
+  expensesDeleteMessage: PropTypes.string,
   //update expenses
   updateExpenses: PropTypes.func,
   expensesUpdating: PropTypes.bool,
@@ -402,6 +422,9 @@ const mapStateToProps = state => ({
   expensesList: state.budget.getExpensesList.expensesList,
   expensesListLoading: state.budget.getExpensesList.loading,
   expensesListError: state.budget.getExpensesList.error,
+  //delete expenses
+  expensesDeleting: state.budget.deleteExpenses.deleting,
+  expensesDeleteMessage: state.budget.deleteExpenses.deleteMessage,
   //update budget
   budgetUpdating: state.budget.updateBudget.uploading,
   updateSuccessMessage: state.budget.updateBudget.successMessage,
@@ -429,6 +452,7 @@ const mapDispatchToProps = dispatch => ({
   deleteBudget: targetBudget => dispatch(deleteBudget(targetBudget)),
   fetchExpenseSummary: id => dispatch(fetchExpenseSummary(id)),
   fetchExpensesList: id => dispatch(fetchExpensesList(id)),
+  deleteExpenses: (id, expenses) => dispatch(deleteExpenses(id, expenses)),
   updateExpenses: (budgetId, expensesId, updatedExpense) =>
     dispatch(updateExpenses(budgetId, expensesId, updatedExpense)),
   updateBudget: (id, newBudget) => dispatch(updateBudget(id, newBudget)),

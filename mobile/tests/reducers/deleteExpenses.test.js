@@ -1,7 +1,7 @@
-import reducer from '../../src/reducers/deleteBudget';
-import * as types from '../../src/actions/deleteBudget';
+import reducer from '../../src/reducers/deleteExpenses';
+import * as types from '../../src/actions/deleteExpenses';
 
-describe('deleteBudgetList reducer test', () => {
+describe('deleteExpenses reducer test', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       deleteMessage: '',
@@ -10,10 +10,10 @@ describe('deleteBudgetList reducer test', () => {
     });
   });
 
-  it('should handle DELETE_BUDGET_BEGIN', () => {
+  it('should handle DELETE_EXPENSES_BEGIN', () => {
     expect(
       reducer([], {
-        type: types.DELETE_BUDGET_BEGIN,
+        type: types.DELETE_EXPENSES_BEGIN,
       }),
     ).toEqual({
       deleting: true,
@@ -21,39 +21,39 @@ describe('deleteBudgetList reducer test', () => {
     });
   });
 
-  it('should handle DELETE_BUDGET_SUCCESS', () => {
+  it('should handle DELETE_EXPENSES_SUCCESS', () => {
     expect(
       reducer([], {
-        type: types.DELETE_BUDGET_SUCCESS,
+        type: types.DELETE_EXPENSES_SUCCESS,
         payload: {
-          data: 'Budget deleted.',
+          data: 'Expenses deleted.',
         },
       }),
     ).toEqual({
       deleting: false,
-      deleteMessage: 'Budget deleted.',
+      deleteMessage: 'Expenses deleted.',
     });
     expect(
       reducer(
         {deleteMessage: '', deleting: true, error: null},
         {
-          type: types.DELETE_BUDGET_SUCCESS,
+          type: types.DELETE_EXPENSES_SUCCESS,
           payload: {
-            data: 'Budget deleted.',
+            data: 'Expenses deleted.',
           },
         },
       ),
     ).toEqual({
       deleting: false,
       error: null,
-      deleteMessage: 'Budget deleted.',
+      deleteMessage: 'Expenses deleted.',
     });
   });
 
-  it('should handle DELETE_BUDGET_FAILURE', () => {
+  it('should handle DELETE_EXPENSES_FAILURE', () => {
     expect(
       reducer([], {
-        type: types.DELETE_BUDGET_FAILURE,
+        type: types.DELETE_EXPENSES_FAILURE,
         payload: {error: 'Test Error'},
       }),
     ).toEqual({
@@ -68,12 +68,13 @@ describe('deleteBudgetList reducer test', () => {
           error: null,
         },
         {
-          type: types.DELETE_BUDGET_FAILURE,
+          type: types.DELETE_EXPENSES_FAILURE,
           payload: {error: 'Test Error'},
         },
       ),
     ).toEqual({
       deleting: false,
+
       error: 'Test Error',
     });
   });

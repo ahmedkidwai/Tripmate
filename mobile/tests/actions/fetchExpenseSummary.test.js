@@ -11,7 +11,7 @@ const mockStore = configureMockStore(middleware);
 const mockAxios = new MockAdapter(axios);
 const store = mockStore({});
 
-describe('fetch budget list actions', () => {
+describe('fetch expenses summary actions', () => {
   beforeEach(() => {
     store.clearActions();
   });

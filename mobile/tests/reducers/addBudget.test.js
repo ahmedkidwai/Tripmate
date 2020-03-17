@@ -1,7 +1,7 @@
 import reducer from '../../src/reducers/addBudget';
 import * as types from '../../src/actions/addBudget';
 
-describe('addBudgetList reducer test', () => {
+describe('addBudget reducer test', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       successMessage: '',

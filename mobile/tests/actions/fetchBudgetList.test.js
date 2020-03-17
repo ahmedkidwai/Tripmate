@@ -16,7 +16,7 @@ describe('fetch budget list actions', () => {
     store.clearActions();
   });
 
-  it('creates GET_BUDGET_LIST_SUCCESS when fetching budget has been done', () => {
+  it('creates GET_BUDGET_LIST_SUCCESS when fetching budget list has been done', () => {
     mockAxios.onGet(url + '/budget').reply(200, [
       {
         _id: '5e4f6675eddfd25ef052f9c0',
@@ -48,7 +48,7 @@ describe('fetch budget list actions', () => {
     });
   });
 
-  it('creates GET_BUDGET_LIST_FAILURE when fetching budget has failed', () => {
+  it('creates GET_BUDGET_LIST_FAILURE when fetching budget list has failed', () => {
     mockAxios.onGet(url + '/budget').reply(500);
 
     return store.dispatch(actions.fetchBudgetList()).then(() => {

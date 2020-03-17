@@ -24,7 +24,7 @@ describe('delete budget actions', () => {
     store.clearActions();
   });
 
-  it('creates DELETE_BUDGET_SUCCESS when fetching budget has been done', () => {
+  it('creates DELETE_BUDGET_SUCCESS when delete budget has been done', () => {
     mockAxios
       .onDelete(url + '/budget/' + budget._id)
       .reply(200, [{data: 'Budget deleted.'}]);
@@ -42,7 +42,7 @@ describe('delete budget actions', () => {
     });
   });
 
-  it('creates DELETE_BUDGET_FAILURE when fetching budget has failed', () => {
+  it('creates DELETE_BUDGET_FAILURE when delete budget has failed', () => {
     mockAxios.onDelete(url + '/budget/' + budget._id).reply(500);
 
     return store.dispatch(actions.deleteBudget(budget)).then(() => {

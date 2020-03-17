@@ -15,7 +15,7 @@ describe('add budget actions', () => {
   beforeEach(() => {
     store.clearActions();
   });
-  it('creates POST_BUDGET_LIST_SUCCESS when fetching budget has been done', () => {
+  it('creates ADD_BUDGET_SUCCESS when fetching budget has been done', () => {
     mockAxios.onPost(url + '/budget/add').reply(200, [
       {
         data: 'Budget added.',
@@ -39,7 +39,7 @@ describe('add budget actions', () => {
     });
   });
 
-  it('creates ADD_BUDGET_LIST_FAILURE when fetching budget has failed', () => {
+  it('creates ADD_BUDGET_FAILURE when fetching budget has failed', () => {
     mockAxios.onPost(url + '/budget/add').reply(500);
 
     return store.dispatch(actions.addBudget()).then(() => {
