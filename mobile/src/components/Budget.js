@@ -15,6 +15,8 @@ import {addExpenses} from '../actions/addExpenses';
 
 import {updateExpenses} from '../actions/updateExpenses';
 
+import {fetchExpenses} from '../actions/fetchExpenses';
+
 export class Budget extends React.Component {
   constructor(props) {
     super(props);
@@ -62,6 +64,15 @@ export class Budget extends React.Component {
     ) {
       this.props.fetchExpenseSummary(this.props.budget[0]._id);
       this.props.fetchExpensesList(this.props.budget[0]._id);
+    }
+    if (
+      this.props.expensesList.length > 0 &&
+      this.props.expensesListLoading !== prevProps.expensesListLoading
+    ) {
+      this.props.fetchExpenses(
+        this.props.budget[0]._id,
+        this.props.expensesList[0]._id,
+      );
     }
   }
 
@@ -256,6 +267,17 @@ export class Budget extends React.Component {
       </View>
     );
   }
+
+  handleFetchExpense() {
+    return (
+      <View>
+        <Text>expense name: {this.props.expenses.name}</Text>
+        <Text>expense amount: {this.props.expenses.amount}</Text>
+        <Text>expense date: {this.props.expenses.date}</Text>
+      </View>
+    );
+  }
+
   handleParseDate(date) {
     var newDate = new Date(date);
     var month = newDate.getMonth() + 1;
@@ -289,6 +311,8 @@ export class Budget extends React.Component {
           {this.handleGenerateExpensesList()}
           <Divider style={styles.divider} />
           {this.handleRendingUpdateExpenses()}
+          <Divider style={styles.divider} />
+          {this.handleFetchExpense()}
           <Divider style={styles.divider} />
           {this.handleGenerateBudgetList(this.props.budget)}
           <Divider style={styles.divider} />
@@ -332,6 +356,10 @@ Budget.Prototype = {
   summaryError: PropTypes.string,
   //get sorted expenses
   expensesList: PropTypes.array,
+  expensesListLoading: PropTypes.bool,
+  expensesListError: PropTypes.string,
+
+  expenses: PropTypes.object,
   expensesLoading: PropTypes.bool,
   expensesError: PropTypes.string,
 
@@ -372,8 +400,8 @@ const mapStateToProps = state => ({
   summaryError: state.budget.summary.summaryError,
   //get sorted expenses
   expensesList: state.budget.getExpensesList.expensesList,
-  expensesLoading: state.budget.getExpensesList.loading,
-  expensesError: state.budget.getExpensesList.error,
+  expensesListLoading: state.budget.getExpensesList.loading,
+  expensesListError: state.budget.getExpensesList.error,
   //update budget
   budgetUpdating: state.budget.updateBudget.uploading,
   updateSuccessMessage: state.budget.updateBudget.successMessage,
@@ -387,6 +415,11 @@ const mapStateToProps = state => ({
   //update expenses
   expensesUpdating: state.budget.updateExpenses.uploading,
   expensesUpdateSuccessMessage: state.budget.updateExpenses.successMessage,
+
+  //fetch expenses
+  expenses: state.budget.getExpenses.expenses,
+  expensesLoading: state.budget.getExpenses.loading,
+  expensesError: state.budget.getExpenses.error,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -400,6 +433,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateExpenses(budgetId, expensesId, updatedExpense)),
   updateBudget: (id, newBudget) => dispatch(updateBudget(id, newBudget)),
   addExpenses: (id, newExpenses) => dispatch(addExpenses(id, newExpenses)),
+  fetchExpenses: (budgetId, expenseId) =>
+    dispatch(fetchExpenses(budgetId, expenseId)),
 });
 
 const styles = StyleSheet.create({

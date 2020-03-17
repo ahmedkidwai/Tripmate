@@ -39,13 +39,23 @@ describe('Budget Component', () => {
           updatedAt: '2020-02-21T05:11:17.039Z',
           __v: 0,
         }}
+        expenses={{
+          _id: '5e6b0b033c476410c04e0047',
+          name: 'Test',
+          amount: 90,
+          isDone: false,
+          date: '2020-01-01T00:00:00.000Z',
+          createdAt: '2020-03-13T04:24:35.862Z',
+          updatedAt: '2020-03-13T04:24:35.862Z',
+        }}
         expensesList={[]}
         loading={false}
       />,
     );
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.find(Text).exists()).toBe(true);
-    expect(wrapper.find(Text)).toHaveLength(10);
+    expect(wrapper.find(Text)).toHaveLength(13);
+    expect(wrapper.find(Text)).toHaveLength(13);
     expect(wrapper.find(TextInput).exists()).toBe(true);
     expect(wrapper.find(TextInput)).toHaveLength(7);
     expect(wrapper.find(View).exists()).toBe(true);
