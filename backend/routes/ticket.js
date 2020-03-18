@@ -30,66 +30,28 @@ router.route('/:id').delete((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.route('/update_type/:id').post((req, res) => {
+router.route('/update/:id').post((req, res) => {
   Ticket.findById(req.params.id)
     .then(ticket => {
-      ticket.transportType = req.body.transportType;
+      if (req.body.transportType) {
+        ticket.transportType = req.body.transportType;
+      }
+      if (req.body.start) {
+        ticket.start = req.body.start;
+      }
+      if (req.body.end) {
+        ticket.end = req.body.end;
+      }
+      if (req.body.confirmationNumber) {
+        ticket.confirmationNumber = req.body.confirmationNumber;
+      }
+      if (req.body.notes) {
+        ticket.notes = req.body.notes;
+      }
 
       ticket
         .save()
-        .then(() => res.json('Ticket transport type updated!'))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
-});
-
-router.route('/update_start/:id').post((req, res) => {
-  Ticket.findById(req.params.id)
-    .then(ticket => {
-      ticket.start = req.body.start;
-
-      ticket
-        .save()
-        .then(() => res.json('Ticket start updated!'))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
-});
-
-router.route('/update_end/:id').post((req, res) => {
-  Ticket.findById(req.params.id)
-    .then(ticket => {
-      ticket.end = req.body.end;
-
-      ticket
-        .save()
-        .then(() => res.json('Ticket end updated!'))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
-});
-
-router.route('/update_confirmation_number/:id').post((req, res) => {
-  Ticket.findById(req.params.id)
-    .then(ticket => {
-      ticket.confirmationNumber = req.body.confirmationNumber;
-
-      ticket
-        .save()
-        .then(() => res.json('Ticket confirmation number updated!'))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
-});
-
-router.route('/update_notes/:id').post((req, res) => {
-  Ticket.findById(req.params.id)
-    .then(ticket => {
-      ticket.notes = req.body.notes;
-
-      ticket
-        .save()
-        .then(() => res.json('Ticket notes updated!'))
+        .then(() => res.json('Ticket updated!'))
         .catch(err => res.status(400).json(`Error: ${err}`));
     })
     .catch(err => res.status(400).json(`Error: ${err}`));

@@ -23,6 +23,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.3",
     "request": "^2.88.2",
+    "nock": "^12.0.3",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {

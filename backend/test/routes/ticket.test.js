@@ -30,7 +30,7 @@ describe('ticket routes', () => {
     await mongoose.disconnect();
   });
 
-  it('/ should get all tickets', done => {
+  it('it should get all tickets', done => {
     chai
       .request(server)
       .get('/ticket')
@@ -41,7 +41,7 @@ describe('ticket routes', () => {
       });
   });
 
-  it('/ add should add a new ticket', done => {
+  it('it add should add a new ticket', done => {
     chai
       .request(server)
       .post('/ticket/add')
@@ -129,11 +129,11 @@ describe('ticket routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .post(`/ticket/update_type/${tick._id}`)
+        .post(`/ticket/update/${tick._id}`)
         .send({transportType: 'Rail'})
         .end((error, res) => {
           res.should.have.status(200);
-          res.body.should.be.eql('Ticket transport type updated!');
+          res.body.should.be.eql('Ticket updated!');
           done();
         });
     });

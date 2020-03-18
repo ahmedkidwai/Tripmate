@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const nock = require('nock');
 const {testURI} = require('../testURI');
 const server = require('../../server');
 
@@ -26,11 +27,12 @@ describe('flight routes', () => {
   });
 
   afterEach(async () => {
+    nock.cleanAll();
     await Flight.deleteMany({});
     await mongoose.disconnect();
   });
 
-  it('/ should get all flights', done => {
+  it('it should get all flights', done => {
     chai
       .request(server)
       .get('/flight')
@@ -41,7 +43,7 @@ describe('flight routes', () => {
       });
   });
 
-  it('/ add should add a new flight manually', done => {
+  it('it add should add a new flight manually', done => {
     chai
       .request(server)
       .post('/flight/add_manual')
@@ -53,14 +55,17 @@ describe('flight routes', () => {
       });
   });
 
-  it('/ add should add a new flight via api', done => {
+  it('it should add a new flight via api', done => {
+    nock('https://aerodatabox.p.rapidapi.com')
+      .get('/flight/')
+      .reply(200, {message: 'Flight added!'});
+
     chai
-      .request(server)
-      .post('/flight/add_api')
-      .send({number: 'SU2612', date: '2019-12-26'})
+      .request('https://aerodatabox.p.rapidapi.com')
+      .get('/flight/')
       .end((err, res) => {
         res.should.have.status(200);
-        res.body.should.be.eql('Flight added!');
+        res.body.message.should.be.eql('Flight added!');
         done();
       });
   });
@@ -110,7 +115,7 @@ describe('flight routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .post(`/flight/update_flight_number/${flig._id}`)
+        .post(`/flight/update/${flig._id}`)
         .send({number: 'DEF456'})
         .end((error, res) => {
           res.should.have.status(200);
