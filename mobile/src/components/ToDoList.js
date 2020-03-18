@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
 import {fetchToDoList} from '../actions/fetchTodoList';
 import {deleteToDoList} from '../actions/deleteToDoList';
+import {deleteToDoItem} from '../actions/deleteToDoItem';
+import {updateToDoList} from '../actions/updateToDoList';
+import {updateToDoItem} from '../actions/updateToDoItem';
 import {connect} from 'react-redux';
 
 import {
@@ -17,6 +20,10 @@ import {
   Icon,
   View,
   Spinner,
+  Form,
+  Item,
+  Label,
+  Input,
 } from 'native-base';
 
 export class ToDoList extends React.Component {
@@ -29,9 +36,37 @@ export class ToDoList extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.deleteListLoading !== this.props.deleteListLoading) {
+    if (
+      prevProps.deleteListLoading !== this.props.deleteListLoading ||
+      prevProps.deleteItemLoading !== this.props.deleteItemLoading ||
+      prevProps.updateListLoading !== this.props.updateListLoading ||
+      prevProps.updateItemLoading !== this.props.updateItemLoading
+    ) {
       this.props.fetchToDoList();
     }
+  }
+
+  state = {
+    isShowingListInput: false,
+    isShowingItemInput: false,
+  };
+
+  displayEditListBox() {
+    this.setState({isShowingListInput: true});
+  }
+
+  displayEditItemBox() {
+    this.setState({isShowingItemInput: true});
+  }
+
+  handleUpdateToDoList(todolistid, newTodolist) {
+    this.props.updateToDoList(todolistid, newTodolist);
+    this.setState({isShowingListInput: false});
+  }
+
+  handleUpdateToDoItem(listId, itemId, newTodoItem, newTodoItemState) {
+    this.props.updateToDoItem(listId, itemId, newTodoItem, newTodoItemState);
+    this.setState({isShowingItemInput: false});
   }
 
   render() {
@@ -44,7 +79,14 @@ export class ToDoList extends React.Component {
                 <Title>{todolist.name}</Title>
 
                 <View style={styles.placeholder}>
-                  <Button small primary iconLeft light>
+                  <Button
+                    onPress={() => {
+                      this.displayEditListBox();
+                    }}
+                    small
+                    primary
+                    iconLeft
+                    light>
                     <Icon name="md-create" />
                     <Text>Edit</Text>
                   </Button>
@@ -60,6 +102,37 @@ export class ToDoList extends React.Component {
                   </Button>
                 </View>
               </View>
+              {this.state.isShowingListInput && (
+                <View>
+                  <View>
+                    <Form>
+                      <Item floatingLabel>
+                        <Label>list name</Label>
+                        <Input
+                          onChangeText={textEntry => {
+                            this.newToDoList = textEntry;
+                          }}
+                        />
+                      </Item>
+                    </Form>
+                  </View>
+                  <Content>
+                    <Button
+                      onPress={() => {
+                        this.handleUpdateToDoList(
+                          todolist._id,
+                          this.newToDoList,
+                        );
+                      }}
+                      small
+                      light
+                      transparent>
+                      <Icon name="md-create" />
+                      <Text>Update</Text>
+                    </Button>
+                  </Content>
+                </View>
+              )}
               {todolist.items.map(todoitem => (
                 <View key={todoitem._id}>
                   <ListItem>
@@ -67,7 +140,60 @@ export class ToDoList extends React.Component {
                     <Body>
                       <Text> {todoitem.content} </Text>
                     </Body>
+                    <Button
+                      onPress={() => {
+                        this.displayEditItemBox();
+                      }}
+                      small
+                      primary
+                      iconLeft
+                      light>
+                      <Icon name="md-create" />
+                      <Text>Edit</Text>
+                    </Button>
+                    <Button
+                      onPress={() => {
+                        this.props.deleteToDoItem(todolist._id, todoitem._id);
+                      }}
+                      small
+                      light>
+                      <Icon name="md-remove-circle" />
+                      <Text>Delete</Text>
+                    </Button>
                   </ListItem>
+                  {this.state.isShowingItemInput && (
+                    <View>
+                      <View>
+                        <Form>
+                          <Item floatingLabel>
+                            <Label>item name</Label>
+                            <Input
+                              onChangeText={textEntry => {
+                                this.newTodoitem = textEntry;
+                              }}
+                            />
+                          </Item>
+                        </Form>
+                      </View>
+                      <Content>
+                        <Button
+                          onPress={() => {
+                            this.handleUpdateToDoItem(
+                              todolist._id,
+                              todoitem._id,
+                              this.newTodoitem,
+                              todoitem.done,
+                            );
+                          }}
+                          small
+                          light
+                          transparent>
+                          <Icon name="md-create" />
+                          <Text>Update</Text>
+                        </Button>
+                      </Content>
+                    </View>
+                  )}
                 </View>
               ))}
             </View>
@@ -135,6 +261,11 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => ({
   fetchToDoList: () => dispatch(fetchToDoList()),
   deleteToDoList: targetListid => dispatch(deleteToDoList(targetListid)),
+  deleteToDoItem: (listId, itemId) => dispatch(deleteToDoItem(listId, itemId)),
+  updateToDoList: (listId, newTodoList) =>
+    dispatch(updateToDoList(listId, newTodoList)),
+  updateToDoItem: (listId, itemId, newTodoItem, newTodoItemState) =>
+    dispatch(updateToDoItem(listId, itemId, newTodoItem, newTodoItemState)),
 });
 
 export default connect(
