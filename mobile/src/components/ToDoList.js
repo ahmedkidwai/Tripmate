@@ -6,6 +6,8 @@ import {deleteToDoList} from '../actions/deleteToDoList';
 import {deleteToDoItem} from '../actions/deleteToDoItem';
 import {updateToDoList} from '../actions/updateToDoList';
 import {updateToDoItem} from '../actions/updateToDoItem';
+import {createToDoList} from '../actions/createToDoList';
+import {createToDoItem} from '../actions/createToDoItem';
 import {connect} from 'react-redux';
 
 import {
@@ -20,8 +22,6 @@ import {
   Icon,
   View,
   Spinner,
-  Form,
-  Item,
   Label,
   Input,
 } from 'native-base';
@@ -40,48 +40,69 @@ export class ToDoList extends React.Component {
       prevProps.deleteListLoading !== this.props.deleteListLoading ||
       prevProps.deleteItemLoading !== this.props.deleteItemLoading ||
       prevProps.updateListLoading !== this.props.updateListLoading ||
-      prevProps.updateItemLoading !== this.props.updateItemLoading
+      prevProps.updateItemLoading !== this.props.updateItemLoading ||
+      prevProps.createItemLoading !== this.props.createItemLoading ||
+      prevProps.createListLoading !== this.props.createListLoading
     ) {
       this.props.fetchToDoList();
     }
   }
 
-  state = {
-    isShowingListInput: false,
-    isShowingItemInput: false,
-  };
-
-  displayEditListBox() {
-    this.setState({isShowingListInput: true});
-  }
-
-  displayEditItemBox() {
-    this.setState({isShowingItemInput: true});
-  }
-
   handleUpdateToDoList(todolistid, newTodolist) {
     this.props.updateToDoList(todolistid, newTodolist);
-    this.setState({isShowingListInput: false});
   }
 
   handleUpdateToDoItem(listId, itemId, newTodoItem, newTodoItemState) {
     this.props.updateToDoItem(listId, itemId, newTodoItem, newTodoItemState);
-    this.setState({isShowingItemInput: false});
+  }
+
+  handleUpdateToDoItemStatus(listId, itemId, itemContent, todoItemState) {
+    this.props.updateToDoItem(listId, itemId, itemContent, !todoItemState);
+  }
+
+  handleAddToDoItem(listId, itemContent) {
+    this.props.createToDoItem(listId, itemContent);
+  }
+
+  handleAddToDoList(listName) {
+    this.props.createToDoList(listName);
   }
 
   render() {
     return !this.props.loading ? (
       <Container>
         <Content>
+          {
+            <View>
+              <Button
+                transparent
+                onPress={() => {
+                  this.handleAddToDoList(this.listname);
+                }}>
+                <Input
+                  onChangeText={textEntry => {
+                    this.listname = textEntry;
+                  }}
+                  placeholder="add new list"
+                />
+                <Icon name="add" />
+              </Button>
+            </View>
+          }
           {this.props.todolist.map(todolist => (
             <View key={todolist._id}>
               <View style={styles.placeholder}>
-                <Title>{todolist.name}</Title>
+                <Input
+                  onChangeText={textEntry => {
+                    this.newToDoList = textEntry;
+                  }}>
+                  <Title>{todolist.name}</Title>
+                </Input>
 
                 <View style={styles.placeholder}>
                   <Button
                     onPress={() => {
-                      this.displayEditListBox();
+                      this.handleUpdateToDoList(todolist._id, this.newToDoList);
                     }}
                     small
                     primary
@@ -102,47 +123,36 @@ export class ToDoList extends React.Component {
                   </Button>
                 </View>
               </View>
-              {this.state.isShowingListInput && (
-                <View>
-                  <View>
-                    <Form>
-                      <Item floatingLabel>
-                        <Label>list name</Label>
-                        <Input
-                          onChangeText={textEntry => {
-                            this.newToDoList = textEntry;
-                          }}
-                        />
-                      </Item>
-                    </Form>
-                  </View>
-                  <Content>
-                    <Button
-                      onPress={() => {
-                        this.handleUpdateToDoList(
-                          todolist._id,
-                          this.newToDoList,
-                        );
-                      }}
-                      small
-                      light
-                      transparent>
-                      <Icon name="md-create" />
-                      <Text>Update</Text>
-                    </Button>
-                  </Content>
-                </View>
-              )}
               {todolist.items.map(todoitem => (
                 <View key={todoitem._id}>
-                  <ListItem>
-                    <CheckBox checked={todoitem.done} />
+                  <ListItem itemDivider>
+                    <CheckBox
+                      checked={todoitem.done}
+                      onPress={() => {
+                        this.handleUpdateToDoItemStatus(
+                          todolist._id,
+                          todoitem._id,
+                          todoitem.content,
+                          todoitem.done,
+                        );
+                      }}
+                    />
                     <Body>
-                      <Text> {todoitem.content} </Text>
+                      <Input
+                        onChangeText={textEntry => {
+                          this.todoItemContent = textEntry;
+                        }}>
+                        <Label>{todoitem.content}</Label>
+                      </Input>
                     </Body>
                     <Button
                       onPress={() => {
-                        this.displayEditItemBox();
+                        this.handleUpdateToDoItem(
+                          todolist._id,
+                          todoitem._id,
+                          this.todoItemContent,
+                          todoitem.done,
+                        );
                       }}
                       small
                       primary
@@ -161,41 +171,36 @@ export class ToDoList extends React.Component {
                       <Text>Delete</Text>
                     </Button>
                   </ListItem>
-                  {this.state.isShowingItemInput && (
-                    <View>
-                      <View>
-                        <Form>
-                          <Item floatingLabel>
-                            <Label>item name</Label>
-                            <Input
-                              onChangeText={textEntry => {
-                                this.newTodoitem = textEntry;
-                              }}
-                            />
-                          </Item>
-                        </Form>
-                      </View>
-                      <Content>
-                        <Button
-                          onPress={() => {
-                            this.handleUpdateToDoItem(
-                              todolist._id,
-                              todoitem._id,
-                              this.newTodoitem,
-                              todoitem.done,
-                            );
-                          }}
-                          small
-                          light
-                          transparent>
-                          <Icon name="md-create" />
-                          <Text>Update</Text>
-                        </Button>
-                      </Content>
-                    </View>
-                  )}
                 </View>
               ))}
+              {
+                <View>
+                  <ListItem itemDivider>
+                    <CheckBox checked={false} />
+                    <Body>
+                      <Input
+                        onChangeText={textEntry => {
+                          this.todoItemContent = textEntry;
+                        }}
+                      />
+                    </Body>
+                    <Button
+                      onPress={() => {
+                        this.handleAddToDoItem(
+                          todolist._id,
+                          this.todoItemContent,
+                        );
+                      }}
+                      small
+                      transparent
+                      iconLeft
+                      light>
+                      <Icon name="add" />
+                      <Text>ADD</Text>
+                    </Button>
+                  </ListItem>
+                </View>
+              }
             </View>
           ))}
         </Content>
@@ -266,6 +271,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateToDoList(listId, newTodoList)),
   updateToDoItem: (listId, itemId, newTodoItem, newTodoItemState) =>
     dispatch(updateToDoItem(listId, itemId, newTodoItem, newTodoItemState)),
+  createToDoItem: (listId, itemContent) =>
+    dispatch(createToDoItem(listId, itemContent)),
+  createToDoList: listName => dispatch(createToDoList(listName)),
 });
 
 export default connect(
