@@ -2,14 +2,15 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import expect from 'expect';
-import {Flight} from '../../src/components/Flight';
+import {Flight} from '../../src/components/flight/Flight';
 
 Enzyme.configure({adapter: new Adapter()});
 
 describe('Flight Component', () => {
   it('is not loading and should render self and sub elements', () => {
     const wrapper = shallow(
-      <Flight flight={[{departure: {
+      <Flight flight={[{_id:1,
+                        departure: {
                           airport: {
                             iata: "Test Departure IATA",
                             name: "Test Departure Airport Name",

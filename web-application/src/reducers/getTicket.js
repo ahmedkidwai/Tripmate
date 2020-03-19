@@ -2,7 +2,7 @@ import {
   GET_TICKET_BEGIN,
   GET_TICKET_SUCCESS,
   GET_TICKET_FAILURE,
-} from '../actions/ticket';
+} from '../actions/fetchTicket';
 import createReducer from './createReducer';
 
 const initialState = {

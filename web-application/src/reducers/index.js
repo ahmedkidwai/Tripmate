@@ -10,8 +10,10 @@ import updateToDoItem from './updateToDoItem';
 import hotel from './getHotels';
 import getBudget from './getBudget';
 import createBudget from './createBudget';
-import flight from './getFlight';
-import ticket from './getTicket';
+import getFlight from './getFlight';
+import createFlight from './createFlight';
+import getTicket from './getTicket';
+import createTicket from './createTicket';
 
 export default combineReducers({
   user,
@@ -26,6 +28,6 @@ export default combineReducers({
   }),
   hotel,
   budget: combineReducers({getBudget, createBudget}),
-  flight,
-  ticket,
+  flight: combineReducers({getFlight, createFlight}),
+  ticket: combineReducers({getTicket, createTicket}),
 });

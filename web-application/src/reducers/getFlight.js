@@ -2,7 +2,7 @@ import {
   GET_FLIGHT_BEGIN,
   GET_FLIGHT_SUCCESS,
   GET_FLIGHT_FAILURE,
-} from '../actions/flight';
+} from '../actions/fetchFlight';
 import createReducer from './createReducer';
 
 const initialState = {

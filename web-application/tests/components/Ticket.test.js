@@ -2,14 +2,15 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import expect from 'expect';
-import {Ticket} from '../../src/components/Ticket';
+import {Ticket} from '../../src/components/ticket/Ticket';
 
 Enzyme.configure({adapter: new Adapter()});
 
 describe('Ticket Component', () => {
   it('is not loading and should render self and sub elements', () => {
     const wrapper = shallow(
-      <Ticket ticket={[{transportType: 'Test Ticket',
+      <Ticket ticket={[{_id:1,
+                        transportType: 'Test Ticket',
                         start: {
                           location: 'Test Start Location',
                           date: 'Test Start Date',

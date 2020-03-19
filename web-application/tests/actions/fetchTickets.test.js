@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import expect from 'expect';
-import * as actions from '../../src/actions/ticket';
+import * as actions from '../../src/actions/fetchTicket';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
