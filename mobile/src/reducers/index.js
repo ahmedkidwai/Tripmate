@@ -18,6 +18,8 @@ import deleteToDoItem from './deleteToDoItem';
 import updateToDoItem from './updateToDoItem';
 import updateBudget from './updateBudget';
 import addExpenses from './addExpenses';
+import getTicket from './getTicket';
+import getFlight from './getFlight';
 
 export default combineReducers({
   user,
@@ -46,5 +48,13 @@ export default combineReducers({
     createToDoItem,
     deleteToDoItem,
     updateToDoItem,
+  }),
+
+  ticket: combineReducers({
+    getTicket,
+  }),
+
+  flight: combineReducers({
+    getFlight,
   }),
 });

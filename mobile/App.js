@@ -10,6 +10,8 @@ import CreateTrip from './src/pages/CreateTrip';
 import ModifyTrip from './src/pages/ModifyTrip';
 import BudgetManagement from './src/pages/BudgetManagement';
 import TodoList from './src/pages/TodoList';
+import Ticket from './src/pages/Ticket';
+import Flight from './src/pages/Flight';
 
 class NavigationDrawerStructure extends Component {
   toggleDrawer = () => {
@@ -109,6 +111,38 @@ const TodoList_StackNavigator = createStackNavigator({
   },
 });
 
+const Ticket_StackNavigator = createStackNavigator({
+  Fifth: {
+    screen: Ticket,
+    navigationOptions: ({navigation}) => ({
+      title: 'TripMate',
+      headerLeft: () => (
+        <NavigationDrawerStructure navigationProps={navigation} />
+      ),
+      headerStyle: {
+        backgroundColor: '#3f51b5',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
+const Flight_StackNavigator = createStackNavigator({
+  Fifth: {
+    screen: Flight,
+    navigationOptions: ({navigation}) => ({
+      title: 'TripMate',
+      headerLeft: () => (
+        <NavigationDrawerStructure navigationProps={navigation} />
+      ),
+      headerStyle: {
+        backgroundColor: '#3f51b5',
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
 const DrawerNavigatorExample = createDrawerNavigator({
   Home: {
     screen: Homepage_StackNavigator,
@@ -138,6 +172,18 @@ const DrawerNavigatorExample = createDrawerNavigator({
     screen: TodoList_StackNavigator,
     navigationOptions: {
       drawerLabel: 'Todo List',
+    },
+  },
+  Ticket: {
+    screen: Ticket_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Ticket',
+    },
+  },
+  Flight: {
+    screen: Flight_StackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Flight',
     },
   },
 });
