@@ -4,10 +4,6 @@ const {Schema} = mongoose;
 
 const eventScheme = new Schema(
   {
-    tripId: {
-      type: mongoose.ObjectId,
-      unique: false,
-    },
     title: {
       type: String,
       required: true,

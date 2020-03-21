@@ -30,10 +30,10 @@ describe('ticket routes', () => {
     await mongoose.disconnect();
   });
 
-  it('/ should get all tickets of :tripId', done => {
+  it('it should get all tickets', done => {
     chai
       .request(server)
-      .get('/5e6aeefdb3256d55d6091d82/ticket')
+      .get('/ticket')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.length.should.be.eql(0);
@@ -44,7 +44,7 @@ describe('ticket routes', () => {
   it('it add should add a new ticket', done => {
     chai
       .request(server)
-      .post('/5e6aeefdb3256d55d6091d82/ticket/add')
+      .post('/ticket/add')
       .send({
         transportType: 'Bus',
         start: {
@@ -79,7 +79,7 @@ describe('ticket routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .get(`/1/ticket/${tick._id}`)
+        .get(`/ticket/${tick._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.have.property('transportType');
@@ -104,7 +104,7 @@ describe('ticket routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .delete(`/1/ticket/${tick._id}`)
+        .delete(`/ticket/${tick._id}`)
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.eql('Ticket deleted.');
@@ -129,7 +129,7 @@ describe('ticket routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .post(`/1/ticket/update/${tick._id}`)
+        .post(`/ticket/update/${tick._id}`)
         .send({transportType: 'Rail'})
         .end((error, res) => {
           res.should.have.status(200);

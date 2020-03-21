@@ -6,7 +6,7 @@ const {
   getBudgetSummary,
   compareByDate,
   getExpensesListBYDateOrder,
-} = require('../../Business/BudgetLogics');
+} = require('../../Business/BugdetLogics');
 
 describe('Budget logics ', () => {
   it('should be 0 if budget is empty', () => {

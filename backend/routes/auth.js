@@ -5,7 +5,7 @@ const {check, validationResult} = require('express-validator');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const bcrypt = require('bcryptjs');
-const User = require('../models/user.model');
+const User = require('../models/User');
 const auth = require('../middleware/auth');
 // @route       GET api/auth
 // @description Test Route

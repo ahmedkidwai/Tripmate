@@ -10,10 +10,6 @@ const hotelScheme = new Schema(
       minlength: 3,
       required: true,
     },
-    tripId: {
-      type: mongoose.ObjectId,
-      unique: false,
-    },
   },
   {
     timestamps: true,

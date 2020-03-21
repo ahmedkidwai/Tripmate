@@ -40,10 +40,6 @@ const budgetScheme = new Schema(
       unique: false,
       min: 0,
     },
-    tripId: {
-      type: mongoose.ObjectId,
-      unique: false,
-    },
     expenses: [expensesScheme],
   },
   {

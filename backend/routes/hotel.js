@@ -1,21 +1,20 @@
-const router = require('express').Router({mergeParams: true});
+const router = require('express').Router();
 const Hotel = require('../models/hotel.model');
 
 router.route('/').get((req, res) => {
-  Hotel.find({tripId: req.params.tripId})
+  Hotel.find()
     .then(hotels => res.json(hotels))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route('/add').post((req, res) => {
   const {hotelname} = req.body;
-  const {tripId} = req.params;
 
-  const newHotel = new Hotel({hotelname, tripId});
+  const newHotel = new Hotel({hotelname});
 
   newHotel
     .save()
-    .then(() => res.status(201).json('Hotel added!'))
+    .then(() => res.json('Hotel added!'))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 

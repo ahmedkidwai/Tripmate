@@ -1,17 +1,17 @@
-const router = require('express').Router({mergeParams: true});
-const underscore = require('underscore');
+const router = require('express').Router();
 const {Ticket} = require('../models/ticket.model');
 
 router.route('/').get((req, res) => {
-  Ticket.find({tripId: req.params.tripId})
+  Ticket.find()
     .then(tickets => res.json(tickets))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route('/add').post((req, res) => {
-  const newTicket = new Ticket(
-    underscore.extend(req.body, {tripId: req.params.tripId}),
-  );
+  const ticket = req.body;
+
+  const newTicket = new Ticket(ticket);
+
   newTicket
     .save()
     .then(() => res.json('Ticket added!'))

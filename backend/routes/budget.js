@@ -1,22 +1,21 @@
-const router = require('express').Router({mergeParams: true});
+const router = require('express').Router();
 const {Budget} = require('../models/Budget.model');
 const {Expenses} = require('../models/Budget.model');
 const {
   getBudgetSummary,
   getExpensesListBYDateOrder,
-} = require('../Business/BudgetLogics');
+} = require('../Business/BugdetLogics');
 
 router.route('/').get((req, res) => {
-  Budget.find({tripId: req.params.tripId})
+  Budget.find()
     .then(budget => res.json(budget))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 router.route('/add').post((req, res) => {
   const {budget} = req.body;
-  const {tripId} = req.params;
 
-  const newBudget = new Budget({budget, tripId});
+  const newBudget = new Budget({budget});
 
   newBudget
     .save()
