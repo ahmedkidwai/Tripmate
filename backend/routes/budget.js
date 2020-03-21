@@ -109,10 +109,10 @@ router.route('/:id/expenses/update/:expense_id').post((req, res) => {
   Budget.findById(req.params.id)
     .then(budget => {
       const expense = budget.expenses.id(req.params.expense_id);
-      expense.name = req.body.name;
-      expense.amount = req.body.amount;
-      expense.isDone = req.body.isDone;
-      expense.date = req.body.date;
+      if (req.body.name) expense.name = req.body.name;
+      if (expense.amount) expense.amount = req.body.amount;
+      if (expense.isDone) expense.isDone = req.body.isDone;
+      if (expense.date) expense.date = req.body.date;
       budget
         .save()
         .then(() => res.json('Expense updated!'))

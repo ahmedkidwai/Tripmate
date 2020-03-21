@@ -74,7 +74,7 @@ export const AddTicket = props => {
       props.dispatch(
         createTicket(
           transportType,
-          startLocation, 
+          startLocation,
           startDate,
           endLocation,
           endDate,
@@ -127,17 +127,17 @@ export const AddTicket = props => {
                 <ListItem>
                   <FormControl className={classes.formControl}>
                     <TextField
-                        id="ticket-start-date-input"
-                        label="Enter start date"
-                        type="datetime-local"
-                        error={error}
-                        helperText={errorMessage}
-                        className={classes.textField}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        onChange={e => setStartDate(e.target.value)}
-                      />
+                      id="ticket-start-date-input"
+                      label="Enter start date"
+                      type="datetime-local"
+                      error={error}
+                      helperText={errorMessage}
+                      className={classes.textField}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={e => setStartDate(e.target.value)}
+                    />
                   </FormControl>
                 </ListItem>
                 <ListItem>
@@ -151,18 +151,18 @@ export const AddTicket = props => {
                 </ListItem>
                 <ListItem>
                   <FormControl className={classes.formControl}>
-                   <TextField
-                        id="ticket-end-date-input"
-                        label="Enter end date"
-                        type="datetime-local"
-                        error={error}
-                        helperText={errorMessage}
-                        className={classes.textField}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        onChange={e => setEndDate(e.target.value)}
-                      />
+                    <TextField
+                      id="ticket-end-date-input"
+                      label="Enter end date"
+                      type="datetime-local"
+                      error={error}
+                      helperText={errorMessage}
+                      className={classes.textField}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={e => setEndDate(e.target.value)}
+                    />
                   </FormControl>
                 </ListItem>
                 <ListItem>
