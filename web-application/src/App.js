@@ -78,34 +78,29 @@ function App() {
           <div className={classes.toolbar} />
           <Divider />
           <List>
-            {[
-              'Home',
-              'Hotels',
-              'Flights',
-              'Tickets',
-              'Budgets',
-              'Todos',
-            ].map((text, index) => (
-              <ListItem
-                button
-                key={text}
-                component={Link}
-                to={
-                  text === 'Home'
-                    ? `/${text.replace('Home', '')}`
-                    : `/${text.replace(/ /g, '')}`
-                }>
-                <ListItemIcon>
-                  {index === 0 ? <HomeIcon /> : ''}
-                  {index === 1 ? <HotelIcon /> : ''}
-                  {index === 2 ? <FlightIcon /> : ''}
-                  {index === 3 ? <ConfirmationNumberIcon /> : ''}
-                  {index === 4 ? <NoteIcon /> : ''}
-                  {index === 5 ? <ListIcon /> : ''}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            {['Home', 'Hotels', 'Flights', 'Tickets', 'Budgets', 'Todos'].map(
+              (text, index) => (
+                <ListItem
+                  button
+                  key={text}
+                  component={Link}
+                  to={
+                    text === 'Home'
+                      ? `/${text.replace('Home', '')}`
+                      : `/${text.replace(/ /g, '')}`
+                  }>
+                  <ListItemIcon>
+                    {index === 0 ? <HomeIcon /> : ''}
+                    {index === 1 ? <HotelIcon /> : ''}
+                    {index === 2 ? <FlightIcon /> : ''}
+                    {index === 3 ? <ConfirmationNumberIcon /> : ''}
+                    {index === 4 ? <NoteIcon /> : ''}
+                    {index === 5 ? <ListIcon /> : ''}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ),
+            )}
           </List>
           <Divider />
           <List>
@@ -167,11 +162,14 @@ function App() {
                 </div>
               )}
             />
-            <Route path="/Todos" render={() => (
-              <div>
-                <ConnectedToDoList />
-              </div>
-            )} />
+            <Route
+              path="/Todos"
+              render={() => (
+                <div>
+                  <ConnectedToDoList />
+                </div>
+              )}
+            />
             <Route
               path="/About"
               render={() => (

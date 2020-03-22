@@ -14,6 +14,10 @@ import getFlight from './getFlight';
 import createFlight from './createFlight';
 import getTicket from './getTicket';
 import createTicket from './createTicket';
+import createEvent from './createEvent';
+import updateEvent from './updateEvent';
+import getEvent from './getEvent';
+import deleteEvent from './deleteEvent';
 
 export default combineReducers({
   user,
@@ -30,4 +34,5 @@ export default combineReducers({
   budget: combineReducers({getBudget, createBudget}),
   flight: combineReducers({getFlight, createFlight}),
   ticket: combineReducers({getTicket, createTicket}),
+  event: combineReducers({getEvent, createEvent, updateEvent, deleteEvent}),
 });
