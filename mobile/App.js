@@ -6,8 +6,6 @@ import {createAppContainer} from 'react-navigation';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import {createStackNavigator} from 'react-navigation-stack';
 import Home from './src/pages/Home';
-import CreateTrip from './src/pages/CreateTrip';
-import ModifyTrip from './src/pages/ModifyTrip';
 import BudgetManagement from './src/pages/BudgetManagement';
 import TodoList from './src/pages/TodoList';
 import Ticket from './src/pages/Ticket';
@@ -34,38 +32,6 @@ class NavigationDrawerStructure extends Component {
 const Homepage_StackNavigator = createStackNavigator({
   First: {
     screen: Home,
-    navigationOptions: ({navigation}) => ({
-      title: 'TripMate',
-      headerLeft: () => (
-        <NavigationDrawerStructure navigationProps={navigation} />
-      ),
-      headerStyle: {
-        backgroundColor: '#3f51b5',
-      },
-      headerTintColor: '#fff',
-    }),
-  },
-});
-
-const CreateTrip_StackNavigator = createStackNavigator({
-  Second: {
-    screen: CreateTrip,
-    navigationOptions: ({navigation}) => ({
-      title: 'TripMate',
-      headerLeft: () => (
-        <NavigationDrawerStructure navigationProps={navigation} />
-      ),
-      headerStyle: {
-        backgroundColor: '#3f51b5',
-      },
-      headerTintColor: '#fff',
-    }),
-  },
-});
-
-const ModifyTrip_StackNavigator = createStackNavigator({
-  Third: {
-    screen: ModifyTrip,
     navigationOptions: ({navigation}) => ({
       title: 'TripMate',
       headerLeft: () => (
@@ -148,18 +114,6 @@ const DrawerNavigatorExample = createDrawerNavigator({
     screen: Homepage_StackNavigator,
     navigationOptions: {
       drawerLabel: 'Home',
-    },
-  },
-  CreateTrip: {
-    screen: CreateTrip_StackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Create Trip',
-    },
-  },
-  ModifyTrip: {
-    screen: ModifyTrip_StackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Modify Trips',
     },
   },
   BudgetManagement: {

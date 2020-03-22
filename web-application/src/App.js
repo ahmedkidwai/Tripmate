@@ -10,10 +10,10 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import ListAltIcon from '@material-ui/icons/ListAlt';
-import DeleteIcon from '@material-ui/icons/Delete';
+import HotelIcon from '@material-ui/icons/Hotel';
+import FlightIcon from '@material-ui/icons/Flight';
+import NoteIcon from '@material-ui/icons/Note';
+import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import InfoIcon from '@material-ui/icons/Info';
 import HomeIcon from '@material-ui/icons/Home';
 import ListIcon from '@material-ui/icons/List';
@@ -24,6 +24,10 @@ import {Switch, Route, Link, BrowserRouter} from 'react-router-dom';
 import ConnectedHotels from './components/Hotels';
 import ConnectedBudget from './components/Budget';
 import ConnectedToDoList from './components/ToDoList';
+import ConnectedTicket from './components/ticket/Ticket';
+import ConnectedAddTicket from './components/ticket/AddTicket';
+import ConnectedFlight from './components/flight/Flight';
+import ConnectedAddFlight from './components/flight/AddFlight';
 
 const drawerWidth = 240;
 
@@ -76,11 +80,11 @@ function App() {
           <List>
             {[
               'Home',
-              'Create Trip',
-              'Modify Trips',
-              'View Trips',
-              'Delete Trips',
-              'ToDo List',
+              'Hotels',
+              'Flights',
+              'Tickets',
+              'Budgets',
+              'Todos',
             ].map((text, index) => (
               <ListItem
                 button
@@ -93,10 +97,10 @@ function App() {
                 }>
                 <ListItemIcon>
                   {index === 0 ? <HomeIcon /> : ''}
-                  {index === 1 ? <AddIcon /> : ''}
-                  {index === 2 ? <EditIcon /> : ''}
-                  {index === 3 ? <ListAltIcon /> : ''}
-                  {index === 4 ? <DeleteIcon /> : ''}
+                  {index === 1 ? <HotelIcon /> : ''}
+                  {index === 2 ? <FlightIcon /> : ''}
+                  {index === 3 ? <ConfirmationNumberIcon /> : ''}
+                  {index === 4 ? <NoteIcon /> : ''}
                   {index === 5 ? <ListIcon /> : ''}
                 </ListItemIcon>
                 <ListItemText primary={text} />
@@ -126,68 +130,48 @@ function App() {
               render={() => (
                 <div>
                   <h1> Welcome to Tripmate! By Kurt&apos;s Angels</h1>
-                  <p>
-                    <ConnectedHotels />
-                  </p>
                 </div>
               )}
             />
             <Route
-              path="/CreateTrip"
+              path="/Hotels"
               render={() => (
                 <div>
-                  {' '}
-                  <h1>Create a Trip</h1>
-                  <p1>
-                    {' '}
-                    Coming Soon a form that will let you create new trips
-                  </p1>
+                  <ConnectedHotels />
                 </div>
               )}
             />
             <Route
-              path="/ModifyTrips"
+              path="/Flights"
               render={() => (
                 <div>
-                  {' '}
-                  <h1>View Your Trips</h1>
-                  <p1>
-                    {' '}
-                    Coming Soon a page that will let you modify your trips!
-                  </p1>
+                  <ConnectedAddFlight />
+                  <ConnectedFlight />
                 </div>
               )}
             />
             <Route
-              path="/ViewTrips"
+              path="/Tickets"
               render={() => (
                 <div>
-                  {' '}
-                  <h1>View Trips</h1>
-                  <p1>
-                    {' '}
-                    Coming Soon a page that will let you view all your trips!
-                  </p1>
-                  <div>
-                    <ConnectedBudget />
-                  </div>
+                  <ConnectedAddTicket />
+                  <ConnectedTicket />
                 </div>
               )}
             />
             <Route
-              path="/DeleteTrips"
+              path="/Budgets"
               render={() => (
                 <div>
-                  {' '}
-                  <h1>Delete Trips</h1>
-                  <p1>
-                    {' '}
-                    A function even more scary than rebasing. Coming Soon!!
-                  </p1>
+                  <ConnectedBudget />
                 </div>
               )}
             />
-            <Route path="/ToDoList" render={() => <ConnectedToDoList />} />
+            <Route path="/Todos" render={() => (
+              <div>
+                <ConnectedToDoList />
+              </div>
+            )} />
             <Route
               path="/About"
               render={() => (

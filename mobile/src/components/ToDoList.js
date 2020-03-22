@@ -96,7 +96,7 @@ export class ToDoList extends React.Component {
                   onChangeText={textEntry => {
                     this.newToDoList = textEntry;
                   }}>
-                  <Title>{todolist.name}</Title>
+                  <Title style={{color: 'black'}}>{todolist.name}</Title>
                 </Input>
 
                 <View style={styles.placeholder}>
