@@ -30,79 +30,31 @@ router.route('/:id').delete((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.route('/update_title/:id').post((req, res) => {
+router.route('/update/:id').post((req, res) => {
   Event.findById(req.params.id)
     .then(event => {
-      event.title = req.body.title;
+      if (req.body.title) {
+        event.title = req.body.title;
+      }
+      if (req.body.description) {
+        event.description = req.body.description;
+      }
+      if (req.body.start) {
+        event.start = req.body.start;
+      }
+      if (req.body.end) {
+        event.end = req.body.end;
+      }
+      if (req.body.location) {
+        event.location = req.body.location;
+      }
+      if (req.body.cost) {
+        event.cost = req.body.cost;
+      }
 
       event
         .save()
-        .then(() => res.json('Event title updated!'))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
-});
-
-router.route('/update_description/:id').post((req, res) => {
-  Event.findById(req.params.id)
-    .then(event => {
-      event.description = req.body.description;
-
-      event
-        .save()
-        .then(() => res.json('Event description updated!'))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
-});
-
-router.route('/update_start/:id').post((req, res) => {
-  Event.findById(req.params.id)
-    .then(event => {
-      event.start = req.body.start;
-
-      event
-        .save()
-        .then(() => res.json('Event start updated!'))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
-});
-
-router.route('/update_end/:id').post((req, res) => {
-  Event.findById(req.params.id)
-    .then(event => {
-      event.end = req.body.end;
-
-      event
-        .save()
-        .then(() => res.json('Event end updated!'))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
-});
-
-router.route('/update_location/:id').post((req, res) => {
-  Event.findById(req.params.id)
-    .then(event => {
-      event.location = req.body.location;
-
-      event
-        .save()
-        .then(() => res.json('Event location updated!'))
-        .catch(err => res.status(400).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(400).json(`Error: ${err}`));
-});
-
-router.route('/update_cost/:id').post((req, res) => {
-  Event.findById(req.params.id)
-    .then(event => {
-      event.cost = req.body.cost;
-
-      event
-        .save()
-        .then(() => res.json('Event cost updated!'))
+        .then(() => res.json('Event updated!'))
         .catch(err => res.status(400).json(`Error: ${err}`));
     })
     .catch(err => res.status(400).json(`Error: ${err}`));

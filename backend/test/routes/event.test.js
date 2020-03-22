@@ -108,10 +108,11 @@ describe('event routes', () => {
     });
   });
 
-  it("/event/update_title/id should update id's title", done => {
+  it('/event/update/id should update event', done => {
     const event = new Event({
       title: 'Watch a movie',
       creator: 'Jimbo',
+      description: 'Go out to a movie theatre',
       start: '2020-03-15T18:00:00Z',
       end: '2020-03-15T20:00:00Z',
       location: 'St. Vital theatre',
@@ -121,11 +122,18 @@ describe('event routes', () => {
       chai
         .request(server)
         // eslint-disable-next-line no-underscore-dangle
-        .post(`/event/update_title/${evnt._id}`)
-        .send({title: 'Watch a tv show instead'})
+        .post(`/event/update/${evnt._id}`)
+        .send({
+          title: 'Watch a tv show instead',
+          description: 'Be socially distant',
+          start: 'Whenever',
+          end: 'Any time',
+          location: 'Basement',
+          cost: 0.0,
+        })
         .end((error, res) => {
           res.should.have.status(200);
-          res.body.should.be.eql('Event title updated!');
+          res.body.should.be.eql('Event updated!');
           done();
         });
     });
