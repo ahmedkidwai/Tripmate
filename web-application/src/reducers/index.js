@@ -19,6 +19,16 @@ import updateEvent from './updateEvent';
 import getEvent from './getEvent';
 import deleteEvent from './deleteEvent';
 
+import getBudgetList from './getBudgetList';
+import summary from './getExpenseSummary';
+import updateExpenses from './updateExpenses';
+import deleteExpenses from './deleteExpenses';
+import updateBudget from './updateBudget';
+import addExpenses from './addExpenses';
+import getExpensesList from './getExpensesList';
+import getExpenses from './getExpenses';
+import deleteBudget from './deleteBudget';
+
 export default combineReducers({
   user,
   todolist: combineReducers({
@@ -31,8 +41,22 @@ export default combineReducers({
     updateToDoItem,
   }),
   hotel,
-  budget: combineReducers({getBudget, createBudget}),
+
   flight: combineReducers({getFlight, createFlight}),
   ticket: combineReducers({getTicket, createTicket}),
   event: combineReducers({getEvent, createEvent, updateEvent, deleteEvent}),
+
+  budget: combineReducers({
+    createBudget,
+    getBudgetList,
+    getBudget,
+    deleteBudget,
+    getExpensesList,
+    deleteExpenses,
+    updateBudget,
+    summary,
+    getExpenses,
+    updateExpenses,
+    addExpenses,
+  }),
 });
