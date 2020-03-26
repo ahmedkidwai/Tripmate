@@ -4,6 +4,7 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import expect from 'expect';
 import * as actions from '../../src/actions/deleteTicket';
+import {url} from '../../src/utils/globalVars';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -33,7 +34,7 @@ describe('delete ticket actions', () => {
 
   it('creates DELETE_TICKET_SUCCESS when delete ticket has been done', () => {
     mockAxios
-      .onDelete(`ticket/${ticket._id}`)
+      .onDelete(`${url}/ticket/${ticket._id}`)
       .reply(200, [{data: 'Ticket deleted.'}]);
     return store.dispatch(actions.deleteTicket(ticket._id)).then(() => {
       const expectedActions = [
@@ -50,7 +51,7 @@ describe('delete ticket actions', () => {
   });
 
   it('creates DELETE_TICKET_FAILURE when deleting ticket has failed', () => {
-    mockAxios.onDelete('/ticket').reply(500);
+    mockAxios.onDelete(`${url}/ticket/`).reply(500);
 
     return store.dispatch(actions.deleteTicket()).then(() => {
       const storeActions = store.getActions();
