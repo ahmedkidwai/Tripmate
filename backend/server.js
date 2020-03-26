@@ -19,8 +19,14 @@ app.get('/', (req, res) => {
 });
 
 // Define Routes
-app.use('/users', require('./routes/users'));
-app.use('/auth', require('./routes/auth'));
+
+const authRouter = require('./routes/auth');
+
+app.use('/auth', authRouter);
+
+const userRouter = require('./routes/users');
+
+app.use('/users', userRouter);
 
 const budgetRouter = require('./routes/budget');
 

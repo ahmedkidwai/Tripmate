@@ -25,7 +25,8 @@ import createEvent from './event/createEvent';
 import updateEvent from './event/updateEvent';
 import getEvent from './event/getEvent';
 import deleteEvent from './event/deleteEvent';
-
+import alert from './alert';
+import auth from './auth';
 import getBudgetList from './budget/getBudgetList';
 import summary from './event/getExpenseSummary';
 import updateExpenses from './expense/updateExpenses';
@@ -38,6 +39,8 @@ import deleteBudget from './budget/deleteBudget';
 
 export default combineReducers({
   user,
+  alert,
+  auth,
   todolist: combineReducers({
     getToDoList,
     createToDoList,

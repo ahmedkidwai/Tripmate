@@ -15,7 +15,7 @@ router.get('/', auth, async (req, res) => {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
   } catch (err) {
-    res.status(500).send();
+    res.status(500).send('Server Error');
   }
 });
 
@@ -26,28 +26,28 @@ router.post(
   '/',
   [
     check('email', 'Please provide a valid email').isEmail(),
-    check('password', 'Password required').exists(),
+    check('password', 'Please enter a valid password').isLength({min: 6}),
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({errors: errors.array()});
     }
-
     const {email, password} = req.body;
 
     try {
       const user = await User.findOne({email});
-      // See if a user exists
+
+      // see if user exists
       if (!user) {
-        res.status(400).json({error: [{msg: 'Invalid user or email'}]});
+        return res.status(400).json({errors: [{msg: 'Email Does Not Exist'}]});
       }
 
       // compare if text password is same as stored encryped password
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        res.status(400).json({error: [{msg: 'Invalid user or email'}]});
+        return res.status(400).json({errors: [{msg: 'Incorrect Password'}]});
       }
       const payload = {
         user: {
