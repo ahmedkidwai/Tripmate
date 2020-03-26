@@ -96,7 +96,7 @@ export class ToDoList extends React.Component {
                   onChangeText={textEntry => {
                     this.newToDoList = textEntry;
                   }}>
-                  <Title style={{color: 'black'}}>{todolist.name}</Title>
+                  <Title style={styles.titleFontColor}>{todolist.name}</Title>
                 </Input>
 
                 <View style={styles.placeholder}>
@@ -261,6 +261,7 @@ const mapStateToProps = state => ({
 
 const styles = StyleSheet.create({
   placeholder: {flexDirection: 'row', justifyContent: 'space-between'},
+  titleFontColor: {color: 'black'},
 });
 
 const mapDispatchToProps = dispatch => ({
