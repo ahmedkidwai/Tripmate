@@ -1,4 +1,8 @@
-import {GET_USER_BEGIN, GET_USER_SUCCESS, GET_USER_FAILURE} from '../../actions';
+import {
+  GET_USER_BEGIN,
+  GET_USER_SUCCESS,
+  GET_USER_FAILURE,
+} from '../../actions';
 import createReducer from '../createReducer';
 
 const initialState = {
