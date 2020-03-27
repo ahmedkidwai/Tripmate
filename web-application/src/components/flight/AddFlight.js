@@ -16,6 +16,7 @@ import {
   createFlightManually,
   createFlightAutomatically,
 } from '../../actions/flight/createFlight';
+import usePrevious from '../../hooks/usePrevious';
 
 export const AddFlight = props => {
   const [departureCity, setDepartureCity] = useState(0);
@@ -33,9 +34,15 @@ export const AddFlight = props => {
   const [airline, setAirline] = useState(0);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const prevLoadingState = usePrevious(props.createFlightLoading);
+
   // on mount
   useEffect(() => {
-    if (!props.createFlightLoading && props.createFlightError) {
+    if (
+      prevLoadingState &&
+      !props.createFlightLoading &&
+      props.createFlightError == null
+    ) {
       props.dispatch(fetchFlight());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,7 +102,6 @@ export const AddFlight = props => {
           airline,
         ),
       );
-      window.location.reload(false);
     }
   };
 
@@ -110,7 +116,6 @@ export const AddFlight = props => {
       setError(false);
       setErrorMessage('');
       props.dispatch(createFlightAutomatically(flightNumber, flightDate));
-      window.location.reload(false);
     }
   };
 

@@ -17,6 +17,7 @@ import {
 import {ExpandLess, ExpandMore} from '@material-ui/icons';
 import {fetchTicket} from '../../actions/ticket/fetchTicket';
 import {createTicket} from '../../actions/ticket/createTicket';
+import usePrevious from "../../hooks/usePrevious";
 
 export const AddTicket = props => {
   const [transportType, setTransportType] = useState(0);
@@ -28,9 +29,15 @@ export const AddTicket = props => {
   const [notes, setNotes] = useState(0);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const prevLoadingState = usePrevious(props.createTicketLoading);
+
   // on mount
   useEffect(() => {
-    if (!props.createTicketLoading && props.createTicketError) {
+    if (
+      prevLoadingState &&
+      !props.createTicketLoading &&
+      props.createTicketError == null
+    ) {
       props.dispatch(fetchTicket());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,7 +89,6 @@ export const AddTicket = props => {
           notes,
         ),
       );
-      window.location.reload(false);
     }
   };
 
