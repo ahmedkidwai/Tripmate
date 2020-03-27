@@ -11,11 +11,11 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import {ExpandLess, ExpandMore} from '@material-ui/icons';
-import {fetchFlight} from '../../actions/fetchFlight';
+import {fetchFlight} from '../../actions/flight/fetchFlight';
 import {
   createFlightManually,
   createFlightAutomatically,
-} from '../../actions/createFlight';
+} from '../../actions/flight/createFlight';
 
 export const AddFlight = props => {
   const [departureCity, setDepartureCity] = useState(0);

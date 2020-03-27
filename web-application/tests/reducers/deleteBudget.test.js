@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/deleteBudget';
-import * as types from '../../src/actions/deleteBudget';
+import reducer from '../../src/reducers/budget/deleteBudget';
+import * as types from '../../src/actions/budget/deleteBudget';
 
 describe('deleteBudgetList reducer test', () => {
   it('should return the initial state', () => {

@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/createFlight';
-import * as types from '../../src/actions/createFlight';
+import reducer from '../../src/reducers/flight/createFlight';
+import * as types from '../../src/actions/flight/createFlight';
 
 // TODO: finish these tests
 describe('createFlight reducer test', () => {

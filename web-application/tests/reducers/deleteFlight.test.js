@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/deleteFlight';
-import * as types from '../../src/actions/deleteFlight';
+import reducer from '../../src/reducers/flight/deleteFlight';
+import * as types from '../../src/actions/flight/deleteFlight';
 
 describe('deleteFlight reducer test', () => {
   it('should return the initial state', () => {

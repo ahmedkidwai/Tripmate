@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {List, ListItem, ListItemText, makeStyles} from '@material-ui/core';
-import {fetchTicket} from '../../actions/fetchTicket';
+import {fetchTicket} from '../../actions/ticket/fetchTicket';
 
 export const Ticket = props => {
   // on mount

@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/updateEvent';
-import * as types from '../../src/actions/updateEvent';
+import reducer from '../../src/reducers/event/updateEvent';
+import * as types from '../../src/actions/event/updateEvent';
 
 describe('updateEvent reducer test', () => {
   it('should return the initial state', () => {

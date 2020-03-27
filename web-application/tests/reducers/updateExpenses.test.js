@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/updateExpenses';
-import * as types from '../../src/actions/updateExpenses';
+import reducer from '../../src/reducers/expense/updateExpenses';
+import * as types from '../../src/actions/expense/updateExpenses';
 
 describe('updateExpenses reducer test', () => {
   it('should return the initial state', () => {

@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/createBudget';
-import * as types from '../../src/actions/createBudget';
+import reducer from '../../src/reducers/budget/createBudget';
+import * as types from '../../src/actions/budget/createBudget';
 
 // TODO: finish these tests
 describe('createBudget reducer test', () => {

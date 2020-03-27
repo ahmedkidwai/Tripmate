@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/getEvent';
-import * as types from '../../src/actions/fetchEvent';
+import reducer from '../../src/reducers/event/getEvent';
+import * as types from '../../src/actions/event/fetchEvent';
 
 describe('getEvent reducer test', () => {
   it('should return the initial state', () => {

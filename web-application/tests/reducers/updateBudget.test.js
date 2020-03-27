@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/updateBudget';
-import * as types from '../../src/actions/updateBudget';
+import reducer from '../../src/reducers/budget/updateBudget';
+import * as types from '../../src/actions/budget/updateBudget';
 
 describe('update budget reducer test', () => {
   it('should return the initial state', () => {

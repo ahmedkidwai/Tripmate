@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/deleteEvent';
-import * as types from '../../src/actions/deleteEvent';
+import reducer from '../../src/reducers/event/deleteEvent';
+import * as types from '../../src/actions/event/deleteEvent';
 
 describe('deleteEvent reducer test', () => {
   it('should return the initial state', () => {

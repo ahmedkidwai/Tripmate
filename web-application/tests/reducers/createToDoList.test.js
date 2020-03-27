@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/createToDoList';
-import * as types from '../../src/actions/createToDoList';
+import reducer from '../../src/reducers/todo/createToDoList';
+import * as types from '../../src/actions/todo/createToDoList';
 
 describe('createToDoList reducer test', () => {
   it('should return the initial state', () => {

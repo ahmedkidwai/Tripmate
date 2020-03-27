@@ -15,8 +15,8 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import {ExpandLess, ExpandMore} from '@material-ui/icons';
-import {fetchTicket} from '../../actions/fetchTicket';
-import {createTicket} from '../../actions/createTicket';
+import {fetchTicket} from '../../actions/ticket/fetchTicket';
+import {createTicket} from '../../actions/ticket/createTicket';
 
 export const AddTicket = props => {
   const [transportType, setTransportType] = useState(0);

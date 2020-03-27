@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/deleteToDoItem';
-import * as types from '../../src/actions/deleteToDoItem';
+import reducer from '../../src/reducers/todo/deleteToDoItem';
+import * as types from '../../src/actions/todo/deleteToDoItem';
 
 describe('deleteToDoItem reducer test', () => {
   it('should return the initial state', () => {

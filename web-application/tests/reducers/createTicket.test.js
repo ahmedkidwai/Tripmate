@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/createTicket';
-import * as types from '../../src/actions/createTicket';
+import reducer from '../../src/reducers/ticket/createTicket';
+import * as types from '../../src/actions/ticket/createTicket';
 
 // TODO: finish these tests
 describe('createTicket reducer test', () => {

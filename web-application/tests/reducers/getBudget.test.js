@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/getBudget';
-import * as types from '../../src/actions/fetchBudget';
+import reducer from '../../src/reducers/budget/getBudget';
+import * as types from '../../src/actions/budget/fetchBudget';
 
 describe('getBudget reducer test', () => {
   it('should return the initial state', () => {

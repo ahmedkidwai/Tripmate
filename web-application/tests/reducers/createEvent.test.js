@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/createEvent';
-import * as types from '../../src/actions/createEvent';
+import reducer from '../../src/reducers/event/createEvent';
+import * as types from '../../src/actions/event/createEvent';
 
 describe('createEvent reducer test', () => {
   it('should return the initial state', () => {

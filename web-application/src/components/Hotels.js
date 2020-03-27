@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {fetchHotel} from '../actions/hotelActions';
+import {fetchHotel} from '../actions/hotel/hotelActions';
 
 export const Hotels = props => {
   useEffect(() => {

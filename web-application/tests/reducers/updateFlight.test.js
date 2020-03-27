@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/updateFlight';
-import * as types from '../../src/actions/updateFlight';
+import reducer from '../../src/reducers/flight/updateFlight';
+import * as types from '../../src/actions/flight/updateFlight';
 
 describe('updateFlight reducer test', () => {
   it('should return the initial state', () => {

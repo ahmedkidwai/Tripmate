@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/getHotels';
-import * as types from '../../src/actions/hotelActions';
+import reducer from '../../src/reducers/hotel/getHotels';
+import * as types from '../../src/actions/hotel/hotelActions';
 
 describe('getHotels reducer test', () => {
   it('should return the initial state', () => {

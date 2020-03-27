@@ -13,13 +13,13 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import {fetchToDoList} from '../actions/fetchToDoList';
-import {createToDoList} from '../actions/createToDoList';
-import {deleteToDoList} from '../actions/deleteToDoList';
-import {updateToDoList} from '../actions/updateToDoList';
-import {createToDoItem} from '../actions/createToDoItem';
-import {deleteToDoItem} from '../actions/deleteToDoItem';
-import {updateToDoItem} from '../actions/updateToDoItem';
+import {fetchToDoList} from '../actions/todo/fetchToDoList';
+import {createToDoList} from '../actions/todo/createToDoList';
+import {deleteToDoList} from '../actions/todo/deleteToDoList';
+import {updateToDoList} from '../actions/todo/updateToDoList';
+import {createToDoItem} from '../actions/todo/createToDoItem';
+import {deleteToDoItem} from '../actions/todo/deleteToDoItem';
+import {updateToDoItem} from '../actions/todo/updateToDoItem';
 
 export const ToDoList = props => {
   const [newToDoList, setNewToDoList] = useState('');

@@ -1,4 +1,4 @@
-import reducer from '../../src/reducers/getUser';
+import reducer from '../../src/reducers/user/getUser';
 import * as types from '../../src/actions';
 
 describe('getUser reducer test', () => {

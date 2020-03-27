@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/deleteTicket';
-import * as types from '../../src/actions/deleteTicket';
+import reducer from '../../src/reducers/ticket/deleteTicket';
+import * as types from '../../src/actions/ticket/deleteTicket';
 
 describe('deleteTicket reducer test', () => {
   it('should return the initial state', () => {

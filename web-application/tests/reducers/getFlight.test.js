@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/getFlight';
-import * as types from '../../src/actions/fetchFlight';
+import reducer from '../../src/reducers/flight/getFlight';
+import * as types from '../../src/actions/flight/fetchFlight';
 
 describe('getFlight reducer test', () => {
   it('should return the initial state', () => {

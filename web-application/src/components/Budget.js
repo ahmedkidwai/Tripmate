@@ -5,8 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {fetchBudget} from '../actions/fetchBudget';
-import {createBudget} from '../actions/createBudget';
+import {fetchBudget} from '../actions/budget/fetchBudget';
+import {createBudget} from '../actions/budget/createBudget';
 
 export const Budget = props => {
   const [newBudget, setNewBudget] = useState(0);

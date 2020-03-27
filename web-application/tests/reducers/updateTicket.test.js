@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/updateTicket';
-import * as types from '../../src/actions/updateTicket';
+import reducer from '../../src/reducers/ticket/updateTicket';
+import * as types from '../../src/actions/ticket/updateTicket';
 
 describe('updateTicket reducer test', () => {
   it('should return the initial state', () => {

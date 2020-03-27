@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/updateToDoItem';
-import * as types from '../../src/actions/updateToDoItem';
+import reducer from '../../src/reducers/todo/updateToDoItem';
+import * as types from '../../src/actions/todo/updateToDoItem';
 
 describe('updateToDoItem reducer test', () => {
   it('should return the initial state', () => {

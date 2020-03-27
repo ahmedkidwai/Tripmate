@@ -1,5 +1,5 @@
-import reducer from '../../src/reducers/getExpensesList';
-import * as types from '../../src/actions/fetchExpensesList';
+import reducer from '../../src/reducers/event/getExpensesList';
+import * as types from '../../src/actions/expense/fetchExpensesList';
 
 describe('getExpensesList reducer test', () => {
   it('should return the initial state', () => {

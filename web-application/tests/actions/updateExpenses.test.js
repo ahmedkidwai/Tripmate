@@ -3,7 +3,7 @@ import trunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import expect from 'expect';
-import * as actions from '../../src/actions/updateExpenses';
+import * as actions from '../../src/actions/expense/updateExpenses';
 
 const middleware = [trunk];
 const mockStore = configureMockStore(middleware);

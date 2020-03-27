@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {List, ListItem, ListItemText, makeStyles} from '@material-ui/core';
-import {fetchFlight} from '../../actions/fetchFlight';
+import {fetchFlight} from '../../actions/flight/fetchFlight';
 
 export const Flight = props => {
   // on mount
