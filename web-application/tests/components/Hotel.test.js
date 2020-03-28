@@ -10,41 +10,22 @@ describe('Hotels Component', () => {
   it('is not loading and should render self and sub elements', () => {
     const wrapper = shallow(
       <Hotels
-        hotel={[
-          {_id: 1, hotelname: 'Test Hotel 1'},
-          {_id: 2, hotelname: 'Test Hotel 2'},
-          {_id: 3, hotelname: 'Test Hotel 3'},
-        ]}
+        hotel={[{
+          _id: 1, 
+          name: 'Test Hotel 1',
+          price: '777',
+          location: 'Somewhere',
+          checkIn: '2020-03-23T18:00:16Z',
+          checkOut: '2020-03-27T18:00:16Z',
+        }]}
         loading={false}
       />,
     );
-
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.find('div').exists()).toBe(true);
-    expect(wrapper.find('h2').exists()).toBe(true);
-    expect(
-      wrapper
-        .find('p')
-        .at(0)
-        .text(),
-    ).toBe('Test Hotel 1');
-    expect(
-      wrapper
-        .find('p')
-        .at(1)
-        .text(),
-    ).toBe('Test Hotel 2');
-    expect(
-      wrapper
-        .find('p')
-        .at(2)
-        .text(),
-    ).toBe('Test Hotel 3');
   });
   it('is loading and should render "under construction" message', () => {
     const wrapper = shallow(<Hotels loading={true} />);
     expect(wrapper.exists()).toBe(true);
-    expect(wrapper.find('div').exists()).toBe(true);
-    expect(wrapper.find('p').exists()).toBe(true);
   });
 });

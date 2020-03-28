@@ -17,7 +17,7 @@ import {
 import {ExpandLess, ExpandMore} from '@material-ui/icons';
 import {fetchTicket} from '../../actions/ticket/fetchTicket';
 import {createTicket} from '../../actions/ticket/createTicket';
-import usePrevious from "../../hooks/usePrevious";
+import usePrevious from '../../hooks/usePrevious';
 
 export const AddTicket = props => {
   const [transportType, setTransportType] = useState(0);

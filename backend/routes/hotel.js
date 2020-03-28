@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const Hotel = require('../models/hotel.model');
+const {Hotel} = require('../models/hotel.model');
+const apiRequest = require('../Business/HotelLogic');
 
 router.route('/').get((req, res) => {
   Hotel.find()
@@ -7,10 +8,28 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.route('/add').post((req, res) => {
-  const {hotelname} = req.body;
+router.route('/api').post(async (req, res) => {
+  const params = req.body;
 
-  const newHotel = new Hotel({hotelname});
+  const hotelList = await apiRequest(
+    params.location,
+    params.adults,
+    params.rooms,
+    params.nights,
+    params.checkIn,
+  );
+
+  if (!Array.isArray(hotelList)) {
+    res.status(404).send('Invalid hotel information');
+  } else {
+    res.json(hotelList);
+  }
+});
+
+router.route('/add').post((req, res) => {
+  const hotel = req.body;
+
+  const newHotel = new Hotel(hotel);
 
   newHotel
     .save()
@@ -30,11 +49,33 @@ router.route('/:id').delete((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-// TODO: need to add other params like price, addr, etc.
-router.route('/update_hotelname/:id').post((req, res) => {
+router.route('/update/:id').post((req, res) => {
   Hotel.findById(req.params.id)
     .then(hotels => {
-      hotels.hotelname = req.body.hotelname;
+      if (req.body.name) {
+        hotels.name = req.body.name;
+      }
+      if (req.body.price) {
+        hotels.price = req.body.price;
+      }
+      if (req.body.location) {
+        hotels.location = req.body.location;
+      }
+      if (req.body.checkIn) {
+        hotels.checkIn = req.body.checkIn;
+      }
+      if (req.body.checkOut) {
+        hotels.checkOut = req.body.checkOut;
+      }
+      if (req.body.numRating) {
+        hotels.numRating = req.body.numRating;
+      }
+      if (req.body.rating) {
+        hotels.rating = req.body.rating;
+      }
+      if (req.body.priceLevel) {
+        hotels.priceLevel = req.body.priceLevel;
+      }
 
       hotels
         .save()

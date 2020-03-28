@@ -3,14 +3,14 @@ import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import expect from 'expect';
-import * as actions from '../../src/actions/hotel/hotelActions';
+import * as actions from '../../src/actions/hotel/fetchHotel';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 const mockAxios = new MockAdapter(axios);
 const store = mockStore({});
 
-describe('async actions', () => {
+describe('fetch hotel actions', () => {
   beforeEach(() => {
     store.clearActions();
   });

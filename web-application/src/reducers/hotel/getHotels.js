@@ -4,7 +4,7 @@ import {
   GET_HOTEL_BEGIN,
   GET_HOTEL_SUCCESS,
   GET_HOTEL_FAILURE,
-} from '../../actions/hotel/hotelActions';
+} from '../../actions/hotel/fetchHotel';
 
 const initialState = {
   hotel: [],

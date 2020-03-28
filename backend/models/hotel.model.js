@@ -4,11 +4,31 @@ const {Schema} = mongoose;
 
 const hotelScheme = new Schema(
   {
-    hotelname: {
+    name: {
       type: String,
-      trim: true,
-      minlength: 3,
       required: true,
+    },
+    price: {
+      type: String,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+    checkIn: {
+      type: Date,
+    },
+    checkOut: {
+      type: Date,
+    },
+    numRating: {
+      type: String,
+    },
+    rating: {
+      type: String,
+    },
+    priceLevel: {
+      type: String,
     },
   },
   {
@@ -17,4 +37,4 @@ const hotelScheme = new Schema(
 );
 
 const Hotel = mongoose.model('Hotel', hotelScheme);
-module.exports = Hotel;
+module.exports = {Hotel};

@@ -7,13 +7,20 @@ import updateToDoList from './todo/updateToDoList';
 import createToDoItem from './todo/createToDoItem';
 import deleteToDoItem from './todo/deleteToDoItem';
 import updateToDoItem from './todo/updateToDoItem';
-import hotel from './hotel/getHotels';
+import getHotels from './hotel/getHotels';
+import createHotel from './hotel/createHotel';
+import deleteHotel from './hotel/deleteHotel';
+import updateHotel from './hotel/updateHotel';
 import getBudget from './budget/getBudget';
 import createBudget from './budget/createBudget';
 import getFlight from './flight/getFlight';
 import createFlight from './flight/createFlight';
+import updateFlight from './flight/updateFlight';
+import deleteFlight from './flight/deleteFlight';
 import getTicket from './ticket/getTicket';
 import createTicket from './ticket/createTicket';
+import updateTicket from './ticket/updateTicket';
+import deleteTicket from './ticket/deleteTicket';
 import createEvent from './event/createEvent';
 import updateEvent from './event/updateEvent';
 import getEvent from './event/getEvent';
@@ -40,10 +47,24 @@ export default combineReducers({
     deleteToDoItem,
     updateToDoItem,
   }),
-  hotel,
-
-  flight: combineReducers({getFlight, createFlight}),
-  ticket: combineReducers({getTicket, createTicket}),
+  hotel: combineReducers({
+    getHotels,
+    createHotel,
+    updateHotel,
+    deleteHotel,
+  }),
+  flight: combineReducers({
+    getFlight,
+    createFlight,
+    updateFlight,
+    deleteFlight,
+  }),
+  ticket: combineReducers({
+    getTicket,
+    createTicket,
+    updateTicket,
+    deleteTicket,
+  }),
   event: combineReducers({getEvent, createEvent, updateEvent, deleteEvent}),
 
   budget: combineReducers({
