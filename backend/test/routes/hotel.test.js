@@ -59,7 +59,7 @@ describe('hotel routes', () => {
         res.body.length.should.be.eql(5);
         done();
       });
-  });
+  }).timeout(10000);
 
   it('should add a new hotel', done => {
     chai
