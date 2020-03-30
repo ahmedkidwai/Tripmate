@@ -5,7 +5,7 @@ describe('getHotels reducer test', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       hotel: [],
-      loading: true,
+      loading: false,
       error: null,
     });
   });

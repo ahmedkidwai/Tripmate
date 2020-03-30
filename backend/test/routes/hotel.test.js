@@ -50,13 +50,13 @@ describe('hotel routes', () => {
       .send({
         location: 'Canada',
         rooms: '1',
-        nights: '3',
-        checkIn: '2020-03-28',
+        nights: '2',
+        checkIn: '2020-04-20',
         adults: '1',
       })
       .end((err, res) => {
         res.should.have.status(200);
-        res.body[0].should.have.property('name');
+        res.body.length.should.be.eql(5);
         done();
       });
   });

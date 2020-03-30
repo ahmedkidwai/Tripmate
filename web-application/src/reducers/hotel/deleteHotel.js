@@ -7,7 +7,7 @@ import createReducer from '../createReducer';
 
 const initialState = {
   deleteSuccessMessage: null,
-  deleteLoading: true,
+  deleteLoading: false,
   deleteError: null,
 };
 

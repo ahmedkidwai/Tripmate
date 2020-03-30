@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   createSuccessMessage: null,
-  createLoading: true,
+  createLoading: false,
   createError: null,
 };
 

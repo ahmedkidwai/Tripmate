@@ -7,7 +7,7 @@ import createReducer from '../createReducer';
 
 const initialState = {
   updateSuccessMessage: null,
-  updateLoading: true,
+  updateLoading: false,
   updateError: null,
 };
 

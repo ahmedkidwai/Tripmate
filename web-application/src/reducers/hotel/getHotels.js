@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   hotel: [],
-  loading: true,
+  loading: false,
   error: null,
 };
 
