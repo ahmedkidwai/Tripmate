@@ -5,7 +5,7 @@ describe('getUser reducer test', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       user: [],
-      loading: true,
+      loading: false,
       error: null,
     });
   });

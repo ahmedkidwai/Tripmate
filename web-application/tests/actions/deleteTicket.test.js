@@ -15,7 +15,7 @@ describe('delete ticket actions', () => {
     store.clearActions();
   });
 
-  let ticket = {
+  const ticket = {
     start: {
       location: 'Paris',
       date: '2020-01-01',

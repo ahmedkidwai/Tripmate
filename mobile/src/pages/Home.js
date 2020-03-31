@@ -1,20 +1,13 @@
 import React, {Component} from 'react';
-
-import {StyleSheet, View, Text} from 'react-native';
+import {ScrollView} from 'react-native';
+import ConnectedTripCollection from '../components/Trip/TripCollection';
 
 export default class Home extends Component {
   render() {
     return (
-      <View>
-        <Text style={styles.Header}>Welcome to Tripmate! By Kurt's Angels</Text>
-      </View>
+      <ScrollView>
+        <ConnectedTripCollection />
+      </ScrollView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  Header: {
-    fontSize: 23,
-    fontWeight: 'bold',
-  },
-});

@@ -15,7 +15,7 @@ describe('delete flight actions', () => {
     store.clearActions();
   });
 
-  let flight = {
+  const flight = {
     _id: '5e4f6675eddfd25ef052f9c0',
     number: 'ABC123',
     date: '2020-01-01',

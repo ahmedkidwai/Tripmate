@@ -15,15 +15,15 @@ describe('update trip actions', () => {
     store.clearActions();
   });
   it('creates UPDATE_TRIP_SUCCESS when update trip has been done', () => {
-    mockAxios
-      .onPost('/trip/update/5e4f6675eddfd25ef052f9c0')
-      .reply(200, [
-        {
-          data: 'Trip updated.',
-        },
-      ]);
+    mockAxios.onPost('/trip/update/5e4f6675eddfd25ef052f9c0').reply(200, [
+      {
+        data: 'Trip updated.',
+      },
+    ]);
     return store
-      .dispatch(actions.updateTrip('5e4f6675eddfd25ef052f9c0', {username: 'newer'}))
+      .dispatch(
+        actions.updateTrip('5e4f6675eddfd25ef052f9c0', {username: 'newer'}),
+      )
       .then(() => {
         const expectedActions = [
           {type: actions.UPDATE_TRIP_BEGIN},

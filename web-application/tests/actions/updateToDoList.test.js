@@ -18,11 +18,14 @@ describe('update todolist actions', () => {
   it('creates UPDATE_TODO_LIST_FAILURE when updating todolist has failed', () => {
     const testListID = 12345;
     mockAxios.onPost(`/todolist/update/${testListID}`).reply(500);
-    
+
     return store.dispatch(actions.updateToDoList()).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'UPDATE_TODO_LIST_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'UPDATE_TODO_LIST_FAILURE');
+      expect(storeActions[1]).toHaveProperty(
+        'type',
+        'UPDATE_TODO_LIST_FAILURE',
+      );
     });
   });
 });

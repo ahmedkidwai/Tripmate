@@ -10,7 +10,7 @@ const mockStore = configureMockStore(middleware);
 const mockAxios = new MockAdapter(axios);
 const store = mockStore({});
 
-let trip = {
+const trip = {
   _id: '5e4f6675eddfd25ef052f9c0',
   tripname: 'new',
   userId: '5e6aeefdb3256d55d6091d82',

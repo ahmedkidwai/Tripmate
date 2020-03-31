@@ -21,22 +21,24 @@ describe('add flight actions', () => {
         data: 'Flight added.',
       },
     ]);
-    return store.dispatch(actions.createFlightAutomatically('5e6aeefdb3256d55d6091d82')).then(() => {
-      const expectedActions = [
-        {type: actions.CREATE_FLIGHT_BEGIN},
-        {
-          type: actions.CREATE_FLIGHT_SUCCESS,
-          payload: {
-            successMessage: [
-              {
-                data: 'Flight added.',
-              },
-            ],
+    return store
+      .dispatch(actions.createFlightAutomatically('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.CREATE_FLIGHT_BEGIN},
+          {
+            type: actions.CREATE_FLIGHT_SUCCESS,
+            payload: {
+              successMessage: [
+                {
+                  data: 'Flight added.',
+                },
+              ],
+            },
           },
-        },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('creates CREATE_FLIGHT_SUCCESS when fetching flight has been done using manual add', () => {
@@ -45,41 +47,47 @@ describe('add flight actions', () => {
         data: 'Flight added.',
       },
     ]);
-    return store.dispatch(actions.createFlightManually('5e6aeefdb3256d55d6091d82')).then(() => {
-      const expectedActions = [
-        {type: actions.CREATE_FLIGHT_BEGIN},
-        {
-          type: actions.CREATE_FLIGHT_SUCCESS,
-          payload: {
-            successMessage: [
-              {
-                data: 'Flight added.',
-              },
-            ],
+    return store
+      .dispatch(actions.createFlightManually('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.CREATE_FLIGHT_BEGIN},
+          {
+            type: actions.CREATE_FLIGHT_SUCCESS,
+            payload: {
+              successMessage: [
+                {
+                  data: 'Flight added.',
+                },
+              ],
+            },
           },
-        },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('creates CREATE_FLIGHT_FAILURE when fetching flight has failed using the external API call', () => {
     mockAxios.onPost('/flight/add_api/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.createFlightAutomatically('5e6aeefdb3256d55d6091d82')).then(() => {
-      const storeActions = store.getActions();
-      expect(storeActions[0]).toHaveProperty('type', 'CREATE_FLIGHT_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'CREATE_FLIGHT_FAILURE');
-    });
+    return store
+      .dispatch(actions.createFlightAutomatically('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const storeActions = store.getActions();
+        expect(storeActions[0]).toHaveProperty('type', 'CREATE_FLIGHT_BEGIN');
+        expect(storeActions[1]).toHaveProperty('type', 'CREATE_FLIGHT_FAILURE');
+      });
   });
 
   it('creates CREATE_FLIGHT_FAILURE when fetching flight has failed using manual add', () => {
     mockAxios.onPost('/flight/add_manual/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.createFlightManually('5e6aeefdb3256d55d6091d82')).then(() => {
-      const storeActions = store.getActions();
-      expect(storeActions[0]).toHaveProperty('type', 'CREATE_FLIGHT_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'CREATE_FLIGHT_FAILURE');
-    });
+    return store
+      .dispatch(actions.createFlightManually('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const storeActions = store.getActions();
+        expect(storeActions[0]).toHaveProperty('type', 'CREATE_FLIGHT_BEGIN');
+        expect(storeActions[1]).toHaveProperty('type', 'CREATE_FLIGHT_FAILURE');
+      });
   });
 });

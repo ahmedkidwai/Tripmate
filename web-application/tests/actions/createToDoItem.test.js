@@ -16,13 +16,16 @@ describe('add todoitem actions', () => {
   });
 
   it('creates CREATE_TODO_ITEM_FAILURE when creating todoitem has failed', () => {
-    const testListID = 12345
+    const testListID = 12345;
     mockAxios.onPost(`/todolist/${testListID}/todoitem/add`).reply(500);
 
     return store.dispatch(actions.createToDoItem()).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'CREATE_TODO_ITEM_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'CREATE_TODO_ITEM_FAILURE');
+      expect(storeActions[1]).toHaveProperty(
+        'type',
+        'CREATE_TODO_ITEM_FAILURE',
+      );
     });
   });
 });

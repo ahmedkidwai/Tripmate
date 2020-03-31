@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
 
-import {View, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
+import styles from './src/styles/Style';
 
 import {createAppContainer} from 'react-navigation';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import {createStackNavigator} from 'react-navigation-stack';
 import Home from './src/pages/Home';
-import BudgetManagement from './src/pages/BudgetManagement';
-import TodoList from './src/pages/TodoList';
-import Ticket from './src/pages/Ticket';
-import Flight from './src/pages/Flight';
+import About from './src/pages/About';
 
 class NavigationDrawerStructure extends Component {
   toggleDrawer = () => {
@@ -45,57 +43,9 @@ const Homepage_StackNavigator = createStackNavigator({
   },
 });
 
-const BudgetManagement_StackNavigator = createStackNavigator({
-  Fourth: {
-    screen: BudgetManagement,
-    navigationOptions: ({navigation}) => ({
-      title: 'TripMate',
-      headerLeft: () => (
-        <NavigationDrawerStructure navigationProps={navigation} />
-      ),
-      headerStyle: {
-        backgroundColor: '#3f51b5',
-      },
-      headerTintColor: '#fff',
-    }),
-  },
-});
-
-const TodoList_StackNavigator = createStackNavigator({
-  Fifth: {
-    screen: TodoList,
-    navigationOptions: ({navigation}) => ({
-      title: 'TripMate',
-      headerLeft: () => (
-        <NavigationDrawerStructure navigationProps={navigation} />
-      ),
-      headerStyle: {
-        backgroundColor: '#3f51b5',
-      },
-      headerTintColor: '#fff',
-    }),
-  },
-});
-
-const Ticket_StackNavigator = createStackNavigator({
-  Fifth: {
-    screen: Ticket,
-    navigationOptions: ({navigation}) => ({
-      title: 'TripMate',
-      headerLeft: () => (
-        <NavigationDrawerStructure navigationProps={navigation} />
-      ),
-      headerStyle: {
-        backgroundColor: '#3f51b5',
-      },
-      headerTintColor: '#fff',
-    }),
-  },
-});
-
-const Flight_StackNavigator = createStackNavigator({
-  Fifth: {
-    screen: Flight,
+const About_StackNavigator = createStackNavigator({
+  Second: {
+    screen: About,
     navigationOptions: ({navigation}) => ({
       title: 'TripMate',
       headerLeft: () => (
@@ -116,40 +66,11 @@ const DrawerNavigatorExample = createDrawerNavigator({
       drawerLabel: 'Home',
     },
   },
-  BudgetManagement: {
-    screen: BudgetManagement_StackNavigator,
+  About: {
+    screen: About_StackNavigator,
     navigationOptions: {
-      drawerLabel: 'Budget management',
+      drawerLabel: 'About',
     },
-  },
-  TodoList: {
-    screen: TodoList_StackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Todo List',
-    },
-  },
-  Ticket: {
-    screen: Ticket_StackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Ticket',
-    },
-  },
-  Flight: {
-    screen: Flight_StackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Flight',
-    },
-  },
-});
-
-const styles = StyleSheet.create({
-  MainContainer: {
-    flexDirection: 'row',
-  },
-  DrawerImage: {
-    width: 25,
-    height: 25,
-    marginLeft: 5,
   },
 });
 

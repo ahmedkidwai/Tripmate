@@ -16,7 +16,7 @@ describe('fetch trips actions', () => {
   });
 
   it('creates GET_TRIPS_SUCCESS when fetching trips has been done', () => {
-    mockAxios.onGet('/trip/user/5e6aeefdb3256d55d6091d82').reply(200,[
+    mockAxios.onGet('/trip/user/5e6aeefdb3256d55d6091d82').reply(200, [
       {
         _id: '5e4f6675eddfd25ef052f9c0',
         tripname: 'new',
@@ -24,7 +24,7 @@ describe('fetch trips actions', () => {
         createdAt: '2020-02-21T05:11:17.039Z',
         updatedAt: '2020-02-21T05:11:17.039Z',
         __v: 0,
-      }
+      },
     ]);
     return store
       .dispatch(actions.fetchTrips('5e6aeefdb3256d55d6091d82'))
@@ -34,7 +34,7 @@ describe('fetch trips actions', () => {
           {
             type: actions.GET_TRIPS_SUCCESS,
             payload: {
-              trips:[ 
+              trips: [
                 {
                   _id: '5e4f6675eddfd25ef052f9c0',
                   tripname: 'new',

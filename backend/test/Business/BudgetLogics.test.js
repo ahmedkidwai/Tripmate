@@ -1,6 +1,6 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const {Budget, Expenses} = require('../../models/Budget.model');
+const {Budget, Expenses} = require('../../models/budget.model');
 
 const {
   getBudgetSummary,

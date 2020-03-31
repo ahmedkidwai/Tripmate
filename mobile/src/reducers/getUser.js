@@ -7,7 +7,7 @@ import createReducer from './createReducer';
 
 const initialState = {
   user: [],
-  loading: true,
+  loading: false,
   error: null,
 };
 

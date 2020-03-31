@@ -18,12 +18,17 @@ describe('update todoitem actions', () => {
   it('creates UPDATE_TODO_ITEM_FAILURE when updating todoitem has failed', () => {
     const testListID = 12345;
     const testItemID = 12345;
-    mockAxios.onPost(`/todolist/${testListID}/todoitem/update/${testItemID}`).reply(500);
-    
+    mockAxios
+      .onPost(`/todolist/${testListID}/todoitem/update/${testItemID}`)
+      .reply(500);
+
     return store.dispatch(actions.updateToDoItem()).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'UPDATE_TODO_ITEM_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'UPDATE_TODO_ITEM_FAILURE');
+      expect(storeActions[1]).toHaveProperty(
+        'type',
+        'UPDATE_TODO_ITEM_FAILURE',
+      );
     });
   });
 });

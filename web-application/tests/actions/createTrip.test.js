@@ -20,22 +20,24 @@ describe('create trip actions', () => {
         data: 'Trip added.',
       },
     ]);
-    return store.dispatch(actions.createTrip('5e6aadb4160a6405089090ec')).then(() => {
-      const expectedActions = [
-        {type: actions.CREATE_TRIP_BEGIN},
-        {
-          type: actions.CREATE_TRIP_SUCCESS,
-          payload: {
-            successMessage: [
-              {
-                data: 'Trip added.',
-              },
-            ],
+    return store
+      .dispatch(actions.createTrip('5e6aadb4160a6405089090ec'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.CREATE_TRIP_BEGIN},
+          {
+            type: actions.CREATE_TRIP_SUCCESS,
+            payload: {
+              successMessage: [
+                {
+                  data: 'Trip added.',
+                },
+              ],
+            },
           },
-        },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('creates CREATE_TRIP_FAILURE when fetching trip has failed', () => {

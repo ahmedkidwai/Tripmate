@@ -15,7 +15,7 @@ describe('update ticket actions', () => {
     store.clearActions();
   });
 
-  let ticket = {
+  const ticket = {
     start: {
       location: 'Paris',
       date: '2020-01-01',
@@ -35,24 +35,26 @@ describe('update ticket actions', () => {
     mockAxios
       .onPost(`/ticket/update/${ticket._id}`)
       .reply(200, [{data: 'Ticket updated.'}]);
-    return store.dispatch(actions.updateTicket(ticket._id, 'Test update')).then(() => {
-      const expectedActions = [
-        {type: actions.UPDATE_TICKET_BEGIN},
-        {
-          type: actions.UPDATE_TICKET_SUCCESS,
-          payload: {
-            successMessage: [{data: 'Ticket updated.'}],
+    return store
+      .dispatch(actions.updateTicket(ticket._id, 'Test update'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.UPDATE_TICKET_BEGIN},
+          {
+            type: actions.UPDATE_TICKET_SUCCESS,
+            payload: {
+              successMessage: [{data: 'Ticket updated.'}],
+            },
           },
-        },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
-  
+
   it('creates UPDATE_TICKET_FAILURE when updating ticket has failed', () => {
     const testTicketID = 12345;
     mockAxios.onPost(`/ticket/update/${testTicketID}`).reply(500);
-    
+
     return store.dispatch(actions.updateTicket()).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'UPDATE_TICKET_BEGIN');

@@ -14,11 +14,11 @@ describe('update hotel actions', () => {
   beforeEach(() => {
     store.clearActions();
   });
-  
+
   it('creates UPDATE_HOTEL_FAILURE when updating hotel has failed', () => {
     const testHotelID = 12345;
     mockAxios.onPost(`/hotel/update/${testHotelID}`).reply(500);
-    
+
     return store.dispatch(actions.updateHotel()).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'UPDATE_HOTEL_BEGIN');

@@ -21,7 +21,10 @@ describe('delete todolist actions', () => {
     return store.dispatch(actions.deleteToDoList()).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'DELETE_TODO_LIST_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'DELETE_TODO_LIST_FAILURE');
+      expect(storeActions[1]).toHaveProperty(
+        'type',
+        'DELETE_TODO_LIST_FAILURE',
+      );
     });
   });
 });

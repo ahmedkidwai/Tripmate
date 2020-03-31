@@ -21,31 +21,35 @@ describe('add ticket actions', () => {
         data: 'Ticket added.',
       },
     ]);
-    return store.dispatch(actions.createTicket('5e6aeefdb3256d55d6091d82')).then(() => {
-      const expectedActions = [
-        {type: actions.CREATE_TICKET_BEGIN},
-        {
-          type: actions.CREATE_TICKET_SUCCESS,
-          payload: {
-            successMessage: [
-              {
-                data: 'Ticket added.',
-              },
-            ],
+    return store
+      .dispatch(actions.createTicket('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.CREATE_TICKET_BEGIN},
+          {
+            type: actions.CREATE_TICKET_SUCCESS,
+            payload: {
+              successMessage: [
+                {
+                  data: 'Ticket added.',
+                },
+              ],
+            },
           },
-        },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('creates CREATE_TICKET_FAILURE when fetching ticket has failed', () => {
     mockAxios.onPost('/ticket/add/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.createTicket('5e6aeefdb3256d55d6091d82')).then(() => {
-      const storeActions = store.getActions();
-      expect(storeActions[0]).toHaveProperty('type', 'CREATE_TICKET_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'CREATE_TICKET_FAILURE');
-    });
+    return store
+      .dispatch(actions.createTicket('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const storeActions = store.getActions();
+        expect(storeActions[0]).toHaveProperty('type', 'CREATE_TICKET_BEGIN');
+        expect(storeActions[1]).toHaveProperty('type', 'CREATE_TICKET_FAILURE');
+      });
   });
 });

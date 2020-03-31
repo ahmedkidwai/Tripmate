@@ -15,7 +15,7 @@ describe('update flight actions', () => {
     store.clearActions();
   });
 
-  let flight = {
+  const flight = {
     _id: '5e4f6675eddfd25ef052f9c0',
     number: 'ABC123',
     date: '2020-01-01',
@@ -28,24 +28,26 @@ describe('update flight actions', () => {
     mockAxios
       .onPost(`/flight/update/${flight._id}`)
       .reply(200, [{data: 'Flight updated.'}]);
-    return store.dispatch(actions.updateFlight(flight._id, 'Test update')).then(() => {
-      const expectedActions = [
-        {type: actions.UPDATE_FLIGHT_BEGIN},
-        {
-          type: actions.UPDATE_FLIGHT_SUCCESS,
-          payload: {
-            successMessage: [{data: 'Flight updated.'}],
+    return store
+      .dispatch(actions.updateFlight(flight._id, 'Test update'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.UPDATE_FLIGHT_BEGIN},
+          {
+            type: actions.UPDATE_FLIGHT_SUCCESS,
+            payload: {
+              successMessage: [{data: 'Flight updated.'}],
+            },
           },
-        },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
-  
+
   it('creates UPDATE_FLIGHT_FAILURE when updating flight has failed', () => {
     const testFlightID = 12345;
     mockAxios.onPost(`/flight/update/${testFlightID}`).reply(500);
-    
+
     return store.dispatch(actions.updateFlight()).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'UPDATE_FLIGHT_BEGIN');

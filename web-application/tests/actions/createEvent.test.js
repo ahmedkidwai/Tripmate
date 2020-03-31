@@ -21,31 +21,35 @@ describe('add event actions', () => {
         data: 'Event added.',
       },
     ]);
-    return store.dispatch(actions.createEvent('5e6aeefdb3256d55d6091d82')).then(() => {
-      const expectedActions = [
-        {type: actions.CREATE_EVENT_BEGIN},
-        {
-          type: actions.CREATE_EVENT_SUCCESS,
-          payload: {
-            successMessage: [
-              {
-                data: 'Event added.',
-              },
-            ],
+    return store
+      .dispatch(actions.createEvent('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.CREATE_EVENT_BEGIN},
+          {
+            type: actions.CREATE_EVENT_SUCCESS,
+            payload: {
+              successMessage: [
+                {
+                  data: 'Event added.',
+                },
+              ],
+            },
           },
-        },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('creates CREATE_EVENT_FAILURE when fetching event has failed', () => {
     mockAxios.onPost('/event/add/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.createEvent('5e6aeefdb3256d55d6091d82')).then(() => {
-      const storeActions = store.getActions();
-      expect(storeActions[0]).toHaveProperty('type', 'CREATE_EVENT_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'CREATE_EVENT_FAILURE');
-    });
+    return store
+      .dispatch(actions.createEvent('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const storeActions = store.getActions();
+        expect(storeActions[0]).toHaveProperty('type', 'CREATE_EVENT_BEGIN');
+        expect(storeActions[1]).toHaveProperty('type', 'CREATE_EVENT_FAILURE');
+      });
   });
 });

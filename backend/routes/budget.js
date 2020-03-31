@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const {Budget} = require('../models/Budget.model');
-const {Expenses} = require('../models/Budget.model');
+const {Budget} = require('../models/budget.model');
+const {Expenses} = require('../models/budget.model');
 const {
   getBudgetSummary,
   getExpensesListBYDateOrder,

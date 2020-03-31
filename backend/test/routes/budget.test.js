@@ -11,8 +11,8 @@ const server = require('../../server');
 // eslint-disable-next-line no-unused-vars
 const should = chai.should();
 
-const {Budget} = require('../../models/Budget.model');
-const {Expenses} = require('../../models/Budget.model');
+const {Budget} = require('../../models/budget.model');
+const {Expenses} = require('../../models/budget.model');
 
 chai.use(chaiHttp);
 

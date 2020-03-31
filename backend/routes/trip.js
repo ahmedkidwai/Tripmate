@@ -1,8 +1,8 @@
 const router = require('express').Router({mergeParams: true});
 const underscore = require('underscore');
 const {Trip} = require('../models/trip.model');
-const User = require('../models/User');
-const {Budget} = require('../models/Budget.model');
+const {User} = require('../models/user.model');
+const {Budget} = require('../models/budget.model');
 const {Flight} = require('../models/flight.model');
 const {Hotel} = require('../models/hotel.model');
 const {Ticket} = require('../models/ticket.model');
