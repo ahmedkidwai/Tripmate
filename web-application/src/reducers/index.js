@@ -11,6 +11,7 @@ import getHotels from './hotel/getHotels';
 import createHotel from './hotel/createHotel';
 import deleteHotel from './hotel/deleteHotel';
 import updateHotel from './hotel/updateHotel';
+import getHotelsAPI from './hotel/getHotelsAPI';
 import getBudget from './budget/getBudget';
 import createBudget from './budget/createBudget';
 import getFlight from './flight/getFlight';
@@ -55,6 +56,7 @@ export default combineReducers({
     createHotel,
     updateHotel,
     deleteHotel,
+    getHotelsAPI,
   }),
   flight: combineReducers({
     getFlight,

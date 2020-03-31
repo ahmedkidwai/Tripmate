@@ -19,12 +19,21 @@ describe('Hotels Component', () => {
           checkOut: '2020-03-27T18:00:16Z',
         }]}
         loading={false}
+        hotelAPI={[{
+          _id: 1, 
+          name: 'Test Hotel 1',
+          price: '777',
+          location: 'Somewhere',
+          checkIn: '2020-03-23T18:00:16Z',
+          checkOut: '2020-03-27T18:00:16Z',
+        }]}
+        loadingAPI={false}
       />,
     );
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.find('div').exists()).toBe(true);
   });
-  it('is loading and should render "under construction" message', () => {
+  it('is loading and should render nothing', () => {
     const wrapper = shallow(<Hotels loading={true} />);
     expect(wrapper.exists()).toBe(true);
   });

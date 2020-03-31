@@ -11,7 +11,8 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {fetchHotel, fetchHotelAPI} from '../actions/hotel/fetchHotel';
+import {fetchHotel} from '../actions/hotel/fetchHotel';
+import {fetchHotelAPI} from '../actions/hotel/fetchHotelAPI';
 
 export const Hotels = props => {
   const [location, setLocation] = useState('');
@@ -61,7 +62,7 @@ export const Hotels = props => {
     setCheckin(e.target.value);
   };
 
-  if (!props.loading) {
+  if (!props.loading && !props.loadingAPI) {
     return (
       <div>
         <div>
@@ -123,19 +124,63 @@ export const Hotels = props => {
               </Button>
             </ListItem>
           </form>
-          <br></br>
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            onClick={() => props.dispatch(fetchHotel())}>
-            Get my Hotels
-          </Button>
         </div>
 
         <div>
-          <h1>List of Hotels</h1>
+          <h1>My Hotels</h1>
           {props.hotel.map(hotel => (
+            <div key={hotel._id}>
+              <List component="div" disablePadding className={classes.root}>
+                <ListItem>
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary="Name"
+                    secondary={`${hotel.name}`}
+                  />
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary="Price"
+                    secondary={`${hotel.price}`}
+                  />
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary="Location"
+                    secondary={`${hotel.location}`}
+                  />
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary="Check-in"
+                    secondary={`${hotel.checkIn}`}
+                  />
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary="Check-out"
+                    secondary={`${hotel.checkOut}`}
+                  />
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary="Number of ratings"
+                    secondary={`${hotel.numRating}`}
+                  />
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary="Rating"
+                    secondary={`${hotel.rating}`}
+                  />
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary="Price Level"
+                    secondary={`${hotel.priceLevel}`}
+                  />
+                </ListItem>
+              </List>
+            </div>
+          ))}
+        </div>
+
+        <div>
+          <h1>Searched Hotels</h1>
+          {props.hotelAPI.map(hotel => (
             <div key={hotel._id}>
               <List component="div" disablePadding className={classes.root}>
                 <ListItem>
@@ -194,6 +239,10 @@ Hotels.propTypes = {
   dispatch: PropTypes.func,
   hotel: PropTypes.array,
   loading: PropTypes.bool,
+  error: PropTypes.string,
+  hotelAPI: PropTypes.array,
+  loadingAPI: PropTypes.bool,
+  errorAPI: PropTypes.string,
   createHotelMessage: PropTypes.string,
   createHotelLoading: PropTypes.bool,
   createHotelError: PropTypes.string,
@@ -203,6 +252,9 @@ const mapStateToProps = state => ({
   hotel: state.hotel.getHotels.hotel,
   loading: state.hotel.getHotels.loading,
   error: state.hotel.getHotels.error,
+  hotelAPI: state.hotel.getHotelsAPI.hotelAPI,
+  loadingAPI: state.hotel.getHotelsAPI.loadingAPI,
+  errorAPI: state.hotel.getHotelsAPI.errorAPI,
   createHotelMessage: state.hotel.createHotel.createSuccessMessage,
   createHotelLoading: state.hotel.createHotel.createLoading,
   createHotelError: state.hotel.createHotel.createError,

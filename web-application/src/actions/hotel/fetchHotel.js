@@ -29,15 +29,3 @@ export const fetchHotel = () => {
       .catch(error => dispatch(fetchHotelError(error)));
   };
 };
-
-export const fetchHotelAPI = (location, adults, rooms, nights, checkIn) => {
-  return dispatch => {
-    dispatch(fetchHotelBegin());
-
-    return axios
-      .post('/hotel/api', {location, adults, rooms, nights, checkIn})
-      .then(response => response.data)
-      .then(hotel => dispatch(fetchHotelSuccess(hotel)))
-      .catch(error => dispatch(fetchHotelError(error)));
-  };
-};

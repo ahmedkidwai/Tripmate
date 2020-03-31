@@ -25,10 +25,10 @@ describe('getHotels reducer test', () => {
     expect(
       reducer([], {
         type: types.GET_HOTEL_SUCCESS,
-        payload: {hotel: [{hotelname: 'Test Hotel'}]},
+        payload: {hotel: [{name: 'Test Hotel'}]},
       }),
     ).toEqual({
-      hotel: [{hotelname: 'Test Hotel'}],
+      hotel: [{name: 'Test Hotel'}],
       loading: false,
     });
     expect(
@@ -40,11 +40,11 @@ describe('getHotels reducer test', () => {
         },
         {
           type: types.GET_HOTEL_SUCCESS,
-          payload: {hotel: [{hotelname: 'Test Hotel'}]},
+          payload: {hotel: [{name: 'Test Hotel'}]},
         },
       ),
     ).toEqual({
-      hotel: [{hotelname: 'Test Hotel'}],
+      hotel: [{name: 'Test Hotel'}],
       loading: false,
       error: null,
     });
