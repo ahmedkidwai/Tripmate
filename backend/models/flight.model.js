@@ -82,6 +82,10 @@ const flightScheme = new Schema(
     airline: {
       type: String,
     },
+    tripId: {
+      type: mongoose.ObjectId,
+      unique: false,
+    },
   },
   {
     timestamps: true,

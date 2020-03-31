@@ -20,6 +20,7 @@ export const createEventFail = error => ({
 });
 
 export const createEvent = (
+  tripId,
   eventTitle,
   creatorId,
   description,
@@ -32,7 +33,7 @@ export const createEvent = (
     dispatch(createEventBegin());
 
     return axios
-      .post(url + '/event/add', {
+      .post(url + '/event/add/' + tripId, {
         event: {
           title: eventTitle,
           creator: creatorId,

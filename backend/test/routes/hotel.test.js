@@ -35,7 +35,7 @@ describe('hotel routes', () => {
   it('should get all hotels', done => {
     chai
       .request(server)
-      .get('/hotel')
+      .get('/hotel/trip/5e6aeefdb3256d55d6091d82')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.length.should.be.eql(0);
@@ -64,7 +64,7 @@ describe('hotel routes', () => {
   it('should add a new hotel', done => {
     chai
       .request(server)
-      .post('/hotel/add')
+      .post('/hotel/add/5e6aeefdb3256d55d6091d82')
       .send({name: 'Test Hotel', location: 'Test Location'})
       .end((err, res) => {
         res.should.have.status(200);

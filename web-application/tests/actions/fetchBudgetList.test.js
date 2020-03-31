@@ -16,16 +16,17 @@ describe('fetch budget list actions', () => {
   });
 
   it('creates GET_BUDGET_LIST_SUCCESS when fetching budget list has been done', () => {
-    mockAxios.onGet('/budget').reply(200, [
+    mockAxios.onGet('/budget/trip/5e6aeefdb3256d55d6091d82').reply(200, [
       {
         _id: '5e4f6675eddfd25ef052f9c0',
         budget: 1234,
+        tripId: '5e6aeefdb3256d55d6091d82',
         createdAt: '2020-02-21T05:11:17.039Z',
         updatedAt: '2020-02-21T05:11:17.039Z',
         __v: 0,
       },
     ]);
-    return store.dispatch(actions.fetchBudgetList()).then(() => {
+    return store.dispatch(actions.fetchBudgetList('5e6aeefdb3256d55d6091d82')).then(() => {
       const expectedActions = [
         {type: actions.GET_BUDGET_LIST_BEGIN},
         {
@@ -35,6 +36,7 @@ describe('fetch budget list actions', () => {
               {
                 _id: '5e4f6675eddfd25ef052f9c0',
                 budget: 1234,
+                tripId: '5e6aeefdb3256d55d6091d82',
                 createdAt: '2020-02-21T05:11:17.039Z',
                 updatedAt: '2020-02-21T05:11:17.039Z',
                 __v: 0,
@@ -48,9 +50,9 @@ describe('fetch budget list actions', () => {
   });
 
   it('creates GET_BUDGET_LIST_FAILURE when fetching budget list has failed', () => {
-    mockAxios.onGet('/budget').reply(500);
+    mockAxios.onGet('/budget/trip/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.fetchBudgetList()).then(() => {
+    return store.dispatch(actions.fetchBudgetList('5e6aeefdb3256d55d6091d82')).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'GET_BUDGET_LIST_BEGIN');
       expect(storeActions[1]).toHaveProperty('type', 'GET_BUDGET_LIST_FAILURE');

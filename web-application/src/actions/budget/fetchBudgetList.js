@@ -18,12 +18,12 @@ export const fetchBudgetListFailure = error => ({
   payload: {error},
 });
 
-export const fetchBudgetList = () => {
+export const fetchBudgetList = tripId => {
   return dispatch => {
     dispatch(fetchBudgetListBegin());
 
     return axios
-      .get('/budget')
+      .get(`/budget/trip/${tripId}`)
       .then(response => response.data)
       .then(budget => dispatch(fetchBudgetListSuccess(budget)))
       .catch(error => dispatch(fetchBudgetListFailure(error)));

@@ -16,12 +16,12 @@ describe('add budget actions', () => {
   });
 
   it('creates CREATE_BUDGET_SUCCESS when fetching budget has been done', () => {
-    mockAxios.onPost('/budget/add').reply(200, [
+    mockAxios.onPost('/budget/add/5e6aeefdb3256d55d6091d82').reply(200, [
       {
         data: 'Budget added.',
       },
     ]);
-    return store.dispatch(actions.createBudget()).then(() => {
+    return store.dispatch(actions.createBudget('5e6aeefdb3256d55d6091d82')).then(() => {
       const expectedActions = [
         {type: actions.CREATE_BUDGET_BEGIN},
         {
@@ -40,9 +40,9 @@ describe('add budget actions', () => {
   });
 
   it('creates CREATE_BUDGET_FAILURE when fetching budget has failed', () => {
-    mockAxios.onPost('/budget/add').reply(500);
+    mockAxios.onPost('/budget/add/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.createBudget()).then(() => {
+    return store.dispatch(actions.createBudget('5e6aeefdb3256d55d6091d82')).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'CREATE_BUDGET_BEGIN');
       expect(storeActions[1]).toHaveProperty('type', 'CREATE_BUDGET_FAILURE');

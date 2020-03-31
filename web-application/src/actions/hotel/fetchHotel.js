@@ -18,12 +18,12 @@ export const fetchHotelError = error => ({
   payload: {error},
 });
 
-export const fetchHotel = () => {
+export const fetchHotel = tripId => {
   return dispatch => {
     dispatch(fetchHotelBegin());
 
     return axios
-      .get('/hotel')
+      .get(`/hotel/trip/${tripId}`)
       .then(response => response.data)
       .then(hotel => dispatch(fetchHotelSuccess(hotel)))
       .catch(error => dispatch(fetchHotelError(error)));

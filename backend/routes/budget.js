@@ -6,16 +6,17 @@ const {
   getExpensesListBYDateOrder,
 } = require('../Business/BugdetLogics');
 
-router.route('/').get((req, res) => {
-  Budget.find()
+router.route('/trip/:tripId').get((req, res) => {
+  Budget.find({tripId: req.params.tripId})
     .then(budget => res.json(budget))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.route('/add').post((req, res) => {
+router.route('/add/:tripId').post((req, res) => {
   const {budget} = req.body;
+  const {tripId} = req.params;
 
-  const newBudget = new Budget({budget});
+  const newBudget = new Budget({budget, tripId});
 
   newBudget
     .save()

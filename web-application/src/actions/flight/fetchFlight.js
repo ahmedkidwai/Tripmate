@@ -18,12 +18,12 @@ export const fetchFlightError = error => ({
   payload: {error},
 });
 
-export const fetchFlight = () => {
+export const fetchFlight = tripId => {
   return dispatch => {
     dispatch(fetchFlightBegin());
 
     return axios
-      .get('/flight')
+      .get(`/flight/trip/${tripId}`)
       .then(response => response.data)
       .then(flight => dispatch(fetchFlightSuccess(flight)))
       .catch(error => dispatch(fetchFlightError(error)));

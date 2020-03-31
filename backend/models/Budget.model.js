@@ -41,7 +41,12 @@ const budgetScheme = new Schema(
       min: 0,
     },
     expenses: [expensesScheme],
+    tripId: {
+      type: mongoose.ObjectId,
+      unique: false,
+    },
   },
+
   {
     timestamps: true,
   },

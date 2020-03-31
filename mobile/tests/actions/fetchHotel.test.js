@@ -17,27 +17,33 @@ describe('fetch hotel actions', () => {
   });
 
   it('creates GET_HOTEL_SUCCESS when fetching hotel has been done', () => {
-    mockAxios.onGet(url + '/hotel').reply(200, [{name: 'Test Hotel'}]);
+    mockAxios
+      .onGet(url + '/hotel/trip/5e6aeefdb3256d55d6091d82')
+      .reply(200, [{name: 'Test Hotel'}]);
 
-    return store.dispatch(actions.fetchHotel()).then(() => {
-      const expectedActions = [
-        {type: actions.GET_HOTEL_BEGIN},
-        {
-          type: actions.GET_HOTEL_SUCCESS,
-          payload: {hotel: [{name: 'Test Hotel'}]},
-        },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(actions.fetchHotel('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.GET_HOTEL_BEGIN},
+          {
+            type: actions.GET_HOTEL_SUCCESS,
+            payload: {hotel: [{name: 'Test Hotel'}]},
+          },
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('creates GET_HOTEL_FAILURE when fetching hotel has failed', () => {
-    mockAxios.onGet(url + '/hotel').reply(500);
+    mockAxios.onGet(url + '/hotel/trip/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.fetchHotel()).then(() => {
-      const action = store.getActions();
-      expect(action[0]).toHaveProperty('type', 'GET_HOTEL_BEGIN');
-      expect(action[1]).toHaveProperty('type', 'GET_HOTEL_FAILURE');
-    });
+    return store
+      .dispatch(actions.fetchHotel('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const action = store.getActions();
+        expect(action[0]).toHaveProperty('type', 'GET_HOTEL_BEGIN');
+        expect(action[1]).toHaveProperty('type', 'GET_HOTEL_FAILURE');
+      });
   });
 });

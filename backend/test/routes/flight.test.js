@@ -35,7 +35,7 @@ describe('flight routes', () => {
   it('it should get all flights', done => {
     chai
       .request(server)
-      .get('/flight')
+      .get('/flight/trip/5e6aeefdb3256d55d6091d82')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.length.should.be.eql(0);
@@ -46,7 +46,7 @@ describe('flight routes', () => {
   it('it add should add a new flight manually', done => {
     chai
       .request(server)
-      .post('/flight/add_manual')
+      .post('/flight/add_manual/5e6aeefdb3256d55d6091d82')
       .send({number: 'ABC123', date: '2020-01-01'})
       .end((err, res) => {
         res.should.have.status(200);
@@ -56,7 +56,7 @@ describe('flight routes', () => {
   });
 
   it('it should add a new flight via api', done => {
-    nock('/flight/add_api')
+    nock('/flight/add_api/5e6aeefdb3256d55d6091d82')
       .get('/AC90/2020-03-27')
       .query({
         withLocation: false,
@@ -66,7 +66,7 @@ describe('flight routes', () => {
 
     chai
       .request(server)
-      .post('/flight/add_api')
+      .post('/flight/add_api/5e6aeefdb3256d55d6091d82')
       .send({number: 'AC90', date: '2020-03-27'})
       .end((err, res) => {
         res.should.have.status(200);

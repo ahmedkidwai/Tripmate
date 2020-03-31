@@ -1,16 +1,17 @@
 const router = require('express').Router();
+const underscore = require('underscore');
 const {Event} = require('../models/event.model');
 
-router.route('/').get((req, res) => {
-  Event.find()
+router.route('/trip/:tripId').get((req, res) => {
+  Event.find({tripId: req.params.tripId})
     .then(events => res.json(events))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.route('/add').post((req, res) => {
-  const {event} = req.body;
-
-  const newEvent = new Event(event);
+router.route('/add/:tripId').post((req, res) => {
+  const newEvent = new Event(
+    underscore.extend(req.body.event, {tripId: req.params.tripId}),
+  );
 
   newEvent
     .save()

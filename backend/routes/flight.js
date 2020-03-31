@@ -1,18 +1,19 @@
 const router = require('express').Router();
+const underscore = require('underscore');
 const {XMLHttpRequest} = require('xmlhttprequest');
 const {Flight} = require('../models/flight.model');
 const {APIkey, APIurl, generateAPIRequestURL} = require('../api/flight/utils');
 
-router.route('/').get((req, res) => {
-  Flight.find()
+router.route('/trip/:tripId').get((req, res) => {
+  Flight.find({tripId: req.params.tripId})
     .then(flights => res.json(flights))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.route('/add_manual').post((req, res) => {
-  const flight = req.body;
-
-  const newFlight = new Flight(flight);
+router.route('/add_manual/:tripId').post((req, res) => {
+  const newFlight = new Flight(
+    underscore.extend(req.body, {tripId: req.params.tripId}),
+  );
 
   newFlight
     .save()
@@ -20,8 +21,9 @@ router.route('/add_manual').post((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-router.route('/add_api').post((req, res) => {
+router.route('/add_api/:tripId').post((req, res) => {
   const flight = req.body;
+  const {tripId} = req.params;
   const apiUrl = generateAPIRequestURL(flight.number, flight.date);
 
   const data = null;
@@ -35,6 +37,7 @@ router.route('/add_api').post((req, res) => {
 
       if (obj.length > 0) {
         const newFlight = new Flight({
+          tripId,
           departure: {
             airport: {
               iata: obj[0].departure.airport.iata,

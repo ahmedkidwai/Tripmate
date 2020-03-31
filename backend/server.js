@@ -28,6 +28,10 @@ const userRouter = require('./routes/users');
 
 app.use('/users', userRouter);
 
+const tripRouter = require('./routes/trip');
+
+app.use('/trip', tripRouter);
+
 const budgetRouter = require('./routes/budget');
 
 app.use('/budget', budgetRouter);

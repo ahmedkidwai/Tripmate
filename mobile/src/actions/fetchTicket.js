@@ -19,12 +19,12 @@ export const fetchTicketError = error => ({
   payload: {error},
 });
 
-export const fetchTicket = () => {
+export const fetchTicket = tripId => {
   return dispatch => {
     dispatch(fetchTicketBegin());
 
     return axios
-      .get(url + '/ticket')
+      .get(url + '/ticket/trip/' + tripId)
       .then(response => response.data)
       .then(ticket => dispatch(fetchTicketSuccess(ticket)))
       .catch(error => dispatch(fetchTicketError(error)));

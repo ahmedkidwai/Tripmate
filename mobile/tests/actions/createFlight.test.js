@@ -17,70 +17,86 @@ describe('add flight actions', () => {
   });
 
   it('creates CREATE_FLIGHT_SUCCESS when fetching flight has been done using the external API call', () => {
-    mockAxios.onPost(url + '/flight/add_api').reply(200, [
-      {
-        data: 'Flight added.',
-      },
-    ]);
-    return store.dispatch(actions.createFlightAutomatically()).then(() => {
-      const expectedActions = [
-        {type: actions.CREATE_FLIGHT_BEGIN},
+    mockAxios
+      .onPost(url + '/flight/add_api/5e6aeefdb3256d55d6091d82')
+      .reply(200, [
         {
-          type: actions.CREATE_FLIGHT_SUCCESS,
-          payload: {
-            successMessage: [
-              {
-                data: 'Flight added.',
-              },
-            ],
-          },
+          data: 'Flight added.',
         },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+      ]);
+    return store
+      .dispatch(actions.createFlightAutomatically('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.CREATE_FLIGHT_BEGIN},
+          {
+            type: actions.CREATE_FLIGHT_SUCCESS,
+            payload: {
+              successMessage: [
+                {
+                  data: 'Flight added.',
+                },
+              ],
+            },
+          },
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('creates CREATE_FLIGHT_SUCCESS when fetching flight has been done using manual add', () => {
-    mockAxios.onPost(url + '/flight/add_manual').reply(200, [
-      {
-        data: 'Flight added.',
-      },
-    ]);
-    return store.dispatch(actions.createFlightManually()).then(() => {
-      const expectedActions = [
-        {type: actions.CREATE_FLIGHT_BEGIN},
+    mockAxios
+      .onPost(url + '/flight/add_manual/5e6aeefdb3256d55d6091d82')
+      .reply(200, [
         {
-          type: actions.CREATE_FLIGHT_SUCCESS,
-          payload: {
-            successMessage: [
-              {
-                data: 'Flight added.',
-              },
-            ],
-          },
+          data: 'Flight added.',
         },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+      ]);
+    return store
+      .dispatch(actions.createFlightManually('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.CREATE_FLIGHT_BEGIN},
+          {
+            type: actions.CREATE_FLIGHT_SUCCESS,
+            payload: {
+              successMessage: [
+                {
+                  data: 'Flight added.',
+                },
+              ],
+            },
+          },
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('creates CREATE_FLIGHT_FAILURE when fetching flight has failed using the external API call', () => {
-    mockAxios.onPost(url + '/flight/add_api').reply(500);
+    mockAxios
+      .onPost(url + '/flight/add_api/5e6aeefdb3256d55d6091d82')
+      .reply(500);
 
-    return store.dispatch(actions.createFlightAutomatically()).then(() => {
-      const storeActions = store.getActions();
-      expect(storeActions[0]).toHaveProperty('type', 'CREATE_FLIGHT_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'CREATE_FLIGHT_FAILURE');
-    });
+    return store
+      .dispatch(actions.createFlightAutomatically('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const storeActions = store.getActions();
+        expect(storeActions[0]).toHaveProperty('type', 'CREATE_FLIGHT_BEGIN');
+        expect(storeActions[1]).toHaveProperty('type', 'CREATE_FLIGHT_FAILURE');
+      });
   });
 
   it('creates CREATE_FLIGHT_FAILURE when fetching flight has failed using manual add', () => {
-    mockAxios.onPost(url + '/flight/add_manual').reply(500);
+    mockAxios
+      .onPost(url + '/flight/add_manual/5e6aeefdb3256d55d6091d82')
+      .reply(500);
 
-    return store.dispatch(actions.createFlightManually()).then(() => {
-      const storeActions = store.getActions();
-      expect(storeActions[0]).toHaveProperty('type', 'CREATE_FLIGHT_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'CREATE_FLIGHT_FAILURE');
-    });
+    return store
+      .dispatch(actions.createFlightManually('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const storeActions = store.getActions();
+        expect(storeActions[0]).toHaveProperty('type', 'CREATE_FLIGHT_BEGIN');
+        expect(storeActions[1]).toHaveProperty('type', 'CREATE_FLIGHT_FAILURE');
+      });
   });
 });

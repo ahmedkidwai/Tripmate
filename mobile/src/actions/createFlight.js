@@ -20,6 +20,7 @@ export const createFlightFail = error => ({
 });
 
 export const createFlightManually = (
+  tripId,
   departureCity,
   departureCountry,
   departureAirport,
@@ -38,7 +39,7 @@ export const createFlightManually = (
     dispatch(createFlightBegin());
 
     return axios
-      .post(url + '/flight/add_manual', {
+      .post(url + '/flight/add_manual/' + tripId, {
         departure: {
           airport: {
             name: departureAirport,
@@ -67,12 +68,12 @@ export const createFlightManually = (
   };
 };
 
-export const createFlightAutomatically = (number, date) => {
+export const createFlightAutomatically = (tripId, number, date) => {
   return dispatch => {
     dispatch(createFlightBegin());
 
     return axios
-      .post(url + '/flight/add_api', {number, date})
+      .post(url + '/flight/add_api/' + tripId, {number, date})
       .then(response => response.data)
       .then(successMessage => dispatch(createFlightSuccess(successMessage)))
       .catch(error => dispatch(createFlightFail(error)));

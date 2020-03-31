@@ -35,7 +35,7 @@ describe('budget routes', () => {
   it('/ should get all budgets', done => {
     chai
       .request(server)
-      .get('/budget')
+      .get('/budget/trip/5e6aeefdb3256d55d6091d82')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.length.should.be.eql(0);
@@ -46,7 +46,7 @@ describe('budget routes', () => {
   it('/ add should add a new budget', done => {
     chai
       .request(server)
-      .post('/budget/add')
+      .post('/budget/add/5e6aeefdb3256d55d6091d82')
       .send({budget: 123})
       .end((err, res) => {
         res.should.have.status(201);

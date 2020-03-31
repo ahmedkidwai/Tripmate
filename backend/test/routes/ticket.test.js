@@ -33,7 +33,7 @@ describe('ticket routes', () => {
   it('it should get all tickets', done => {
     chai
       .request(server)
-      .get('/ticket')
+      .get('/ticket/trip/5e6aeefdb3256d55d6091d82')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.length.should.be.eql(0);
@@ -44,7 +44,7 @@ describe('ticket routes', () => {
   it('it add should add a new ticket', done => {
     chai
       .request(server)
-      .post('/ticket/add')
+      .post('/ticket/add/5e6aeefdb3256d55d6091d82')
       .send({
         transportType: 'Bus',
         start: {

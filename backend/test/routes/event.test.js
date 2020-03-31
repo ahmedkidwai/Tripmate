@@ -33,7 +33,7 @@ describe('event routes', () => {
   it('/ should get all events', done => {
     chai
       .request(server)
-      .get('/event')
+      .get('/event/trip/5e6aeefdb3256d55d6091d82')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.length.should.be.eql(0);
@@ -44,7 +44,7 @@ describe('event routes', () => {
   it('/add should add a new event', done => {
     chai
       .request(server)
-      .post('/event/add')
+      .post('/event/add/5e6aeefdb3256d55d6091d82')
       .send({
         event: {
           title: 'Practice social distancing',

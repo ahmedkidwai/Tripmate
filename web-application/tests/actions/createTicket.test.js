@@ -16,12 +16,12 @@ describe('add ticket actions', () => {
   });
 
   it('creates CREATE_TICKET_SUCCESS when fetching ticket has been done', () => {
-    mockAxios.onPost('/ticket/add').reply(200, [
+    mockAxios.onPost('/ticket/add/5e6aeefdb3256d55d6091d82').reply(200, [
       {
         data: 'Ticket added.',
       },
     ]);
-    return store.dispatch(actions.createTicket()).then(() => {
+    return store.dispatch(actions.createTicket('5e6aeefdb3256d55d6091d82')).then(() => {
       const expectedActions = [
         {type: actions.CREATE_TICKET_BEGIN},
         {
@@ -40,9 +40,9 @@ describe('add ticket actions', () => {
   });
 
   it('creates CREATE_TICKET_FAILURE when fetching ticket has failed', () => {
-    mockAxios.onPost('/ticket/add').reply(500);
+    mockAxios.onPost('/ticket/add/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.createTicket()).then(() => {
+    return store.dispatch(actions.createTicket('5e6aeefdb3256d55d6091d82')).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'CREATE_TICKET_BEGIN');
       expect(storeActions[1]).toHaveProperty('type', 'CREATE_TICKET_FAILURE');

@@ -18,12 +18,12 @@ export const fetchToDoListError = error => ({
   payload: {error},
 });
 
-export const fetchToDoList = () => {
+export const fetchToDoList = tripId => {
   return dispatch => {
     dispatch(fetchToDoListBegin());
 
     return axios
-      .get('/todolist')
+      .get(`/todolist/trip/${tripId}`)
       .then(response => response.data)
       .then(todolist => dispatch(fetchToDoListSuccess(todolist)))
       .catch(error => dispatch(fetchToDoListError(error)));

@@ -30,6 +30,10 @@ const hotelScheme = new Schema(
     priceLevel: {
       type: String,
     },
+    tripId: {
+      type: mongoose.ObjectId,
+      unique: false,
+    },
   },
   {
     timestamps: true,

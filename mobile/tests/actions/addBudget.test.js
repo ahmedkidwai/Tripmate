@@ -16,36 +16,43 @@ describe('add budget actions', () => {
     store.clearActions();
   });
   it('creates ADD_BUDGET_SUCCESS when fetching budget has been done', () => {
-    mockAxios.onPost(url + '/budget/add').reply(200, [
+    mockAxios.onPost(url + '/budget/add/5e6aeefdb3256d55d6091d82').reply(200, [
       {
         data: 'Budget added.',
       },
     ]);
-    return store.dispatch(actions.addBudget()).then(() => {
-      const expectedActions = [
-        {type: actions.ADD_BUDGET_BEGIN},
-        {
-          type: actions.ADD_BUDGET_SUCCESS,
-          payload: {
-            successMessage: [
-              {
-                data: 'Budget added.',
-              },
-            ],
+    return store
+      .dispatch(actions.addBudget('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.ADD_BUDGET_BEGIN},
+          {
+            type: actions.ADD_BUDGET_SUCCESS,
+            payload: {
+              successMessage: [
+                {
+                  data: 'Budget added.',
+                },
+              ],
+            },
           },
-        },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('creates ADD_BUDGET_FAILURE when fetching budget has failed', () => {
-    mockAxios.onPost(url + '/budget/add').reply(500);
+    mockAxios.onPost(url + '/budget/add/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.addBudget()).then(() => {
-      const storeActions = store.getActions();
-      expect(storeActions[0]).toHaveProperty('type', 'ADD_BUDGET_LIST_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'ADD_BUDGET_LIST_FAILURE');
-    });
+    return store
+      .dispatch(actions.addBudget('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const storeActions = store.getActions();
+        expect(storeActions[0]).toHaveProperty('type', 'ADD_BUDGET_LIST_BEGIN');
+        expect(storeActions[1]).toHaveProperty(
+          'type',
+          'ADD_BUDGET_LIST_FAILURE',
+        );
+      });
   });
 });

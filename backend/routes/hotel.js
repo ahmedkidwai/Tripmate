@@ -1,9 +1,10 @@
 const router = require('express').Router();
+const underscore = require('underscore');
 const {Hotel} = require('../models/hotel.model');
 const apiRequest = require('../Business/HotelLogic');
 
-router.route('/').get((req, res) => {
-  Hotel.find()
+router.route('/trip/:tripId').get((req, res) => {
+  Hotel.find({tripId: req.params.tripId})
     .then(hotels => res.json(hotels))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
@@ -26,10 +27,10 @@ router.route('/api').post(async (req, res) => {
   }
 });
 
-router.route('/add').post((req, res) => {
-  const hotel = req.body;
-
-  const newHotel = new Hotel(hotel);
+router.route('/add/:tripId').post((req, res) => {
+  const newHotel = new Hotel(
+    underscore.extend(req.body, {tripId: req.params.tripId}),
+  );
 
   newHotel
     .save()

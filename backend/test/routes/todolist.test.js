@@ -35,7 +35,7 @@ describe('todolist routes', () => {
   it('/ should get all todolists', done => {
     chai
       .request(server)
-      .get('/todolist')
+      .get('/todolist/trip/5e6aeefdb3256d55d6091d82')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.length.should.be.eql(0);
@@ -46,7 +46,7 @@ describe('todolist routes', () => {
   it('/ add should add a new todolist', done => {
     chai
       .request(server)
-      .post('/todolist/add')
+      .post('/todolist/add/5e6aeefdb3256d55d6091d82')
       .send({name: 'Test List'})
       .end((err, res) => {
         res.should.have.status(201);

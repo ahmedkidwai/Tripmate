@@ -20,6 +20,7 @@ export const createTicketFail = error => ({
 });
 
 export const createTicket = (
+  tripId,
   transportType,
   startLocation,
   startDate,
@@ -32,7 +33,7 @@ export const createTicket = (
     dispatch(createTicketBegin());
 
     return axios
-      .post(url + '/ticket/add', {
+      .post(url + '/ticket/add/' + tripId, {
         transportType,
         start: {
           location: startLocation,

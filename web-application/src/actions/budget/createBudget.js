@@ -18,12 +18,12 @@ export const createBudgetFail = error => ({
   payload: {error},
 });
 
-export const createBudget = newBudget => {
+export const createBudget = (tripId, newBudget) => {
   return dispatch => {
     dispatch(createBudgetBegin());
 
     return axios
-      .post('/budget/add', {budget: newBudget})
+      .post(`/budget/add/${tripId}`, {budget: newBudget})
       .then(response => response.data)
       .then(successMessage => dispatch(createBudgetSuccess(successMessage)))
       .catch(error => dispatch(createBudgetFail(error)));

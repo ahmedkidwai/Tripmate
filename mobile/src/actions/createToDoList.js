@@ -19,12 +19,12 @@ export const createToDoListFail = error => ({
   payload: {error},
 });
 
-export const createToDoList = newToDoList => {
+export const createToDoList = (tripId, newToDoList) => {
   return dispatch => {
     dispatch(createToDoListBegin());
 
     return axios
-      .post(url + '/todolist/add', {name: newToDoList})
+      .post(url + '/todolist/add/' + tripId, {name: newToDoList})
       .then(response => response.data)
       .then(successMessage => dispatch(createToDoListSuccess(successMessage)))
       .catch(error => dispatch(createToDoListFail(error)));

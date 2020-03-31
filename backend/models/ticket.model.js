@@ -40,6 +40,10 @@ const ticketScheme = new Schema(
     notes: {
       type: String,
     },
+    tripId: {
+      type: mongoose.ObjectId,
+      unique: false,
+    },
   },
   {
     timestamps: true,

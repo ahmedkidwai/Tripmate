@@ -16,9 +16,9 @@ describe('Fetch event actions', () => {
   });
 
   it('creates GET_EVENT_SUCCESS when fetching event has been done', () => {
-    mockAxios.onGet('/event').reply(200, [{title: 'Test Event'}]);
+    mockAxios.onGet('/event/trip/5e6aeefdb3256d55d6091d82').reply(200, [{title: 'Test Event'}]);
 
-    return store.dispatch(actions.fetchEvent()).then(() => {
+    return store.dispatch(actions.fetchEvent('5e6aeefdb3256d55d6091d82')).then(() => {
       const expectedActions = [
         {type: actions.GET_EVENT_BEGIN},
         {
@@ -31,9 +31,9 @@ describe('Fetch event actions', () => {
   });
 
   it('creates GET_EVENT_FAILURE when fetching event has failed', () => {
-    mockAxios.onGet('/event').reply(500);
+    mockAxios.onGet('/event/trip/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.fetchEvent()).then(() => {
+    return store.dispatch(actions.fetchEvent('5e6aeefdb3256d55d6091d82')).then(() => {
       const actions = store.getActions();
       expect(actions[0]).toHaveProperty('type', 'GET_EVENT_BEGIN');
       expect(actions[1]).toHaveProperty('type', 'GET_EVENT_FAILURE');

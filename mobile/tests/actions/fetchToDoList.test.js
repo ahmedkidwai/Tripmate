@@ -18,28 +18,32 @@ describe('fetch todo list actions', () => {
 
   it('creates GET_TODO_LIST_SUCCESS when fetching todo list has been done', () => {
     mockAxios
-      .onGet(url + '/todolist')
+      .onGet(url + '/todolist/trip/5e6aeefdb3256d55d6091d82')
       .reply(200, [{name: 'Test todo list title'}]);
 
-    return store.dispatch(actions.fetchToDoList()).then(() => {
-      const expectedActions = [
-        {type: actions.GET_TODO_LIST_BEGIN},
-        {
-          type: actions.GET_TODO_LIST_SUCCESS,
-          payload: {todolist: [{name: 'Test todo list title'}]},
-        },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(actions.fetchToDoList('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const expectedActions = [
+          {type: actions.GET_TODO_LIST_BEGIN},
+          {
+            type: actions.GET_TODO_LIST_SUCCESS,
+            payload: {todolist: [{name: 'Test todo list title'}]},
+          },
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('creates GET_TODO_LIST_FAILURE when fetching todo list has failed', () => {
-    mockAxios.onGet(url + '/todolist').reply(500);
+    mockAxios.onGet(url + '/todolist/trip/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.fetchToDoList()).then(() => {
-      const storeActions = store.getActions();
-      expect(storeActions[0]).toHaveProperty('type', 'GET_TODO_LIST_BEGIN');
-      expect(storeActions[1]).toHaveProperty('type', 'GET_TODO_LIST_FAILURE');
-    });
+    return store
+      .dispatch(actions.fetchToDoList('5e6aeefdb3256d55d6091d82'))
+      .then(() => {
+        const storeActions = store.getActions();
+        expect(storeActions[0]).toHaveProperty('type', 'GET_TODO_LIST_BEGIN');
+        expect(storeActions[1]).toHaveProperty('type', 'GET_TODO_LIST_FAILURE');
+      });
   });
 });

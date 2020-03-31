@@ -3,17 +3,18 @@ const {ToDoList} = require('../models/todolist.model');
 const {ToDoItem} = require('../models/todolist.model'); // only for creating a new todo item
 
 // Get a whole lists of todo lists
-router.route('/').get((req, res) => {
-  ToDoList.find()
+router.route('/trip/:tripId').get((req, res) => {
+  ToDoList.find({tripId: req.params.tripId})
     .then(todolists => res.json(todolists))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
 // Add a new todo list
-router.route('/add').post((req, res) => {
+router.route('/add/:tripId').post((req, res) => {
   const {name} = req.body;
+  const {tripId} = req.params;
 
-  const newToDoList = new ToDoList({name});
+  const newToDoList = new ToDoList({name, tripId});
 
   newToDoList
     .save()

@@ -31,6 +31,10 @@ const eventScheme = new Schema(
     cost: {
       type: Number,
     },
+    tripId: {
+      type: mongoose.ObjectId,
+      unique: false,
+    },
   },
   {
     timestamps: true,

@@ -19,6 +19,7 @@ export const createHotelFail = error => ({
 });
 
 export const createHotel = (
+  tripId,
   name,
   price,
   location,
@@ -32,7 +33,7 @@ export const createHotel = (
     dispatch(createHotelBegin());
 
     return axios
-      .post('/hotel/add', {
+      .post(`/hotel/add/${tripId}`, {
         name,
         price,
         location,

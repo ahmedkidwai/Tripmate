@@ -16,12 +16,12 @@ describe('add hotel actions', () => {
   });
 
   it('creates CREATE_HOTEL_SUCCESS when fetching hotel has been done', () => {
-    mockAxios.onPost('/hotel/add').reply(200, [
+    mockAxios.onPost('/hotel/add/5e6aeefdb3256d55d6091d82').reply(200, [
       {
         data: 'Hotel added.',
       },
     ]);
-    return store.dispatch(actions.createHotel()).then(() => {
+    return store.dispatch(actions.createHotel('5e6aeefdb3256d55d6091d82')).then(() => {
       const expectedActions = [
         {type: actions.CREATE_HOTEL_BEGIN},
         {
@@ -40,9 +40,9 @@ describe('add hotel actions', () => {
   });
 
   it('creates CREATE_HOTEL_FAILURE when fetching hotel has failed', () => {
-    mockAxios.onPost('/hotel/add').reply(500);
+    mockAxios.onPost('/hotel/add/5e6aeefdb3256d55d6091d82').reply(500);
 
-    return store.dispatch(actions.createHotel()).then(() => {
+    return store.dispatch(actions.createHotel('5e6aeefdb3256d55d6091d82')).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'CREATE_HOTEL_BEGIN');
       expect(storeActions[1]).toHaveProperty('type', 'CREATE_HOTEL_FAILURE');
