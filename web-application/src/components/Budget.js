@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {fetchBudget} from '../actions/budget/fetchBudget';
+import {fetchBudgetList} from '../actions/budget/fetchBudgetList';
 import {createBudget} from '../actions/budget/createBudget';
 
 export const Budget = props => {
@@ -14,13 +14,13 @@ export const Budget = props => {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    props.dispatch(fetchBudget());
+    props.dispatch(fetchBudgetList());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!props.createLoading && props.createError == null) {
-      props.dispatch(fetchBudget());
+      props.dispatch(fetchBudgetList());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.createLoading]);
