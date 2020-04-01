@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {login} from '../../actions/auth';
 import '../../css/App.css';
 
-const Login = ({login, isAuthenticated}) => {
+const Login = ({login: logIn, isAuthenticated}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -18,7 +18,7 @@ const Login = ({login, isAuthenticated}) => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    login(email, password);
+    logIn(email, password);
   };
 
   // redirect
@@ -57,7 +57,7 @@ const Login = ({login, isAuthenticated}) => {
         <input type="submit" className="btn btn-primary" value="Login" />
       </form>
       <p className="my-1">
-        Don't have an account? <Link to="/register">Sign up</Link>
+        Don&apos;t have an account? <Link to="/register">Sign up</Link>
       </p>
     </div>
   );

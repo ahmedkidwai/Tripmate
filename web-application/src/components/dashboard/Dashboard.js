@@ -16,7 +16,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import HomeIcon from '@material-ui/icons/Home';
 import ListIcon from '@material-ui/icons/List';
 import '../../css/App.css';
-import {connect} from 'react-redux';
 
 import {Switch, Route, Link, BrowserRouter} from 'react-router-dom';
 
@@ -197,8 +196,4 @@ function Dashboard() {
   );
 }
 
-Dashboard.propTypes = {};
-
-const mapStateToProps = state => ({});
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

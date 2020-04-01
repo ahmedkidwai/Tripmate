@@ -8,7 +8,7 @@ const Landing = () => {
         <div className="landing-inner">
           <h1 className="x-large">Tripmate</h1>
           <p className="lead">
-            Welcome to Tripmate an App by Kurt&#39s Angels!
+            Welcome to Tripmate an App by Kurt&apos;s Angels!
           </p>
           <div className="buttons">
             <Link to="/register" className="btn btn-primary">

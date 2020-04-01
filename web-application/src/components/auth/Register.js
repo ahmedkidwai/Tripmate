@@ -1,30 +1,33 @@
 import React, {useState} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {setAlert} from '../../actions/createAlert';
 import {register} from '../../actions/auth';
-import PropTypes from 'prop-types';
-import '../../css/App.css';
 
-const Register = ({setAlert, register, isAuthenticated}) => {
+const Register = ({
+  setAlert: setAlerts,
+  register: registers,
+  isAuthenticated,
+}) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    repeat_password: '',
+    repeatPassword: '',
   });
 
-  const {name, email, password, repeat_password} = formData;
+  const {name, email, password, repeatPassword} = formData;
 
   const onChange = e =>
     setFormData({...formData, [e.target.name]: e.target.value});
 
   const onSubmit = async e => {
     e.preventDefault();
-    if (password !== repeat_password) {
-      setAlert('Passwords  do not match', 'danger');
+    if (password !== repeatPassword) {
+      setAlerts('Passwords  do not match', 'danger');
     } else {
-      register({name, email, password});
+      registers({name, email, password});
     }
   };
 
@@ -73,9 +76,9 @@ const Register = ({setAlert, register, isAuthenticated}) => {
           <input
             type="password"
             placeholder="Confirm Password"
-            value={repeat_password}
+            value={repeatPassword}
             onChange={e => onChange(e)}
-            name="repeat_password"
+            name="repeatPassword"
             // minLength="6"
           />
         </div>
