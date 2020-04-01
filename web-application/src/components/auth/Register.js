@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {setAlert} from '../../actions/createAlert';
 import {register} from '../../actions/auth';
 import PropTypes from 'prop-types';
+import '../../css/App.css';
 
 const Register = ({setAlert, register, isAuthenticated}) => {
   const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ const Register = ({setAlert, register, isAuthenticated}) => {
   }
 
   return (
-    <div>
+    <div className="container">
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Create Your Account

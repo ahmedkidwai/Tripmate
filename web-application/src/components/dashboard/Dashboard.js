@@ -58,7 +58,7 @@ function Dashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}></AppBar>
+      <AppBar position="fixed" className={classes.appBar} />
       <BrowserRouter>
         <Drawer
           className={classes.drawer}

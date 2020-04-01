@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {PropTypes} from 'prop-types';
+import PropTypes from 'prop-types';
 import {loadUser} from '../../actions/auth';
 
 const PrivateRoute = ({
@@ -25,10 +25,10 @@ const PrivateRoute = ({
   );
 };
 
-// the first prop in propTypes is the way for validate a React Component
 PrivateRoute.propTypes = {
-  isAuthenticated: PropTypes.object.isRequired,
-  isLoading: PropTypes.object.isRequired,
+  component: PropTypes.shape({}),
+  isAuthenticated: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({

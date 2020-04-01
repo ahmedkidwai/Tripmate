@@ -1,14 +1,13 @@
 import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Landing from './components/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Alert from './components/Alert';
 import Navbar from './components/Navbar';
 import Dashboard from './components/dashboard/Dashboard';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import './css/App.css';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {loadUser} from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -27,19 +26,17 @@ const App = props => {
         <Navbar />
 
         <Route exact path="/" component={Landing} />
-        <section className="container">
-          <Alert />
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            <PrivateRoute exact path="/Hotels" component={Dashboard} />
-            <PrivateRoute exact path="/Flights" component={Dashboard} />
-            <PrivateRoute exact path="/Budgets" component={Dashboard} />
-            <PrivateRoute exact path="/Todos" component={Dashboard} />
-            <PrivateRoute exact path="/About" component={Dashboard} />
-          </Switch>
-        </section>
+        <Alert />
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <PrivateRoute exact path="/Hotels" component={Dashboard} />
+          <PrivateRoute exact path="/Flights" component={Dashboard} />
+          <PrivateRoute exact path="/Budgets" component={Dashboard} />
+          <PrivateRoute exact path="/Todos" component={Dashboard} />
+          <PrivateRoute exact path="/About" component={Dashboard} />
+        </Switch>
       </BrowserRouter>
     </div>
   );
