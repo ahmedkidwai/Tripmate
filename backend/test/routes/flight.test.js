@@ -56,16 +56,21 @@ describe('flight routes', () => {
   });
 
   it('it should add a new flight via api', done => {
-    nock('https://aerodatabox.p.rapidapi.com')
-      .get('/flight/')
+    nock('/flight/add_api')
+      .get('/AC90/2020-03-27')
+      .query({
+        withLocation: false,
+        withAircraftImage: false,
+      })
       .reply(200, {message: 'Flight added!'});
 
     chai
-      .request('https://aerodatabox.p.rapidapi.com')
-      .get('/flight/')
+      .request(server)
+      .post('/flight/add_api')
+      .send({number: 'AC90', date: '2020-03-27'})
       .end((err, res) => {
         res.should.have.status(200);
-        res.body.message.should.be.eql('Flight added!');
+        res.body.should.be.eql('Flight added!');
         done();
       });
   });

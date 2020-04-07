@@ -15,7 +15,7 @@ describe('add flight actions', () => {
     store.clearActions();
   });
 
-  it('creates CREATE_FLIGHT_SUCCESS when fetching flight has been done', () => {
+  it('creates CREATE_FLIGHT_SUCCESS when fetching flight has been done using the external API call', () => {
     mockAxios.onPost('/flight/add_api').reply(200, [
       {
         data: 'Flight added.',
@@ -39,10 +39,44 @@ describe('add flight actions', () => {
     });
   });
 
-  it('creates CREATE_FLIGHT_FAILURE when fetching flight has failed', () => {
+  it('creates CREATE_FLIGHT_SUCCESS when fetching flight has been done using manual add', () => {
+    mockAxios.onPost('/flight/add_manual').reply(200, [
+      {
+        data: 'Flight added.',
+      },
+    ]);
+    return store.dispatch(actions.createFlightManually()).then(() => {
+      const expectedActions = [
+        {type: actions.CREATE_FLIGHT_BEGIN},
+        {
+          type: actions.CREATE_FLIGHT_SUCCESS,
+          payload: {
+            successMessage: [
+              {
+                data: 'Flight added.',
+              },
+            ],
+          },
+        },
+      ];
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('creates CREATE_FLIGHT_FAILURE when fetching flight has failed using the external API call', () => {
     mockAxios.onPost('/flight/add_api').reply(500);
 
     return store.dispatch(actions.createFlightAutomatically()).then(() => {
+      const storeActions = store.getActions();
+      expect(storeActions[0]).toHaveProperty('type', 'CREATE_FLIGHT_BEGIN');
+      expect(storeActions[1]).toHaveProperty('type', 'CREATE_FLIGHT_FAILURE');
+    });
+  });
+
+  it('creates CREATE_FLIGHT_FAILURE when fetching flight has failed using manual add', () => {
+    mockAxios.onPost('/flight/add_manual').reply(500);
+
+    return store.dispatch(actions.createFlightManually()).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'CREATE_FLIGHT_BEGIN');
       expect(storeActions[1]).toHaveProperty('type', 'CREATE_FLIGHT_FAILURE');
