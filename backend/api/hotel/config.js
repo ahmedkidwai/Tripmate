@@ -5,5 +5,5 @@ module.exports = {
     locationPath: '/locations/search',
     hotelPath: '/hotels/list',
   },
-  APIkey: '31812bdb99msh8ba78285a5524adp182228jsne8b99ed6cc0a',
+  APIkey: '37aca59544mshf15e3a013a75aefp1fde05jsnd06acfea51d1',
 };
