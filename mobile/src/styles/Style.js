@@ -10,7 +10,7 @@ export default StyleSheet.create({
   extraSmallModal: {
     backgroundColor: 'white',
     maxHeight: Dimensions.get('window').height,
-    marginVertical: Dimensions.get('window').height / 3,
+    marginVertical: Dimensions.get('window').height / 4,
   },
   smallModal: {
     backgroundColor: 'white',
@@ -240,4 +240,18 @@ export default StyleSheet.create({
     height: 25,
     marginLeft: 5,
   },
+  placeholder: {
+    marginHorizontal: 100,
+    flex: 1,
+    marginTop: 500,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  text_style: {
+    textAlign: 'center',
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 40,
+  },
+  titleFontColor: {color: 'black'},
 });

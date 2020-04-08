@@ -1,5 +1,4 @@
 import {combineReducers} from 'redux';
-import user from './getUser';
 import addBudget from './Budget/addBudget';
 import addExpenses from './Budget/addExpenses';
 import deleteBudget from './Budget/deleteBudget';
@@ -37,9 +36,17 @@ import createTrip from './Trip/createTrip';
 import deleteTrip from './Trip/deleteTrip';
 import getTrips from './Trip/getTrips';
 import updateTrip from './Trip/updateTrip';
+import createUser from './createUser';
+import loginUser from './loginUser';
+import getUser from './getUser';
 
 export default combineReducers({
-  user,
+  user: combineReducers({
+    createUser,
+    loginUser,
+    getUser,
+  }),
+
   budget: combineReducers({
     getBudgetList,
     addBudget,

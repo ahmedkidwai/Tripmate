@@ -32,7 +32,7 @@ export class TripCollection extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchTrips();
+    this.props.fetchTrips(this.props.user._id);
   }
 
   componentDidUpdate(prevProps) {
@@ -41,7 +41,7 @@ export class TripCollection extends Component {
       prevProps.updateTripLoading !== this.props.updateTripLoading ||
       prevProps.createTripLoading !== this.props.createTripLoading
     ) {
-      this.props.fetchTrips();
+      this.props.fetchTrips(this.props.user._id);
     }
   }
 
@@ -57,6 +57,11 @@ export class TripCollection extends Component {
       <View>
         <View style={styles.homeHeader}>
           <Text style={styles.pageHeader}>Your Trips</Text>
+          <Button small onPress={this.props.logout}>
+            <Text style={styles.buttonWithWhiteText}>
+              {'    '}LOG OUT{'    '}
+            </Text>
+          </Button>
           <Button
             small
             iconLeft
@@ -69,7 +74,7 @@ export class TripCollection extends Component {
             </Text>
           </Button>
         </View>
-        {this.props.trips.length === 0 && (
+        {(this.props.trips.length === 0 || !this.props.trips[0]) && (
           <View>
             <Text style={styles.tripCardHeader}>You don't have any trips.</Text>
           </View>
@@ -111,7 +116,7 @@ export class TripCollection extends Component {
             </View>
           ))}
         <ConnectedAddTripModal
-          userId="5e8e44ccda791237314bd464"
+          userId={this.props.user._id}
           visible={this.state.addTripModalVisible}
           cancelFunc={() =>
             this.setAddTripModalVisible(!this.state.addTripModalVisible)
@@ -123,7 +128,9 @@ export class TripCollection extends Component {
 }
 
 TripCollection.propTypes = {
+  user: PropTypes.object,
   dispatch: PropTypes.func,
+  logout: PropTypes.func,
   trips: PropTypes.array,
   loading: PropTypes.bool,
   createTripMessage: PropTypes.string,
@@ -153,7 +160,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTrips: () => dispatch(fetchTrips('5e8e44ccda791237314bd464')),
+  fetchTrips: userId => dispatch(fetchTrips(userId)),
 });
 
 export default connect(
