@@ -5,7 +5,7 @@ describe('createTrip reducer test', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       successMessage: null,
-      uploading: true,
+      uploading: false,
       error: null,
     });
   });

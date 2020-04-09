@@ -5,7 +5,7 @@ describe('getTicket reducer test', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       ticket: [],
-      loading: true,
+      loading: false,
       error: null,
     });
   });

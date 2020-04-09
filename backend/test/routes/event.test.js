@@ -48,7 +48,6 @@ describe('event routes', () => {
       .send({
         event: {
           title: 'Practice social distancing',
-          creator: 'John Doe',
           description: 'Stay away from people.',
           start: '2020-03-15T18:26:26Z',
           end: '2020-03-15T20:00:00Z',
@@ -66,7 +65,6 @@ describe('event routes', () => {
   it('/event/id should get an event by the given id', done => {
     const event = new Event({
       title: 'Watch a movie',
-      creator: 'Jimbo',
       start: '2020-03-15T18:00:00Z',
       end: '2020-03-15T20:00:00Z',
       location: 'St. Vital theatre',
@@ -80,7 +78,6 @@ describe('event routes', () => {
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.have.property('title');
-          res.body.should.have.property('creator');
           done();
         });
     });
@@ -89,7 +86,6 @@ describe('event routes', () => {
   it('DELETE /event/id should delete the event matching id', done => {
     const event = new Event({
       title: 'Watch a movie',
-      creator: 'Jimbo',
       start: '2020-03-15T18:00:00Z',
       end: '2020-03-15T20:00:00Z',
       location: 'St. Vital theatre',
@@ -111,7 +107,6 @@ describe('event routes', () => {
   it('/event/update/id should update event', done => {
     const event = new Event({
       title: 'Watch a movie',
-      creator: 'Jimbo',
       description: 'Go out to a movie theatre',
       start: '2020-03-15T18:00:00Z',
       end: '2020-03-15T20:00:00Z',

@@ -26,9 +26,9 @@ describe('delete trip actions', () => {
 
   it('creates DELETE_TRIP_SUCCESS when delete trip has been done', () => {
     mockAxios
-      .onDelete('/trip/' + trip._id)
+      .onDelete(`/trip/${trip._id}`)
       .reply(200, [{data: 'Trip deleted.'}]);
-    return store.dispatch(actions.deleteTrip(trip)).then(() => {
+    return store.dispatch(actions.deleteTrip(trip._id)).then(() => {
       const expectedActions = [
         {type: actions.DELETE_TRIP_BEGIN},
         {
@@ -43,9 +43,9 @@ describe('delete trip actions', () => {
   });
 
   it('creates DELETE_TRIP_FAILURE when delete trip has failed', () => {
-    mockAxios.onDelete('/trip/' + trip._id).reply(500);
+    mockAxios.onDelete(`/trip/${trip._id}`).reply(500);
 
-    return store.dispatch(actions.deleteTrip(trip)).then(() => {
+    return store.dispatch(actions.deleteTrip(trip._id)).then(() => {
       const storeActions = store.getActions();
       expect(storeActions[0]).toHaveProperty('type', 'DELETE_TRIP_BEGIN');
       expect(storeActions[1]).toHaveProperty('type', 'DELETE_TRIP_FAILURE');

@@ -38,7 +38,6 @@ describe('budget routes', () => {
       .get('/budget/trip/5e6aeefdb3256d55d6091d82')
       .end((err, res) => {
         res.should.have.status(200);
-        res.body.length.should.be.eql(0);
         done();
       });
   });
@@ -131,7 +130,6 @@ describe('budget expense routes', () => {
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
     });
     const budget = new Budget({
       budget: 123,
@@ -155,7 +153,6 @@ describe('budget expense routes', () => {
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
     });
     const budget = new Budget({
       budget: 123,
@@ -171,7 +168,6 @@ describe('budget expense routes', () => {
           res.body.should.have.property('name');
           res.body.should.have.property('amount');
           res.body.should.have.property('isDone');
-          res.body.should.have.property('date');
           done();
         });
     });
@@ -182,7 +178,6 @@ describe('budget expense routes', () => {
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
     });
     const budget = new Budget({
       budget: 123,
@@ -210,19 +205,19 @@ describe('budget expense routes', () => {
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const expense2 = new Expenses({
       name: 'Test expense',
       amount: 123,
       isDone: true,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const expense3 = new Expenses({
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-02',
+      createdAt: '2020-01-02',
     });
     const budget = new Budget({
       budget: 123,
@@ -237,8 +232,9 @@ describe('budget expense routes', () => {
           res.should.have.status(200);
           res.body.should.have.length(3);
           expect(res.body[0].isDone).equal(true);
-          expect(res.body[2].date.toString()).equal('2020-01-02T00:00:00.000Z');
-
+          expect(res.body[2].createdAt.toString()).equal(
+            '2020-01-02T00:00:00.000Z',
+          );
           done();
         });
     });
@@ -258,7 +254,6 @@ describe('budget expense routes', () => {
             name: 'Test expense',
             amount: 123,
             isDone: false,
-            date: '2020-01-02',
           },
         })
         .end((error, res) => {
@@ -274,7 +269,6 @@ describe('budget expense routes', () => {
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
     });
     const budget = new Budget({
       budget: 123,
@@ -298,7 +292,6 @@ describe('budget expense routes', () => {
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
     });
     const budget = new Budget({
       budget: 123,
@@ -313,7 +306,6 @@ describe('budget expense routes', () => {
           name: 'New expense',
           amount: 789,
           isDone: true,
-          date: '2024-05-10',
         })
         .end((error, res) => {
           res.should.have.status(200);

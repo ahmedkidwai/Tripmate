@@ -25,7 +25,7 @@ describe('Budget logics ', () => {
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const budget = new Budget({
       budget: 123,
@@ -45,19 +45,19 @@ describe('Budget logics ', () => {
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const expense2 = new Expenses({
       name: 'Test expense',
       amount: 123,
       isDone: true,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const expense3 = new Expenses({
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-02',
+      createdAt: '2020-01-02',
     });
     const budget = new Budget({
       budget: 123,
@@ -77,13 +77,13 @@ describe('Budget logics ', () => {
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const expense2 = new Expenses({
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-03',
+      createdAt: '2020-01-03',
     });
     const result = compareByDate(expense1, expense2);
     expect(result).equal(-1);
@@ -94,13 +94,13 @@ describe('Budget logics ', () => {
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-03',
+      createdAt: '2020-01-03',
     });
     const expense2 = new Expenses({
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const result = compareByDate(expense1, expense2);
     expect(result).equal(1);
@@ -111,13 +111,13 @@ describe('Budget logics ', () => {
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const expense2 = new Expenses({
       name: 'Test expense',
       amount: 123,
       isDone: true,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const result = compareByDate(expense1, expense2);
     expect(result).equal(1);
@@ -128,13 +128,13 @@ describe('Budget logics ', () => {
       name: 'Test expense',
       amount: 123,
       isDone: true,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const expense2 = new Expenses({
       name: 'Test expense',
       amount: 123,
       isDone: false,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const result = compareByDate(expense1, expense2);
     expect(result).equal(-1);
@@ -145,13 +145,13 @@ describe('Budget logics ', () => {
       name: 'Test expense',
       amount: 123,
       isDone: true,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const expense2 = new Expenses({
       name: 'Test expense',
       amount: 123,
       isDone: true,
-      date: '2020-01-01',
+      createdAt: '2020-01-01',
     });
     const result = compareByDate(expense1, expense2);
     expect(result).equal(0);

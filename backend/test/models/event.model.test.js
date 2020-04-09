@@ -8,7 +8,6 @@ describe('Event model', () => {
 
     event.validate(err => {
       expect(err.errors.title).to.exist;
-      expect(err.errors.creator).to.exist;
       done();
     });
   });
@@ -18,15 +17,6 @@ describe('Event model', () => {
 
     event.validate(err => {
       expect(err.errors.title).to.exist;
-      done();
-    });
-  });
-
-  it("should be invalid if 'creator' is empty", done => {
-    const event = new Event({creator: ''});
-
-    event.validate(err => {
-      expect(err.errors.creator).to.exist;
       done();
     });
   });

@@ -26,8 +26,8 @@ async function getBudgetSummary(targetBudget) {
 }
 
 function compareByDate(expense1, expense2) {
-  if (expense1.date.getTime() < expense2.date.getTime()) return -1;
-  if (expense1.date.getTime() > expense2.date.getTime()) return 1;
+  if (expense1.createdAt.getTime() < expense2.createdAt.getTime()) return -1;
+  if (expense1.createdAt.getTime() > expense2.createdAt.getTime()) return 1;
 
   if (!expense1.isDone && expense2.isDone) {
     return 1;

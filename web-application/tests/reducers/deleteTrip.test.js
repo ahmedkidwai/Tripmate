@@ -5,7 +5,7 @@ describe('deleteTripList reducer test', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       deleteMessage: '',
-      deleting: true,
+      deleting: false,
       error: null,
     });
   });

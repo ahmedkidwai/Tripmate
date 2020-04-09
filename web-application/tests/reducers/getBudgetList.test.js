@@ -4,7 +4,7 @@ import * as types from '../../src/actions/budget/fetchBudgetList';
 describe('getBudgetList reducer test', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
-      budget: [],
+      budget: {},
       loading: true,
       error: null,
     });
@@ -77,7 +77,7 @@ describe('getBudgetList reducer test', () => {
         payload: {error: 'Test Error'},
       }),
     ).toEqual({
-      budget: [],
+      budget: {},
       loading: false,
       error: 'Test Error',
     });
@@ -94,7 +94,7 @@ describe('getBudgetList reducer test', () => {
         },
       ),
     ).toEqual({
-      budget: [],
+      budget: {},
       loading: false,
       error: 'Test Error',
     });
