@@ -1,8 +1,9 @@
 # Tripmate
 
-*TripMate aims to be the one-stop-shop for everything needed to plan the perfect trip.*
+_TripMate aims to be the one-stop-shop for everything needed to plan the perfect trip._
 
 ## Environments
+
 [Test Environment](http://ec2-3-137-41-101.us-east-2.compute.amazonaws.com/): contains our `development` branch
 
 [Production Environment](http://ec2-35-183-30-168.ca-central-1.compute.amazonaws.com/): contains our `master` branch
@@ -20,3 +21,5 @@
 [React Setup](./web-application/README.md)
 
 [Continuous Deployment](./docs/continuous_deployment.md)
+
+[Backend User Auth Instructions](./docs/User-Create-Login.md)
